@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn1sondwl58ft"]
+
+[ext_resource type="Texture2D" uid="uid://j7pufv7r8ne6" path="res://Assets/placeholder_sprites/ryu_idle.png" id="1_pjr3c"]
+[ext_resource type="Texture2D" uid="uid://clybmve0fmi8e" path="res://Assets/placeholder_sprites/ryu_attack.png" id="1_vv3k2"]
+[ext_resource type="Script" uid="uid://dtqb44nqyol50" path="res://src/entities/Player/Player.cs" id="2_loq5s"]
+[ext_resource type="Texture2D" uid="uid://cr78pcf06jkdr" path="res://Assets/placeholder_sprites/ryu_startup.png" id="3_5ky3l"]
+
+[node name="Player" type="Sprite2D"]
+texture = ExtResource("1_pjr3c")
+script = ExtResource("2_loq5s")
+idle = ExtResource("1_pjr3c")
+startup = ExtResource("3_5ky3l")
+attack = ExtResource("1_vv3k2")
