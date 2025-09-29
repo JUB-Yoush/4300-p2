@@ -51,8 +51,6 @@ public partial class Player : Node2D
     {
         Sprite = GetNode<Sprite2D>("Sprite2D");
 
-        tween = CreateTween();
-
         // should be a multidimensional list for the 2 follow ups off of every set up
         FollowUps = new Action[] { LowFollowUp, MidFollowUp, HighFollowUp };
         SetUps = new Action[] { LowSetUp, MidSetUp, HighSetUp };
@@ -122,16 +120,15 @@ public partial class Player : Node2D
         var subtween = CreateTween();
         subtween.TweenCallback(Callable.From(() => Sprite.Frame = 0));
         subtween.SetTrans(Tween.TransitionType.Quad);
-        subtween.TweenProperty(this, "position", new Vector2(Position.X - 50, Position.Y), .8f);
-        //subtween.Parallel().TweenSubtween(DelayedCallable(() => Sprite.Frame = 1, .3f));
-        subtween.DelayedCallable(CreateTween(), () => Sprite.Frame = 1, .3f);
+        subtween.TweenProperty(this, "position", new Vector2(Position.X - 50, Position.Y), .4f);
+        subtween.DelayedCallable(CreateTween(), () => Sprite.Frame = 1, .2f);
 
         tween = CreateTween();
         tween.TweenSubtween(subtween);
 
         tween.TweenCallback(Callable.From(() => Sprite.Frame = 2));
         tween.SetTrans(Tween.TransitionType.Quad);
-        tween.TweenProperty(this, "position", new Vector2(Position.X, Position.Y), .8f);
+        tween.TweenProperty(this, "position", new Vector2(Position.X, Position.Y), .4f);
         tween.DelayedCallable(
             CreateTween(),
             () =>
@@ -139,7 +136,7 @@ public partial class Player : Node2D
                 CanFollowUp = true;
                 Sprite.Frame = 3;
             },
-            .3f
+            .2f
         );
         tween.TweenCallback(Callable.From(() => Sprite.Frame = 1));
         tween.TweenCallback(Callable.From(() => CanFollowUp = false));
