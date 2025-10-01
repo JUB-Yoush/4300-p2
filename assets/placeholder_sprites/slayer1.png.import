@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clybmve0fmi8e"
-path="res://.godot/imported/ryu_attack.png-8ad01b581014a2f4f41bfb53ad0795cb.ctex"
+uid="uid://ddvnnu53rgj76"
+path="res://.godot/imported/slayer1.png-e47155e8b2f63f50a297be0afe1fbb7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/placeholder_sprites/ryu_attack.png"
-dest_files=["res://.godot/imported/ryu_attack.png-8ad01b581014a2f4f41bfb53ad0795cb.ctex"]
+source_file="res://assets/placeholder_sprites/slayer1.png"
+dest_files=["res://.godot/imported/slayer1.png-e47155e8b2f63f50a297be0afe1fbb7b.ctex"]
 
 [params]
 

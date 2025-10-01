@@ -1,9 +1,31 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Godot;
+using static Helpers;
 
-public partial class Player : Sprite2D
+public partial class Player : Node2D
 {
+    public enum Move
+    {
+        IDLE,
+        L,
+        M,
+        H,
+        LM,
+        LH,
+        ML,
+        MH,
+        HL,
+        HM,
+    }
+
     enum State
     {
         IDLE,
@@ -13,15 +35,24 @@ public partial class Player : Sprite2D
 
     enum Height
     {
-        LOW,
-        MEDIUM,
-        HIGH,
+        LOW = 0,
+        MEDIUM = 1,
+        HIGH = 2,
         NONE,
     }
 
+    Sprite2D Sprite = null!;
+    Tween tween = null!;
+
+    Action[] FollowUps = [];
+    Action[] SetUps = [];
+
+    bool CanFollowUp = false;
+    bool tweening = false;
+
     //delete when animation are in
     [Export]
-    public Texture2D idle,
+    public required Texture2D idle,
         startup,
         attack;
     const float STARTUP_TIME = 0.5f;
@@ -31,106 +62,247 @@ public partial class Player : Sprite2D
     private State state;
     private Height height,
         attackingHeight;
-    private Timer StartupTimer;
-    private Timer AttackTimer;
-    private Timer BlockTimer;
+    Area2D HitboxArea = null!;
+    Area2D HurtboxArea = null!;
 
     public override void _Ready()
     {
-        StartupTimer = new Timer();
-        AttackTimer = new Timer();
-        BlockTimer = new Timer();
-        AddChild(StartupTimer);
-        AddChild(AttackTimer);
-        AddChild(BlockTimer);
-        StartupTimer.Timeout += ProcessAttack;
-        AttackTimer.Timeout += ResetToIdle;
+        Sprite = GetNode<Sprite2D>("Sprite2D");
+
+        // should be a multidimensional list for the 2 follow ups off of every set up
+        FollowUps = [LowFollowUp, MidFollowUp, HighFollowUp];
+        SetUps = [LowSetUp, MidSetUp, HighSetUp];
 
         state = State.IDLE;
         height = Height.NONE;
+        HurtboxArea = GetNode<Area2D>("HurtboxArea");
+        HitboxArea = GetNode<Area2D>("HitboxArea");
+    }
+
+    void UpdateDebugPanel()
+    {
+        ((Label)GetParent().FindChild("CancelLabel")).Text = CanFollowUp.ToString();
+        ((Label)GetParent().FindChild("StateLabel")).Text = state.ToString();
+        ((Label)GetParent().FindChild("HeightLabel")).Text = height.ToString();
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.IsActionJustPressed("High Attack"))
+        //GD.Print(CanFollowUp, tweening);
+        if (Input.IsActionJustPressed("high_attack"))
+        {
             ProcessAttack(Height.HIGH);
-        if (Input.IsActionJustPressed("Medium Attack"))
+        }
+        else if (Input.IsActionJustPressed("medium_attack"))
+        {
             ProcessAttack(Height.MEDIUM);
-        if (Input.IsActionJustPressed("Low Attack"))
+        }
+        else if (Input.IsActionJustPressed("low_attack"))
+        {
             ProcessAttack(Height.LOW);
-    }
-
-    private void ProcessAttack(Height level)
-    {
-        if (state == State.IDLE)
-            TriggerStartup(level);
-        else if (state == State.STARTUP)
-            attackingHeight = level;
-    }
-
-    private void TriggerStartup(Height level)
-    {
-        Texture = startup;
-        state = State.STARTUP;
-        height = level;
-        StartupTimer.Start(STARTUP_TIME);
-        attackingHeight = Height.NONE;
-        GD.Print("Startup on lane: " + height.ToString());
-    }
-
-    private void ProcessAttack()
-    {
-        StartupTimer.Stop();
-        float attackDelay = HEAVY_TIME;
-        //kid named if
-        if (attackingHeight == height || attackingHeight == Height.NONE)
-        {
-            ResetToIdle();
-            return;
         }
-        else if (height == Height.HIGH)
+        UpdateDebugPanel();
+    }
+
+    void ProcessAttack(Height level)
+    {
+        if (state == State.STARTUP)
         {
-            if (attackingHeight == Height.MEDIUM)
+            if (!CanFollowUp || level == height)
             {
-                //crouching light
-                attackDelay = LIGHT_TIME;
+                return;
             }
-            else if (attackingHeight == Height.LOW) { } //crouching heavy
 
+            tween.Stop();
+            state = State.ATTACKING;
+            FollowUps[(int)level]();
         }
-        else if (height == Height.MEDIUM)
+        else if (state == State.IDLE)
         {
-            if (attackingHeight == Height.HIGH) { } //dandy heavy
-
-            else if (attackingHeight == Height.LOW)
-            {
-                //dandy light
-                attackDelay = LIGHT_TIME;
-            }
+            height = level;
+            state = State.STARTUP;
+            GD.Print((int)height);
+            SetUps[(int)height]();
         }
-        else //height == Height.LOW
-        {
-            if (attackingHeight == Height.HIGH) { } //jumping heavy
-
-            else if (attackingHeight == Height.MEDIUM)
-            {
-                //jumping light
-                attackDelay = LIGHT_TIME;
-            }
-        }
-
-        Texture = attack; //remove once specific attacks are in
-        AttackTimer.Start(attackDelay);
-        state = State.ATTACKING;
-        GD.Print("Attacking on lane: " + height.ToString());
     }
 
-    private void ResetToIdle()
+    void MidSetUp()
     {
-        StartupTimer.Stop();
-        AttackTimer.Stop();
-        Texture = idle;
-        state = State.IDLE;
-        height = Height.NONE;
+        CanFollowUp = false;
+        var subtween = CreateTween();
+        //subtween.TweenCallback(Callable.From(() => Sprite.Frame = 0));
+        subtween.Call(() => Sprite.Frame = 0);
+        subtween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M));
+        subtween.SetTrans(Tween.TransitionType.Quad);
+        subtween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X - 50, Position.Y),
+            FramesToSeconds(24)
+        );
+        subtween.DelayedCallable(CreateTween(), () => Sprite.Frame = 1, FramesToSeconds(12));
+
+        tween = CreateTween();
+        tween.TweenSubtween(subtween);
+
+        tween.Call(() => Sprite.Frame = 2);
+        tween.SetTrans(Tween.TransitionType.Quad);
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X, Position.Y),
+            FramesToSeconds(24)
+        );
+        tween.DelayedCallable(
+            CreateTween(),
+            () =>
+            {
+                CanFollowUp = true;
+                Sprite.Frame = 3;
+            },
+            FramesToSeconds(12)
+        );
+
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+        });
+    }
+
+    void HighSetUp()
+    {
+        // just calls mid for now
+        MidSetUp();
+    }
+
+    void LowSetUp()
+    {
+        // just calls mid for now
+        MidSetUp();
+    }
+
+    void HighFollowUp()
+    {
+        tweening = true;
+        CanFollowUp = false;
+        tween = CreateTween();
+
+        tween.TweenCallback(Callable.From(() => Sprite.Frame = 5));
+        tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH));
+        tween.SetTrans(Tween.TransitionType.Quad);
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X + 20, Position.Y),
+            FramesToSeconds(24)
+        );
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+        });
+    }
+
+    void LowFollowUp()
+    {
+        tweening = true;
+        CanFollowUp = false;
+        tween = CreateTween();
+        tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.ML));
+
+        tween.TweenCallback(Callable.From(() => Sprite.Frame = 4));
+        tween.SetTrans(Tween.TransitionType.Quad);
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X + 20, Position.Y),
+            FramesToSeconds(24)
+        );
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+        });
+    }
+
+    void MidFollowUp()
+    {
+        tweening = true;
+        CanFollowUp = false;
+        tween = CreateTween();
+
+        tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM));
+        tween.TweenCallback(Callable.From(() => Sprite.Frame = 6));
+        tween.SetTrans(Tween.TransitionType.Quad);
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X + 20, Position.Y),
+            FramesToSeconds(24)
+        );
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+        });
+    }
+
+    void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)
+    {
+        ResetCollisionBox(boxtype);
+
+        var area = boxtype == CollisionBoxes.BoxType.HITBOX ? HitboxArea : HurtboxArea;
+        area.GetNode<CollisionShape2D>(move.ToString()).Disabled = false;
+    }
+
+    void ResetCollisionBox(CollisionBoxes.BoxType boxtype)
+    {
+        var area = boxtype == CollisionBoxes.BoxType.HITBOX ? HitboxArea : HurtboxArea;
+        area.GetChildren()
+            .OfType<CollisionShape2D>()
+            .ToList()
+            .ForEach(child => child.Disabled = true);
+    }
+}
+
+public static class CollisionBoxes
+{
+    public enum BoxType
+    {
+        HITBOX,
+        HURTBOX,
+    }
+}
+
+// should go in dedicated extension method definition file
+public static class Helpers
+{
+    public static void DelayedCallable(this Tween tween, Tween newTween, Action action, float time)
+    {
+        newTween.TweenInterval(time);
+        newTween.TweenCallback(Callable.From(action));
+        tween.Parallel().TweenSubtween(newTween);
+    }
+
+    public static void Call(this Tween tween, Action action)
+    {
+        tween.TweenCallback(Callable.From(action));
+    }
+
+    public static float FramesToSeconds(int frames)
+    {
+        return (float)frames / 60;
     }
 }

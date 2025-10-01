@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://j7pufv7r8ne6"
-path="res://.godot/imported/ryu_idle.png-f076269abb338faca9c27b0ba6fb1960.ctex"
+uid="uid://clybmve0fmi8e"
+path="res://.godot/imported/ryu_attack.png-12961b2f4bacab9bf8db367b04a89beb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/placeholder_sprites/ryu_idle.png"
-dest_files=["res://.godot/imported/ryu_idle.png-f076269abb338faca9c27b0ba6fb1960.ctex"]
+source_file="res://assets/placeholder_sprites/ryu_attack.png"
+dest_files=["res://.godot/imported/ryu_attack.png-12961b2f4bacab9bf8db367b04a89beb.ctex"]
 
 [params]
 
