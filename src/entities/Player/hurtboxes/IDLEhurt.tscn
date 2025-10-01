@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsgpavv06jylf"]
+
+[ext_resource type="Shape2D" uid="uid://c0rkhrp8ylfol" path="res://src/entities/Player/hurtboxes/LMhurt.tres" id="1_r56gw"]
+
+[node name="CollisionShape2D" type="CollisionShape2D"]
+position = Vector2(0, 7)
+shape = ExtResource("1_r56gw")

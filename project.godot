@@ -13,6 +13,7 @@ config_version=5
 config/name="robot-coop"
 run/main_scene="uid://bum338jug5gjw"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [display]

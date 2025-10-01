@@ -1,12 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
+using System.Linq;
+using System.Reflection.PortableExecutable;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Godot;
+using static Helpers;
 
 public partial class Player : Node2D
 {
+    public enum Move
+    {
+        IDLE,
+        L,
+        M,
+        H,
+        LM,
+        LH,
+        ML,
+        MH,
+        HL,
+        HM,
+    }
+
     enum State
     {
         IDLE,
@@ -43,28 +62,21 @@ public partial class Player : Node2D
     private State state;
     private Height height,
         attackingHeight;
-    Timer StartupTimer = null!;
-    Timer AttackTimer = null!;
-    Timer BlockTimer = null!;
+    Area2D HitboxArea = null!;
+    Area2D HurtboxArea = null!;
 
     public override void _Ready()
     {
         Sprite = GetNode<Sprite2D>("Sprite2D");
 
         // should be a multidimensional list for the 2 follow ups off of every set up
-        FollowUps = new Action[] { LowFollowUp, MidFollowUp, HighFollowUp };
-        SetUps = new Action[] { LowSetUp, MidSetUp, HighSetUp };
-
-        StartupTimer = new Timer();
-        AttackTimer = new Timer();
-        BlockTimer = new Timer();
-        AddChild(StartupTimer);
-        AddChild(AttackTimer);
-        AddChild(BlockTimer);
+        FollowUps = [LowFollowUp, MidFollowUp, HighFollowUp];
+        SetUps = [LowSetUp, MidSetUp, HighSetUp];
 
         state = State.IDLE;
         height = Height.NONE;
-        GD.Print(SetUps.Length);
+        HurtboxArea = GetNode<Area2D>("HurtboxArea");
+        HitboxArea = GetNode<Area2D>("HitboxArea");
     }
 
     void UpdateDebugPanel()
@@ -118,17 +130,29 @@ public partial class Player : Node2D
     {
         CanFollowUp = false;
         var subtween = CreateTween();
-        subtween.TweenCallback(Callable.From(() => Sprite.Frame = 0));
+        //subtween.TweenCallback(Callable.From(() => Sprite.Frame = 0));
+        subtween.Call(() => Sprite.Frame = 0);
+        subtween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M));
         subtween.SetTrans(Tween.TransitionType.Quad);
-        subtween.TweenProperty(this, "position", new Vector2(Position.X - 50, Position.Y), .4f);
-        subtween.DelayedCallable(CreateTween(), () => Sprite.Frame = 1, .2f);
+        subtween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X - 50, Position.Y),
+            FramesToSeconds(24)
+        );
+        subtween.DelayedCallable(CreateTween(), () => Sprite.Frame = 1, FramesToSeconds(12));
 
         tween = CreateTween();
         tween.TweenSubtween(subtween);
 
-        tween.TweenCallback(Callable.From(() => Sprite.Frame = 2));
+        tween.Call(() => Sprite.Frame = 2);
         tween.SetTrans(Tween.TransitionType.Quad);
-        tween.TweenProperty(this, "position", new Vector2(Position.X, Position.Y), .4f);
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X, Position.Y),
+            FramesToSeconds(24)
+        );
         tween.DelayedCallable(
             CreateTween(),
             () =>
@@ -136,11 +160,16 @@ public partial class Player : Node2D
                 CanFollowUp = true;
                 Sprite.Frame = 3;
             },
-            .2f
+            FramesToSeconds(12)
         );
-        tween.TweenCallback(Callable.From(() => Sprite.Frame = 1));
-        tween.TweenCallback(Callable.From(() => CanFollowUp = false));
-        tween.TweenCallback(Callable.From(() => state = State.IDLE));
+
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+        });
     }
 
     void HighSetUp()
@@ -155,7 +184,6 @@ public partial class Player : Node2D
         MidSetUp();
     }
 
-    // the same thing 3 times
     void HighFollowUp()
     {
         tweening = true;
@@ -163,10 +191,22 @@ public partial class Player : Node2D
         tween = CreateTween();
 
         tween.TweenCallback(Callable.From(() => Sprite.Frame = 5));
+        tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH));
         tween.SetTrans(Tween.TransitionType.Quad);
-        tween.TweenProperty(this, "position", new Vector2(Position.X + 20, Position.Y), .4f);
-        tween.TweenCallback(Callable.From(() => CanFollowUp = false));
-        tween.TweenCallback(Callable.From(() => state = State.IDLE));
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X + 20, Position.Y),
+            FramesToSeconds(24)
+        );
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+        });
     }
 
     void LowFollowUp()
@@ -174,12 +214,24 @@ public partial class Player : Node2D
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
+        tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.ML));
 
         tween.TweenCallback(Callable.From(() => Sprite.Frame = 4));
         tween.SetTrans(Tween.TransitionType.Quad);
-        tween.TweenProperty(this, "position", new Vector2(Position.X + 20, Position.Y), .4f);
-        tween.TweenCallback(Callable.From(() => CanFollowUp = false));
-        tween.TweenCallback(Callable.From(() => state = State.IDLE));
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X + 20, Position.Y),
+            FramesToSeconds(24)
+        );
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+        });
     }
 
     void MidFollowUp()
@@ -188,21 +240,69 @@ public partial class Player : Node2D
         CanFollowUp = false;
         tween = CreateTween();
 
+        tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM));
         tween.TweenCallback(Callable.From(() => Sprite.Frame = 6));
         tween.SetTrans(Tween.TransitionType.Quad);
-        tween.TweenProperty(this, "position", new Vector2(Position.X + 20, Position.Y), .4f);
-        tween.TweenCallback(Callable.From(() => CanFollowUp = false));
-        tween.TweenCallback(Callable.From(() => state = State.IDLE));
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X + 20, Position.Y),
+            FramesToSeconds(24)
+        );
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+        });
+    }
+
+    void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)
+    {
+        ResetCollisionBox(boxtype);
+
+        var area = boxtype == CollisionBoxes.BoxType.HITBOX ? HitboxArea : HurtboxArea;
+        area.GetNode<CollisionShape2D>(move.ToString()).Disabled = false;
+    }
+
+    void ResetCollisionBox(CollisionBoxes.BoxType boxtype)
+    {
+        var area = boxtype == CollisionBoxes.BoxType.HITBOX ? HitboxArea : HurtboxArea;
+        area.GetChildren()
+            .OfType<CollisionShape2D>()
+            .ToList()
+            .ForEach(child => child.Disabled = true);
+    }
+}
+
+public static class CollisionBoxes
+{
+    public enum BoxType
+    {
+        HITBOX,
+        HURTBOX,
     }
 }
 
 // should go in dedicated extension method definition file
 public static class Helpers
 {
-    public static void DelayedCallable(this Tween tween, Tween newTween, Action func, float time)
+    public static void DelayedCallable(this Tween tween, Tween newTween, Action action, float time)
     {
         newTween.TweenInterval(time);
-        newTween.TweenCallback(Callable.From(func));
+        newTween.TweenCallback(Callable.From(action));
         tween.Parallel().TweenSubtween(newTween);
+    }
+
+    public static void Call(this Tween tween, Action action)
+    {
+        tween.TweenCallback(Callable.From(action));
+    }
+
+    public static float FramesToSeconds(int frames)
+    {
+        return (float)frames / 60;
     }
 }
