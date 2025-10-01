@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://ctxt2cxk01d05"]
+
+[ext_resource type="Texture2D" uid="uid://dtpigdnvho36y" path="res://Assets/particles/Circle.png" id="1_eawph"]
+
+[sub_resource type="Curve" id="Curve_4pmdf"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 44.4944), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_eawph"]
+curve = SubResource("Curve_4pmdf")
+
+[sub_resource type="Gradient" id="Gradient_anmya"]
+offsets = PackedFloat32Array(0, 0.818182, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.067858, 0.029524, 0.00424624, 0.647059, 0.0862745, 0.0392157, 0.00392157, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jby6r"]
+gradient = SubResource("Gradient_anmya")
+
+[sub_resource type="Curve" id="Curve_mktfj"]
+_data = [Vector2(0, 0.123596), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1te3g"]
+curve = SubResource("Curve_mktfj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r18ck"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.5, 0.5)
+angle_min = -1.99999
+angle_max = 2.00001
+angle_curve = SubResource("CurveTexture_eawph")
+gravity = Vector3(0, -10, 0)
+linear_accel_min = 1.7
+linear_accel_max = 2.45
+scale_min = 0.02
+scale_max = 0.02
+scale_curve = SubResource("CurveTexture_1te3g")
+color_ramp = SubResource("GradientTexture1D_jby6r")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+amount = 100
+texture = ExtResource("1_eawph")
+lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_r18ck")
