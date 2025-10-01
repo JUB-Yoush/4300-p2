@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://vyhy1lnin32q"]
-
-[ext_resource type="Shape2D" uid="uid://buxpl5pry54fu" path="res://src/entities/Player/hitboxes/LMhit.tres" id="1_ijy0p"]
-
-[node name="CollisionShape2D" type="CollisionShape2D"]
-position = Vector2(35, -5)
-shape = ExtResource("1_ijy0p")

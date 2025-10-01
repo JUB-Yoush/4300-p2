@@ -5,12 +5,18 @@
 [ext_resource type="Script" uid="uid://dtqb44nqyol50" path="res://src/entities/Player/Player.cs" id="2_loq5s"]
 [ext_resource type="Texture2D" uid="uid://cr78pcf06jkdr" path="res://assets/placeholder_sprites/ryu_startup.png" id="3_5ky3l"]
 [ext_resource type="Texture2D" uid="uid://ekqliteegusq" path="res://assets/placeholder_sprites/slayer1-sheet.png" id="5_bimrn"]
-[ext_resource type="PackedScene" uid="uid://vyhy1lnin32q" path="res://src/entities/Player/hitboxes/LMhit.tscn" id="6_hq84m"]
-[ext_resource type="PackedScene" uid="uid://cil4y15c4f7sp" path="res://src/entities/Player/hitboxes/MLhit.tscn" id="7_ppn71"]
-[ext_resource type="PackedScene" uid="uid://bsgpavv06jylf" path="res://src/entities/Player/hurtboxes/IDLEhurt.tscn" id="7_tj66a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjnl3"]
+size = Vector2(34, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gk04w"]
+size = Vector2(34, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j63m"]
 size = Vector2(19, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6i4f"]
+size = Vector2(25, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppn71"]
 size = Vector2(25.5, 25.5)
@@ -29,23 +35,29 @@ frame = 5
 
 [node name="HitboxArea" type="Area2D" parent="."]
 
-[node name="LM" parent="HitboxArea" instance=ExtResource("6_hq84m")]
+[node name="LM" type="CollisionShape2D" parent="HitboxArea"]
+position = Vector2(35, -5)
+shape = SubResource("RectangleShape2D_jjnl3")
 disabled = true
 
-[node name="ML" parent="HitboxArea" instance=ExtResource("7_ppn71")]
+[node name="ML" type="CollisionShape2D" parent="HitboxArea"]
+position = Vector2(32, 29)
+shape = SubResource("RectangleShape2D_gk04w")
 disabled = true
 
-[node name="MH" parent="HitboxArea" instance=ExtResource("7_ppn71")]
+[node name="MH" type="CollisionShape2D" parent="HitboxArea"]
 position = Vector2(5.5, 1)
 shape = SubResource("RectangleShape2D_4j63m")
 disabled = true
 
 [node name="HurtboxArea" type="Area2D" parent="."]
 
-[node name="IDLE" parent="HurtboxArea" instance=ExtResource("7_tj66a")]
+[node name="IDLE" type="CollisionShape2D" parent="HurtboxArea"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_w6i4f")
 disabled = true
 
-[node name="M" parent="HurtboxArea" instance=ExtResource("7_tj66a")]
+[node name="M" type="CollisionShape2D" parent="HurtboxArea"]
 position = Vector2(-13.25, 19)
 shape = SubResource("RectangleShape2D_ppn71")
 disabled = true
