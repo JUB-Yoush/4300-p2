@@ -1,9 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bn1sondwl58ft"]
+[gd_scene load_steps=8 format=3 uid="uid://bn1sondwl58ft"]
 
-[ext_resource type="Texture2D" uid="uid://j7pufv7r8ne6" path="res://assets/placeholder_sprites/ryu_idle.png" id="1_pjr3c"]
-[ext_resource type="Texture2D" uid="uid://clybmve0fmi8e" path="res://assets/placeholder_sprites/ryu_attack.png" id="1_vv3k2"]
 [ext_resource type="Script" uid="uid://dtqb44nqyol50" path="res://src/entities/Player/Player.cs" id="2_loq5s"]
-[ext_resource type="Texture2D" uid="uid://cr78pcf06jkdr" path="res://assets/placeholder_sprites/ryu_startup.png" id="3_5ky3l"]
 [ext_resource type="Texture2D" uid="uid://ekqliteegusq" path="res://assets/placeholder_sprites/slayer1-sheet.png" id="5_bimrn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjnl3"]
@@ -23,9 +20,6 @@ size = Vector2(25.5, 25.5)
 
 [node name="Player" type="Node2D"]
 script = ExtResource("2_loq5s")
-idle = ExtResource("1_pjr3c")
-startup = ExtResource("3_5ky3l")
-attack = ExtResource("1_vv3k2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("5_bimrn")
@@ -34,6 +28,8 @@ hframes = 8
 frame = 5
 
 [node name="HitboxArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 
 [node name="LM" type="CollisionShape2D" parent="HitboxArea"]
 position = Vector2(35, -5)
@@ -51,6 +47,8 @@ shape = SubResource("RectangleShape2D_4j63m")
 disabled = true
 
 [node name="HurtboxArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
 
 [node name="IDLE" type="CollisionShape2D" parent="HurtboxArea"]
 position = Vector2(0, 7)

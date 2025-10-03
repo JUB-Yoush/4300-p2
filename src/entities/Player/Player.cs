@@ -1,12 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using Godot;
 using static Helpers;
 
@@ -33,7 +26,7 @@ public partial class Player : Node2D
         ATTACKING,
     }
 
-    enum Height
+    public enum Height
     {
         LOW = 0,
         MEDIUM = 1,
@@ -50,18 +43,11 @@ public partial class Player : Node2D
     bool CanFollowUp = false;
     bool tweening = false;
 
-    //delete when animation are in
-    [Export]
-    public required Texture2D idle,
-        startup,
-        attack;
-    const float STARTUP_TIME = 0.5f;
-    const float HEAVY_TIME = 1f;
-    const float LIGHT_TIME = 0.5f;
-    const float BLOCK_TIME = 2f;
     private State state;
-    private Height height,
-        attackingHeight;
+    private Height setupHeight,
+        AttackHeight;
+
+    public Height BlockHeight = Height.NONE;
     Area2D HitboxArea = null!;
     Area2D HurtboxArea = null!;
 
@@ -74,16 +60,52 @@ public partial class Player : Node2D
         SetUps = [LowSetUp, MidSetUp, HighSetUp];
 
         state = State.IDLE;
-        height = Height.NONE;
+        setupHeight = Height.NONE;
+
         HurtboxArea = GetNode<Area2D>("HurtboxArea");
+        HurtboxArea.CollisionLayer = (uint)CollisionLayer.PLAYER_HURT;
+        HurtboxArea.CollisionMask = (uint)CollisionLayer.ENEMY_HIT;
+        HurtboxArea.AreaEntered += HitByEnemy;
+
         HitboxArea = GetNode<Area2D>("HitboxArea");
+        HitboxArea.CollisionLayer = (uint)CollisionLayer.PLAYER_HIT;
+        HitboxArea.CollisionMask = (uint)CollisionLayer.ENEMY_HURT;
+        HitboxArea.AreaEntered += HitEnemy;
+    }
+
+    void HitByEnemy(Area2D area)
+    {
+        GD.Print("got hit");
+
+        var enemy = area.GetParent<Enemy>();
+        if (BlockHeight == enemy.AttackHeight)
+        {
+            // TODO attack blocking
+            return;
+        }
+    }
+
+    void HitEnemy(Area2D area)
+    {
+        GD.Print("you hit the enemy");
+        var enemy = area.GetParent<Enemy>();
+        if (enemy.BlockHeight == AttackHeight)
+        {
+            // TODO attack blocking
+            return;
+        }
+        enemy.GotHit();
+        // play hit effect
+        // apply hit stun
+        // switch to hit animation on enemy
     }
 
     void UpdateDebugPanel()
     {
-        ((Label)GetParent().FindChild("CancelLabel")).Text = CanFollowUp.ToString();
-        ((Label)GetParent().FindChild("StateLabel")).Text = state.ToString();
-        ((Label)GetParent().FindChild("HeightLabel")).Text = height.ToString();
+        ((Label)GetParent().GetNode("%CancelLabel")).Text = CanFollowUp.ToString();
+        ((Label)GetParent().GetNode("%StateLabel")).Text = state.ToString();
+        ((Label)GetParent().GetNode("%HeightLabel")).Text = setupHeight.ToString();
+        ((Label)GetParent().GetNode("%AttackLabel")).Text = AttackHeight.ToString();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -108,21 +130,22 @@ public partial class Player : Node2D
     {
         if (state == State.STARTUP)
         {
-            if (!CanFollowUp || level == height)
+            if (!CanFollowUp || level == setupHeight)
             {
                 return;
             }
 
             tween.Stop();
             state = State.ATTACKING;
+            AttackHeight = level;
             FollowUps[(int)level]();
         }
         else if (state == State.IDLE)
         {
-            height = level;
+            setupHeight = level;
+            AttackHeight = Height.NONE;
             state = State.STARTUP;
-            GD.Print((int)height);
-            SetUps[(int)height]();
+            SetUps[(int)setupHeight]();
         }
     }
 
@@ -283,26 +306,5 @@ public static class CollisionBoxes
     {
         HITBOX,
         HURTBOX,
-    }
-}
-
-// should go in dedicated extension method definition file
-public static class Helpers
-{
-    public static void DelayedCallable(this Tween tween, Tween newTween, Action action, float time)
-    {
-        newTween.TweenInterval(time);
-        newTween.TweenCallback(Callable.From(action));
-        tween.Parallel().TweenSubtween(newTween);
-    }
-
-    public static void Call(this Tween tween, Action action)
-    {
-        tween.TweenCallback(Callable.From(action));
-    }
-
-    public static float FramesToSeconds(int frames)
-    {
-        return (float)frames / 60;
     }
 }
