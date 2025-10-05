@@ -10,16 +10,16 @@ size = Vector2(57, 311)
 size = Vector2(122, 121)
 
 [node name="Node2D" type="Node2D"]
-metadata/_edit_vertical_guides_ = [99.0]
+metadata/_edit_vertical_guides_ = [99.0, 499.0]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(66, 277)
+position = Vector2(498, 823)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_opwxe")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(789, 306)
+position = Vector2(73, 306)
 script = ExtResource("1_n0y0o")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
@@ -28,3 +28,8 @@ texture = ExtResource("2_i60ah")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_im6f8")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(500, -9)
+texture = ExtResource("2_i60ah")
+centered = false

@@ -3,7 +3,7 @@ using System.Linq;
 using Godot;
 using static Helpers;
 
-public partial class Player : Node2D
+public partial class Player : CharacterBody2D
 {
     public enum Move
     {
@@ -37,6 +37,8 @@ public partial class Player : Node2D
     Sprite2D Sprite = null!;
     Tween tween = null!;
 
+    Tween? MovementTween = null;
+
     Action[] FollowUps = [];
     Action[] SetUps = [];
 
@@ -63,13 +65,13 @@ public partial class Player : Node2D
         setupHeight = Height.NONE;
 
         HurtboxArea = GetNode<Area2D>("HurtboxArea");
-        HurtboxArea.CollisionLayer = (uint)CollisionLayer.PLAYER_HURT;
-        HurtboxArea.CollisionMask = (uint)CollisionLayer.ENEMY_HIT;
+        HurtboxArea.CollisionLayer = (uint)Collisions.PLAYER_HURT;
+        HurtboxArea.CollisionMask = (uint)Collisions.ENEMY_HIT;
         HurtboxArea.AreaEntered += HitByEnemy;
 
         HitboxArea = GetNode<Area2D>("HitboxArea");
-        HitboxArea.CollisionLayer = (uint)CollisionLayer.PLAYER_HIT;
-        HitboxArea.CollisionMask = (uint)CollisionLayer.ENEMY_HURT;
+        HitboxArea.CollisionLayer = (uint)Collisions.PLAYER_HIT;
+        HitboxArea.CollisionMask = (uint)Collisions.ENEMY_HURT;
         HitboxArea.AreaEntered += HitEnemy;
     }
 
@@ -92,12 +94,23 @@ public partial class Player : Node2D
         if (enemy.BlockHeight == AttackHeight)
         {
             // TODO attack blocking
+            GD.Print("they blocked it");
+            BounceBack();
             return;
         }
         enemy.GotHit();
         // play hit effect
         // apply hit stun
         // switch to hit animation on enemy
+    }
+
+    void BounceBack()
+    {
+        // TODO tween this backward
+        Position = Position with
+        {
+            X = Position.X - 20,
+        };
     }
 
     void UpdateDebugPanel()
@@ -124,6 +137,7 @@ public partial class Player : Node2D
             ProcessAttack(Height.LOW);
         }
         UpdateDebugPanel();
+        MoveAndSlide();
     }
 
     void ProcessAttack(Height level)
@@ -266,12 +280,7 @@ public partial class Player : Node2D
         tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM));
         tween.TweenCallback(Callable.From(() => Sprite.Frame = 6));
         tween.SetTrans(Tween.TransitionType.Quad);
-        tween.TweenProperty(
-            this,
-            "position",
-            new Vector2(Position.X + 20, Position.Y),
-            FramesToSeconds(24)
-        );
+        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
         tween.Call(() =>
         {
             CanFollowUp = false;
