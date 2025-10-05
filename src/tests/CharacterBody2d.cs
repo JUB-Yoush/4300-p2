@@ -5,15 +5,28 @@ using Godot;
 public partial class CharacterBody2d : CharacterBody2D
 {
     Tween movementTween = null!;
+    bool canMove = true;
 
     public override void _Ready() { }
+
+    private void collisionCheck(Node2D body)
+    {
+        if (body is StaticBody2D)
+        {
+            canMove = false;
+        }
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        MoveAndSlide();
+    }
 
     public override void _Process(double delta)
     {
         var position = Position;
-        if (position.X <= 500)
+        if (!canMove)
         {
-            position.X = 500;
             movementTween!.Stop();
             Position = position;
         }
@@ -23,9 +36,11 @@ public partial class CharacterBody2d : CharacterBody2D
         )
         {
             var tween = CreateTween();
-            tween.TweenProperty(this, "rotation", 180, 3);
-            movementTween = tween.MakeMovementTween(this, new(Position.X - 500, Position.Y), 2);
+            tween.VelocityMovement(this, new(Position.X + 500, Position.Y), 3);
+            if (!canMove)
+            {
+                movementTween!.Stop();
+            }
         }
-        //GD.Print(movementTween.IsRunning());
     }
 }
