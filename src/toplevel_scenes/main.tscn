@@ -10,10 +10,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
 size = Vector2(28, 97)
 
-[node name="main" type="Node2D"]
-
-[node name="Player" parent="." instance=ExtResource("1_3u0g6")]
-position = Vector2(653, 297)
+[node name="main" type="Node"]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -94,6 +91,8 @@ visible = false
 
 [node name="lose_screen" parent="UI" instance=ExtResource("4_i584b")]
 visible = false
+[node name="Player" parent="." instance=ExtResource("1_3u0g6")]
+position = Vector2(653, 297)
 
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(722, 277)
