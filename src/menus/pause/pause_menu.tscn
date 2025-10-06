@@ -1,0 +1,178 @@
+[gd_scene load_steps=7 format=3 uid="uid://dw6btvd76bxdj"]
+
+[ext_resource type="Script" uid="uid://bk5kab6a77sev" path="res://src/menus/pause/PauseMenu.cs" id="1_aqhcl"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="2_nulr0"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="3_24rtq"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="4_j4mso"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="5_v5a41"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
+
+[node name="pause_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("1_aqhcl")
+
+[node name="Paused" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8nsmu")
+
+[node name="Bg (empty rn)" type="TextureRect" parent="Paused"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -400.0
+offset_right = 750.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Losetxt" type="Label" parent="Paused"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.0
+offset_top = 83.0
+offset_right = 155.0
+offset_bottom = 193.0
+grow_horizontal = 2
+theme = ExtResource("2_nulr0")
+theme_override_font_sizes/font_size = 80
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Controlstxt" type="Label" parent="Paused"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -162.0
+offset_top = 249.0
+offset_right = 164.0
+offset_bottom = 359.0
+grow_horizontal = 2
+theme = ExtResource("2_nulr0")
+theme_override_font_sizes/font_size = 50
+text = "Controls"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Attacktxt" type="Label" parent="Paused/Controlstxt"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -162.0
+offset_top = 101.0
+offset_right = 164.0
+offset_bottom = 211.0
+grow_horizontal = 2
+theme = ExtResource("2_nulr0")
+theme_override_font_sizes/font_size = 50
+text = "X - Attack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Blocktxt" type="Label" parent="Paused/Controlstxt"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -162.0
+offset_top = 200.0
+offset_right = 164.0
+offset_bottom = 310.0
+grow_horizontal = 2
+theme = ExtResource("2_nulr0")
+theme_override_font_sizes/font_size = 50
+text = "Y - Block"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Resume" type="TextureButton" parent="Paused"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = 72.0
+offset_right = 1851.0
+offset_bottom = 713.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("3_24rtq")
+texture_pressed = ExtResource("4_j4mso")
+texture_hover = ExtResource("5_v5a41")
+
+[node name="Resumetxt" type="Label" parent="Paused/Resume"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_nulr0")
+theme_override_font_sizes/font_size = 250
+text = "Resume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Home" type="TextureButton" parent="Paused"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = 305.0
+offset_right = 1851.0
+offset_bottom = 946.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("3_24rtq")
+texture_pressed = ExtResource("4_j4mso")
+texture_hover = ExtResource("5_v5a41")
+
+[node name="Hometxt" type="Label" parent="Paused/Home"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_nulr0")
+theme_override_font_sizes/font_size = 250
+text = "Menu"
+horizontal_alignment = 1
+vertical_alignment = 1

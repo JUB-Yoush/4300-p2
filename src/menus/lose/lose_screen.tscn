@@ -1,0 +1,131 @@
+[gd_scene load_steps=8 format=3 uid="uid://df6kcscvynj70"]
+
+[ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_81pcp"]
+[ext_resource type="Texture2D" uid="uid://cl6qiu0ep3k35" path="res://assets/placeholder_sprites/.n..png" id="2_xcbfj"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_cuqn6"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_pskuv"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_wa00i"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_vfeng"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
+
+[node name="lose_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_81pcp")
+
+[node name="Result" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 1900.0
+offset_bottom = 1060.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8nsmu")
+
+[node name="Bg" type="TextureRect" parent="Result"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.0
+offset_top = -345.0
+offset_right = 269.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xcbfj")
+
+[node name="Losetxt" type="Label" parent="Result"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.0
+offset_top = 83.0
+offset_right = 155.0
+offset_bottom = 193.0
+grow_horizontal = 2
+theme = ExtResource("3_cuqn6")
+theme_override_font_sizes/font_size = 80
+text = "Stream Disconnected"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rety" type="TextureButton" parent="Result"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = 108.0
+offset_right = 1851.0
+offset_bottom = 749.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("4_pskuv")
+texture_pressed = ExtResource("5_wa00i")
+texture_hover = ExtResource("6_vfeng")
+
+[node name="Retrytxt" type="Label" parent="Result/Rety"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_cuqn6")
+theme_override_font_sizes/font_size = 250
+text = "Retry"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Home" type="TextureButton" parent="Result"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = 305.0
+offset_right = 1851.0
+offset_bottom = 946.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("4_pskuv")
+texture_pressed = ExtResource("5_wa00i")
+texture_hover = ExtResource("6_vfeng")
+
+[node name="Hometxt" type="Label" parent="Result/Home"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_cuqn6")
+theme_override_font_sizes/font_size = 250
+text = "Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
