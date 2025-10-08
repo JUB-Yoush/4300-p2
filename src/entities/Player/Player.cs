@@ -29,7 +29,7 @@ public partial class Player : CharacterBody2D
     public enum Height
     {
         LOW = 0,
-        MEDIUM = 1,
+        MID = 1,
         HIGH = 2,
         NONE,
     }
@@ -95,7 +95,7 @@ public partial class Player : CharacterBody2D
         {
             // TODO attack blocking
             GD.Print("they blocked it");
-            BounceBack();
+            PushBlock();
             return;
         }
         enemy.GotHit();
@@ -104,13 +104,18 @@ public partial class Player : CharacterBody2D
         // switch to hit animation on enemy
     }
 
-    void BounceBack()
+    void PushBlock()
     {
         // TODO tween this backward
-        Position = Position with
-        {
-            X = Position.X - 20,
-        };
+        /*         Position = Position with
+                {
+                    X = Position.X - 20,
+                }; */
+        Velocity = GetMovementVelocity(
+            Position,
+            new(Position.X - 100, Position.Y),
+            FramesToSeconds(6)
+        );
     }
 
     void UpdateDebugPanel()
@@ -130,7 +135,7 @@ public partial class Player : CharacterBody2D
         }
         else if (Input.IsActionJustPressed("medium_attack"))
         {
-            ProcessAttack(Height.MEDIUM);
+            ProcessAttack(Height.MID);
         }
         else if (Input.IsActionJustPressed("low_attack"))
         {
@@ -166,46 +171,53 @@ public partial class Player : CharacterBody2D
     void MidSetUp()
     {
         CanFollowUp = false;
+
+        // going backward (subtween)
         var subtween = CreateTween();
-        //subtween.TweenCallback(Callable.From(() => Sprite.Frame = 0));
-        subtween.Call(() => Sprite.Frame = 0);
-        subtween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M));
-        subtween.SetTrans(Tween.TransitionType.Quad);
-        subtween.TweenProperty(
+
+        // starts animation
+        subtween.Call(() =>
+        {
+            Sprite.Frame = 0;
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M);
+        });
+
+        // move backwards for 24 frames
+        subtween.VelocityMovement(
             this,
-            "position",
             new Vector2(Position.X - 50, Position.Y),
             FramesToSeconds(24)
         );
-        subtween.DelayedCallable(CreateTween(), () => Sprite.Frame = 1, FramesToSeconds(12));
+        // 12 frames into movement (called previously), switch frame
+        // runs parallel as we pass true to the function
+        subtween.Call(() => Sprite.Frame = 1, FramesToSeconds(12), true);
 
+        // moving forward
         tween = CreateTween();
+        //attach moving forward subtween to this tween, move forwards is called before anything else
         tween.TweenSubtween(subtween);
-
+        // change frame
         tween.Call(() => Sprite.Frame = 2);
-        tween.SetTrans(Tween.TransitionType.Quad);
-        tween.TweenProperty(
-            this,
-            "position",
-            new Vector2(Position.X, Position.Y),
-            FramesToSeconds(24)
-        );
-        tween.DelayedCallable(
-            CreateTween(),
+        // move forward for 24 frames
+        tween.VelocityMovement(this, new Vector2(Position.X + 50, Position.Y), FramesToSeconds(24));
+        // 12 frames into movement, switch frame and allow follow ups
+        tween.Call(
             () =>
             {
                 CanFollowUp = true;
                 Sprite.Frame = 3;
             },
-            FramesToSeconds(12)
+            FramesToSeconds(12),
+            true
         );
-
+        // after movement ends, cleanup and reset
         tween.Call(() =>
         {
             CanFollowUp = false;
             state = State.IDLE;
             UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
             Sprite.Frame = 7;
+            Velocity = Vector2.Zero;
         });
     }
 
@@ -226,60 +238,11 @@ public partial class Player : CharacterBody2D
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
-
-        tween.TweenCallback(Callable.From(() => Sprite.Frame = 5));
-        tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH));
-        tween.SetTrans(Tween.TransitionType.Quad);
-        tween.TweenProperty(
-            this,
-            "position",
-            new Vector2(Position.X + 20, Position.Y),
-            FramesToSeconds(24)
-        );
         tween.Call(() =>
         {
-            CanFollowUp = false;
-            state = State.IDLE;
-            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
-            Sprite.Frame = 7;
+            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH);
+            Sprite.Frame = 5;
         });
-    }
-
-    void LowFollowUp()
-    {
-        tweening = true;
-        CanFollowUp = false;
-        tween = CreateTween();
-        tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.ML));
-
-        tween.TweenCallback(Callable.From(() => Sprite.Frame = 4));
-        tween.SetTrans(Tween.TransitionType.Quad);
-        tween.TweenProperty(
-            this,
-            "position",
-            new Vector2(Position.X + 20, Position.Y),
-            FramesToSeconds(24)
-        );
-        tween.Call(() =>
-        {
-            CanFollowUp = false;
-            state = State.IDLE;
-            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
-            Sprite.Frame = 7;
-        });
-    }
-
-    void MidFollowUp()
-    {
-        tweening = true;
-        CanFollowUp = false;
-        tween = CreateTween();
-
-        tween.Call(() => UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM));
-        tween.TweenCallback(Callable.From(() => Sprite.Frame = 6));
-        tween.SetTrans(Tween.TransitionType.Quad);
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
         tween.Call(() =>
         {
@@ -288,6 +251,57 @@ public partial class Player : CharacterBody2D
             ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
             UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
             Sprite.Frame = 7;
+            Velocity = Vector2.Zero;
+        });
+    }
+
+    void LowFollowUp()
+    {
+        tweening = true;
+        CanFollowUp = false;
+        tween = CreateTween();
+        tween.Call(() =>
+        {
+            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.ML);
+            Sprite.Frame = 4;
+        });
+        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+            Velocity = Vector2.Zero;
+        });
+    }
+
+    void MidFollowUp()
+    {
+        tweening = true;
+        CanFollowUp = false;
+        tween = CreateTween();
+        tween.Call(() =>
+        {
+            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM);
+            Sprite.Frame = 6;
+        });
+        //tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.TweenProperty(
+            this,
+            "velocity",
+            GetMovementVelocity(Position, new(Position.X + 20, Position.Y), FramesToSeconds(24)),
+            FramesToSeconds(24)
+        );
+        tween.Call(() =>
+        {
+            CanFollowUp = false;
+            state = State.IDLE;
+            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+            Sprite.Frame = 7;
+            Velocity = Vector2.Zero;
         });
     }
 

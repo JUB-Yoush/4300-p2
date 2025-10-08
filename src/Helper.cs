@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices.Marshalling;
+using System.Threading.Tasks;
 using Godot;
 
 // should go in dedicated extension method definition file
@@ -14,12 +15,12 @@ public static class Helpers
         ENEMY_HURT = 0b1000,
     }
 
-    public static void DelayedCallable(this Tween tween, Tween newTween, Action action, float time)
-    {
-        newTween.TweenInterval(time);
-        newTween.TweenCallback(Callable.From(action));
-        tween.Parallel().TweenSubtween(newTween);
-    }
+    // public static void DelayedCallable(this Tween tween, Tween newTween, Action action, float time)
+    // {
+    //     newTween.TweenInterval(time);
+    //     newTween.TweenCallback(Callable.From(action));
+    //     tween.Parallel().TweenSubtween(newTween);
+    // }
 
     public static Vector2 GetMovementVelocity(Vector2 start, Vector2 end, float time)
     {
@@ -33,7 +34,8 @@ public static class Helpers
         CharacterBody2D node,
         Vector2 end,
         float time,
-        bool parallel = true
+        bool parallel = true,
+        bool reset = true
     )
     {
         var newTween = node.CreateTween();
@@ -43,9 +45,15 @@ public static class Helpers
 
         newTween.Call(() => node.Velocity = dist / time);
         newTween.TweenInterval(time);
-        newTween.Call(() => node.Velocity = prevVel);
+        if (reset)
+        {
+            newTween.Call(() => node.Velocity = prevVel);
+        }
+        else
+        {
+            newTween.Call(() => node.Velocity = Vector2.Zero);
+        }
 
-        GD.Print(dist);
         if (parallel)
         {
             tween.Parallel().TweenSubtween(newTween);
@@ -56,9 +64,16 @@ public static class Helpers
         }
     }
 
-    public static void Call(this Tween tween, Action action)
+    public static void Call(this Tween tween, Action action, float delay = 0, bool parallel = false)
     {
-        tween.TweenCallback(Callable.From(action));
+        if (parallel)
+        {
+            tween.Parallel().TweenCallback(Callable.From(action)).SetDelay(delay);
+        }
+        else
+        {
+            tween.TweenCallback(Callable.From(action)).SetDelay(delay);
+        }
     }
 
     public static Tween MakeMovementTween(
@@ -85,10 +100,5 @@ public static class Helpers
     public static float FramesToSeconds(int frames)
     {
         return (float)frames / 60;
-    }
-
-    public static Node blah()
-    {
-        return new Node();
     }
 }

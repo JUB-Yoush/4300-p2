@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bn1sondwl58ft"]
+[gd_scene load_steps=9 format=3 uid="uid://bn1sondwl58ft"]
 
 [ext_resource type="Script" uid="uid://dtqb44nqyol50" path="res://src/entities/Player/Player.cs" id="2_loq5s"]
 [ext_resource type="Texture2D" uid="uid://ekqliteegusq" path="res://assets/placeholder_sprites/slayer1-sheet.png" id="5_bimrn"]
@@ -18,6 +18,9 @@ size = Vector2(25, 33)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppn71"]
 size = Vector2(25.5, 25.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjr3c"]
+size = Vector2(10, 74)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("2_loq5s")
 
@@ -25,7 +28,7 @@ script = ExtResource("2_loq5s")
 texture = ExtResource("5_bimrn")
 flip_h = true
 hframes = 8
-frame = 5
+frame = 4
 
 [node name="HitboxArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -59,3 +62,7 @@ disabled = true
 position = Vector2(-13.25, 19)
 shape = SubResource("RectangleShape2D_ppn71")
 disabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -3)
+shape = SubResource("RectangleShape2D_pjr3c")
