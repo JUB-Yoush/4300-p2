@@ -1,11 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=3 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
-[ext_resource type="Texture2D" uid="uid://j7pufv7r8ne6" path="res://assets/placeholder_sprites/blockM.png" id="2_kvr80"]
-[ext_resource type="Script" uid="uid://6x3wtowj3hwh" path="res://src/entities/Enemy/Enemy.cs" id="2_swlc7"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
-size = Vector2(28, 97)
+[ext_resource type="PackedScene" uid="uid://ds3e3mqfouyq3" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
 
 [node name="main" type="Node"]
 
@@ -82,29 +78,7 @@ offset_right = 190.0
 offset_bottom = 71.0
 
 [node name="Player" parent="." instance=ExtResource("1_3u0g6")]
-position = Vector2(653, 297)
+position = Vector2(679, 302)
 
-[node name="Enemy" type="Node2D" parent="."]
-position = Vector2(722, 277)
-script = ExtResource("2_swlc7")
-
-[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
-texture = ExtResource("2_kvr80")
-
-[node name="HitboxArea" type="Area2D" parent="Enemy"]
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Enemy/HitboxArea"]
-visible = false
-position = Vector2(-37, 9)
-shape = SubResource("RectangleShape2D_kvr80")
-disabled = true
-
-[node name="HurtboxArea" type="Area2D" parent="Enemy"]
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/HurtboxArea"]
-position = Vector2(-6, 8.5)
-shape = SubResource("RectangleShape2D_kvr80")
+[node name="Enemy" parent="." instance=ExtResource("2_kvr80")]
+position = Vector2(742, 277)
