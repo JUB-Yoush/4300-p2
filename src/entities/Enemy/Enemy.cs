@@ -38,7 +38,8 @@ public partial class Enemy : Node2D
 
     public void ChangeBlockHeight()
     {
-        BlockHeight = (Height)new Random().Next(0, 3);
+        //BlockHeight = (Height)new Random().Next(0, 3);
+        BlockHeight = Height.MID;
     }
 
     public void GotHit()
