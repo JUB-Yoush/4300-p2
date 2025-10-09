@@ -9,9 +9,9 @@ public static class Helpers
     [Flags]
     public enum Collisions
     {
-        PLAYER_HIT = 0b1,
-        PLAYER_HURT = 0b10,
-        ENEMY_HIT = 0b100,
+        PLAYER_HIT = 0b0001,
+        PLAYER_HURT = 0b0010,
+        ENEMY_HIT = 0b0100,
         ENEMY_HURT = 0b1000,
     }
 
