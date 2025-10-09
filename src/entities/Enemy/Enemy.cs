@@ -4,7 +4,7 @@ using Godot;
 using static Helpers;
 using static Player;
 
-public partial class Enemy : Node2D
+public partial class Enemy : CharacterBody2D
 {
     public enum State
     {
@@ -33,7 +33,12 @@ public partial class Enemy : Node2D
         HitboxArea.CollisionMask = (uint)Collisions.ENEMY_HURT;
         //HitboxArea.AreaEntered += HitEnemy;
         ChangeBlockHeight();
-        GD.Print(BlockHeight);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        GD.Print(Velocity);
+        MoveAndSlide();
     }
 
     public void ChangeBlockHeight()
@@ -45,5 +50,11 @@ public partial class Enemy : Node2D
     public void GotHit()
     {
         //Position = Position with { X = Position.X + 20 };
+    }
+
+    public void Blocked()
+    {
+        var tween = CreateTween();
+        tween.VelocityMovement(this, new(Position.X + 10, Position.Y), FramesToSeconds(8));
     }
 }

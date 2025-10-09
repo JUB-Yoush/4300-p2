@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=4 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="PackedScene" uid="uid://ds3e3mqfouyq3" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
+size = Vector2(32, 256)
 
 [node name="main" type="Node"]
 
@@ -82,3 +85,15 @@ position = Vector2(679, 302)
 
 [node name="Enemy" parent="." instance=ExtResource("2_kvr80")]
 position = Vector2(742, 277)
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(515, 221)
+shape = SubResource("RectangleShape2D_kvr80")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2(875, 228)
+shape = SubResource("RectangleShape2D_kvr80")
