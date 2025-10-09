@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=3 uid="uid://e8bd70gepqrg"]
+
+[ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_127vf"]
+[ext_resource type="Texture2D" uid="uid://2ibp38le6np" path="res://assets/placeholder_sprites/Sad.png" id="2_lykw6"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_bb21g"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_q513j"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_d4qyc"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_io45t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2jnr"]
+bg_color = Color(0.509994, 0.435061, 0.789425, 1)
+
+[node name="end_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_127vf")
+
+[node name="Result" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 1900.0
+offset_bottom = 1060.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c2jnr")
+
+[node name="Bg" type="TextureRect" parent="Result"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -607.0
+offset_top = -402.0
+offset_right = 673.0
+offset_bottom = 451.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_lykw6")
+
+[node name="tyTxt" type="Label" parent="Result"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.0
+offset_top = 83.0
+offset_right = 155.0
+offset_bottom = 193.0
+grow_horizontal = 2
+theme = ExtResource("3_bb21g")
+theme_override_font_sizes/font_size = 80
+text = "Thank You For Playing!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Home" type="TextureButton" parent="Result"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.0
+offset_top = 305.0
+offset_right = 1851.0
+offset_bottom = 946.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("4_q513j")
+texture_pressed = ExtResource("5_d4qyc")
+texture_hover = ExtResource("6_io45t")
+
+[node name="Hometxt" type="Label" parent="Result/Home"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_bb21g")
+theme_override_font_sizes/font_size = 250
+text = "Menu"
+horizontal_alignment = 1
+vertical_alignment = 1

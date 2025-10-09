@@ -17,5 +17,10 @@ public partial class ResultScreens : Node
             GetTree().Paused = false;
             GetTree().ChangeSceneToFile("res://src/menus/title/title.tscn");
         };
+        GetNode<TextureButton>("Result/Continue").Pressed += () =>
+        {
+            GetTree().Paused = false;
+            GetTree().ChangeSceneToFile("res://src/menus/end/end_screen.tscn");
+        };
     }
 }

@@ -1,21 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvwoxqh7tcwce"]
+[gd_scene load_steps=8 format=3 uid="uid://cmwoleb37aggd"]
 
-[ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_0v50n"]
-[ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://assets/placeholder_sprites/images.jpg" id="2_mkkuv"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_lce0n"]
-[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_ig05b"]
-[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_e75ih"]
-[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_d010b"]
+[ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_tde8x"]
+[ext_resource type="Texture2D" uid="uid://2ibp38le6np" path="res://assets/placeholder_sprites/Sad.png" id="2_8fcrf"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_vnrfo"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_ouxlp"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_mucou"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_hokf8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
 
-[node name="win_screen" type="Control"]
+[node name="title" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_0v50n")
+script = ExtResource("1_tde8x")
 
 [node name="Result" type="Panel" parent="."]
 layout_mode = 1
@@ -39,13 +39,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -270.0
-offset_top = -345.0
-offset_right = 269.0
-offset_bottom = 48.0
+offset_left = -312.0
+offset_top = -233.0
+offset_right = 968.0
+offset_bottom = 620.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_mkkuv")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_8fcrf")
 
 [node name="Losetxt" type="Label" parent="Result"]
 z_index = 1
@@ -58,9 +59,9 @@ offset_top = 83.0
 offset_right = 155.0
 offset_bottom = 193.0
 grow_horizontal = 2
-theme = ExtResource("3_lce0n")
+theme = ExtResource("3_vnrfo")
 theme_override_font_sizes/font_size = 80
-text = "You Won!"
+text = "Stream Starting Soon..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -72,15 +73,15 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -850.0
-offset_top = 195.0
+offset_top = 318.0
 offset_right = 1265.0
-offset_bottom = 836.0
+offset_bottom = 959.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("4_ig05b")
-texture_pressed = ExtResource("5_e75ih")
-texture_hover = ExtResource("6_d010b")
+texture_normal = ExtResource("4_ouxlp")
+texture_pressed = ExtResource("5_mucou")
+texture_hover = ExtResource("6_hokf8")
 
 [node name="Retrytxt" type="Label" parent="Result/Retry"]
 layout_mode = 1
@@ -91,9 +92,9 @@ offset_top = -23.0
 offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_lce0n")
+theme = ExtResource("3_vnrfo")
 theme_override_font_sizes/font_size = 250
-text = "Retry"
+text = "Credits"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -105,15 +106,15 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 350.0
-offset_top = 195.0
+offset_top = 318.0
 offset_right = 2465.0
-offset_bottom = 836.0
+offset_bottom = 959.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("4_ig05b")
-texture_pressed = ExtResource("5_e75ih")
-texture_hover = ExtResource("6_d010b")
+texture_normal = ExtResource("4_ouxlp")
+texture_pressed = ExtResource("5_mucou")
+texture_hover = ExtResource("6_hokf8")
 
 [node name="Hometxt" type="Label" parent="Result/Home"]
 layout_mode = 1
@@ -124,9 +125,9 @@ offset_top = -23.0
 offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_lce0n")
+theme = ExtResource("3_vnrfo")
 theme_override_font_sizes/font_size = 250
-text = "Menu"
+text = "Quit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -138,15 +139,15 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -254.0
-offset_top = 195.0
+offset_top = 318.0
 offset_right = 1861.0
-offset_bottom = 836.0
+offset_bottom = 959.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("4_ig05b")
-texture_pressed = ExtResource("5_e75ih")
-texture_hover = ExtResource("6_d010b")
+texture_normal = ExtResource("4_ouxlp")
+texture_pressed = ExtResource("5_mucou")
+texture_hover = ExtResource("6_hokf8")
 
 [node name="Continuetxt" type="Label" parent="Result/Continue"]
 layout_mode = 1
@@ -157,8 +158,8 @@ offset_top = -23.0
 offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_lce0n")
+theme = ExtResource("3_vnrfo")
 theme_override_font_sizes/font_size = 250
-text = "Continue"
+text = "Join Stream"
 horizontal_alignment = 1
 vertical_alignment = 1
