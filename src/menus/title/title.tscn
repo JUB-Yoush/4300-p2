@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cmwoleb37aggd"]
 
-[ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_tde8x"]
+[ext_resource type="Script" uid="uid://5qo5taxywxo1" path="res://src/menus/title/Title.cs" id="1_8fcrf"]
 [ext_resource type="Texture2D" uid="uid://2ibp38le6np" path="res://assets/placeholder_sprites/Sad.png" id="2_8fcrf"]
 [ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_vnrfo"]
 [ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_ouxlp"]
@@ -15,9 +15,9 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_tde8x")
+script = ExtResource("1_8fcrf")
 
-[node name="Result" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -32,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8nsmu")
 
-[node name="Bg" type="TextureRect" parent="Result"]
+[node name="Bg" type="TextureRect" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -48,7 +48,7 @@ grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_8fcrf")
 
-[node name="Losetxt" type="Label" parent="Result"]
+[node name="Losetxt" type="Label" parent="Panel"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 5
@@ -65,7 +65,7 @@ text = "Stream Starting Soon..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Retry" type="TextureButton" parent="Result"]
+[node name="Credits" type="TextureButton" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -83,7 +83,7 @@ texture_normal = ExtResource("4_ouxlp")
 texture_pressed = ExtResource("5_mucou")
 texture_hover = ExtResource("6_hokf8")
 
-[node name="Retrytxt" type="Label" parent="Result/Retry"]
+[node name="Retrytxt" type="Label" parent="Panel/Credits"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,7 +98,7 @@ text = "Credits"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Home" type="TextureButton" parent="Result"]
+[node name="Exit" type="TextureButton" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -116,7 +116,7 @@ texture_normal = ExtResource("4_ouxlp")
 texture_pressed = ExtResource("5_mucou")
 texture_hover = ExtResource("6_hokf8")
 
-[node name="Hometxt" type="Label" parent="Result/Home"]
+[node name="Hometxt" type="Label" parent="Panel/Exit"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,7 +131,7 @@ text = "Quit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Continue" type="TextureButton" parent="Result"]
+[node name="Play" type="TextureButton" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -149,7 +149,7 @@ texture_normal = ExtResource("4_ouxlp")
 texture_pressed = ExtResource("5_mucou")
 texture_hover = ExtResource("6_hokf8")
 
-[node name="Continuetxt" type="Label" parent="Result/Continue"]
+[node name="Continuetxt" type="Label" parent="Panel/Play"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
