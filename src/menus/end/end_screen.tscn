@@ -96,3 +96,71 @@ theme_override_font_sizes/font_size = 250
 text = "Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Continue" type="TextureButton" parent="Result"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -254.0
+offset_top = 195.0
+offset_right = 1861.0
+offset_bottom = 836.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("4_q513j")
+texture_pressed = ExtResource("5_d4qyc")
+texture_hover = ExtResource("6_io45t")
+
+[node name="Continuetxt" type="Label" parent="Result/Continue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_bb21g")
+theme_override_font_sizes/font_size = 250
+text = "Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reset" type="TextureButton" parent="Result"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1790.0
+offset_top = -325.0
+offset_right = 325.0
+offset_bottom = 316.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("4_q513j")
+texture_pressed = ExtResource("5_d4qyc")
+texture_hover = ExtResource("6_io45t")
+
+[node name="Resetxt" type="Label" parent="Result/Reset"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_bb21g")
+theme_override_font_sizes/font_size = 250
+text = "Retry"
+horizontal_alignment = 1
+vertical_alignment = 1

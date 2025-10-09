@@ -7,18 +7,44 @@ public partial class PauseMenu : Control
 
     public override void _Ready()
     {
-        GetTree().Paused = true;
-        Input.MouseMode = Input.MouseModeEnum.Visible;
         GetNode<TextureButton>("Paused/Resume").Pressed += () =>
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
             GetTree().Paused = false;
-            QueueFree();
+            GetNode<Panel>("Paused").Visible = false;
         };
         GetNode<TextureButton>("Paused/Home").Pressed += () =>
         {
             GetTree().Paused = false;
             GetTree().ChangeSceneToFile("res://src/menus/title/title.tscn");
         };
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (Input.IsActionJustPressed("pause") && !GetTree().Paused)
+        {
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+            GetNode<Panel>("Paused").Visible = true;
+            GetTree().Paused = true;
+        }
+        else if (Input.IsActionJustPressed("pause") && GetTree().Paused)
+        {
+            Input.MouseMode = Input.MouseModeEnum.Captured;
+            GetTree().Paused = false;
+            GetNode<Panel>("Paused").Visible = false;
+        }
+        else if (Input.IsActionJustPressed("win_shortcut") && !GetTree().Paused)
+        {
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+            GetParent().GetNode<ResultScreens>("win_screen").Visible = true;
+            GetTree().Paused = true;
+        }
+        else if (Input.IsActionJustPressed("lose_shortcut") && !GetTree().Paused)
+        {
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+            GetParent().GetNode<ResultScreens>("lose_screen").Visible = true;
+            GetTree().Paused = true;
+        }
     }
 }

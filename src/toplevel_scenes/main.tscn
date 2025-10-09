@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=8 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="Texture2D" uid="uid://j7pufv7r8ne6" path="res://assets/placeholder_sprites/ryu_idle.png" id="2_kvr80"]
+[ext_resource type="PackedScene" uid="uid://dw6btvd76bxdj" path="res://src/menus/pause/pause_menu.tscn" id="2_qrw7u"]
 [ext_resource type="Script" uid="uid://6x3wtowj3hwh" path="res://src/entities/Enemy/Enemy.cs" id="2_swlc7"]
+[ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
+[ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
 size = Vector2(28, 97)
@@ -83,6 +86,14 @@ offset_left = 96.0
 offset_top = 48.0
 offset_right = 190.0
 offset_bottom = 71.0
+
+[node name="pause_menu" parent="UI" instance=ExtResource("2_qrw7u")]
+
+[node name="win_screen" parent="UI" instance=ExtResource("3_tjs3j")]
+visible = false
+
+[node name="lose_screen" parent="UI" instance=ExtResource("4_i584b")]
+visible = false
 
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(722, 277)

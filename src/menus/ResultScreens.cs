@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class ResultScreens : Node
+public partial class ResultScreens : Control
 {
     public override void _Ready()
     {
