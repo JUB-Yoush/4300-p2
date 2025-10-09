@@ -15,13 +15,6 @@ public static class Helpers
         ENEMY_HURT = 0b1000,
     }
 
-    // public static void DelayedCallable(this Tween tween, Tween newTween, Action action, float time)
-    // {
-    //     newTween.TweenInterval(time);
-    //     newTween.TweenCallback(Callable.From(action));
-    //     tween.Parallel().TweenSubtween(newTween);
-    // }
-
     public static Vector2 GetMovementVelocity(Vector2 start, Vector2 end, float time)
     {
         var dist = new Vector2(end.X - start.X, end.Y - start.Y);
