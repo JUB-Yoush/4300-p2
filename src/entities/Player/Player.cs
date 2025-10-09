@@ -44,6 +44,7 @@ public partial class Player : CharacterBody2D
 
     bool CanFollowUp = false;
     bool tweening = false;
+    bool wasBlocked = false;
 
     private State state;
     private Height setupHeight,
@@ -93,9 +94,16 @@ public partial class Player : CharacterBody2D
         var enemy = area.GetParent<Enemy>();
         if (enemy.BlockHeight == AttackHeight)
         {
+            if (wasBlocked)
+            {
+                return;
+            }
             // TODO attack blocking
+            wasBlocked = true;
+            enemy.Blocked();
             GD.Print("they blocked it");
             PushBlock();
+
             return;
         }
         enemy.GotHit();
@@ -106,11 +114,11 @@ public partial class Player : CharacterBody2D
 
     void PushBlock()
     {
-        Velocity = GetMovementVelocity(
-            Position,
-            new(Position.X - 200, Position.Y),
-            FramesToSeconds(6)
-        );
+        // Velocity = GetMovementVelocity(
+        //     Position,
+        //     new(Position.X - 20, Position.Y),
+        //     FramesToSeconds(2)
+        // );
     }
 
     void UpdateDebugPanel()
@@ -239,15 +247,7 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 5;
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
-        tween.Call(() =>
-        {
-            CanFollowUp = false;
-            state = State.IDLE;
-            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
-            Sprite.Frame = 7;
-            Velocity = Vector2.Zero;
-        });
+        tween.Call(Reset);
     }
 
     void LowFollowUp()
@@ -261,15 +261,8 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 4;
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
-        tween.Call(() =>
-        {
-            CanFollowUp = false;
-            state = State.IDLE;
-            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
-            Sprite.Frame = 7;
-            Velocity = Vector2.Zero;
-        });
+
+        tween.Call(Reset);
     }
 
     void MidFollowUp()
@@ -282,22 +275,26 @@ public partial class Player : CharacterBody2D
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM);
             Sprite.Frame = 6;
         });
-        //tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
-        tween.TweenProperty(
-            this,
-            "velocity",
-            GetMovementVelocity(Position, new(Position.X + 20, Position.Y), FramesToSeconds(24)),
-            FramesToSeconds(24)
-        );
-        tween.Call(() =>
-        {
-            CanFollowUp = false;
-            state = State.IDLE;
-            ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
-            Sprite.Frame = 7;
-            Velocity = Vector2.Zero;
-        });
+        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        //TODO maybe this instead?
+        // tween.TweenProperty(
+        //     this,
+        //     "velocity",
+        //     GetMovementVelocity(Position, new(Position.X + 20, Position.Y), FramesToSeconds(24)),
+        //     FramesToSeconds(24)
+        // );
+        tween.Call(Reset);
+    }
+
+    void Reset()
+    {
+        CanFollowUp = false;
+        state = State.IDLE;
+        ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+        UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+        Sprite.Frame = 7;
+        Velocity = Vector2.Zero;
+        wasBlocked = false;
     }
 
     void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)
