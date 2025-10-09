@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr78pcf06jkdr"
-path="res://.godot/imported/ryu_startup.png-57a6633e2b91559a38035fe0cd2a65d7.ctex"
+uid="uid://ekqliteegusq"
+path="res://.godot/imported/slayer1-sheet.png-3715c71666ee83e23f8dfe3b7bf9d40c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/placeholder_sprites/ryu_startup.png"
-dest_files=["res://.godot/imported/ryu_startup.png-57a6633e2b91559a38035fe0cd2a65d7.ctex"]
+source_file="res://assets/placeholder_sprites/slayer1-sheet.png"
+dest_files=["res://.godot/imported/slayer1-sheet.png-3715c71666ee83e23f8dfe3b7bf9d40c.ctex"]
 
 [params]
 
