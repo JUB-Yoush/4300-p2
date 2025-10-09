@@ -33,7 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8nsmu")
 
-[node name="Bg (empty rn)" type="TextureRect" parent="Paused"]
+[node name="Bg" type="TextureRect" parent="Paused"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -47,7 +47,7 @@ offset_bottom = 400.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Losetxt" type="Label" parent="Paused"]
+[node name="Pausedtxt" type="Label" parent="Paused"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 5
@@ -64,6 +64,23 @@ text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="brbtxt" type="Label" parent="Paused/Pausedtxt"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.0
+offset_top = 83.0
+offset_right = 155.0
+offset_bottom = 193.0
+grow_horizontal = 2
+theme = ExtResource("2_nulr0")
+theme_override_font_sizes/font_size = 50
+text = "- We'll Be Right Back -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Controlstxt" type="Label" parent="Paused"]
 z_index = 1
 layout_mode = 1
@@ -71,9 +88,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -162.0
-offset_top = 249.0
+offset_top = 294.0
 offset_right = 164.0
-offset_bottom = 359.0
+offset_bottom = 404.0
 grow_horizontal = 2
 theme = ExtResource("2_nulr0")
 theme_override_font_sizes/font_size = 50
@@ -88,9 +105,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -162.0
-offset_top = 101.0
+offset_top = 64.0
 offset_right = 164.0
-offset_bottom = 211.0
+offset_bottom = 174.0
 grow_horizontal = 2
 theme = ExtResource("2_nulr0")
 theme_override_font_sizes/font_size = 50
@@ -105,9 +122,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -162.0
-offset_top = 200.0
+offset_top = 163.0
 offset_right = 164.0
-offset_bottom = 310.0
+offset_bottom = 273.0
 grow_horizontal = 2
 theme = ExtResource("2_nulr0")
 theme_override_font_sizes/font_size = 50

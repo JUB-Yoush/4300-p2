@@ -3,6 +3,8 @@ using System;
 
 public partial class ResultScreens : Control
 {
+    //lose screen ref
+    //https://commons.wikimedia.org/wiki/File:Television_static.gif
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Visible;

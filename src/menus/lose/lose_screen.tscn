@@ -1,14 +1,32 @@
-[gd_scene load_steps=8 format=3 uid="uid://df6kcscvynj70"]
+[gd_scene load_steps=13 format=3 uid="uid://df6kcscvynj70"]
 
 [ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_81pcp"]
-[ext_resource type="Texture2D" uid="uid://cl6qiu0ep3k35" path="res://assets/placeholder_sprites/.n..png" id="2_xcbfj"]
+[ext_resource type="Texture2D" uid="uid://my6xlfav6g61" path="res://assets/static/frame_0_delay-0.06s.jpg" id="2_wa00i"]
 [ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_cuqn6"]
+[ext_resource type="Texture2D" uid="uid://pu4nqpx2n8cl" path="res://assets/static/frame_1_delay-0.06s.jpg" id="3_vfeng"]
+[ext_resource type="Texture2D" uid="uid://7x5djhfi8pq1" path="res://assets/static/frame_2_delay-0.06s.jpg" id="4_mnraf"]
 [ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_pskuv"]
+[ext_resource type="Texture2D" uid="uid://8fqp8d25fgus" path="res://assets/static/frame_3_delay-0.06s.jpg" id="5_u68x6"]
 [ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_wa00i"]
+[ext_resource type="Texture2D" uid="uid://dhfh0qo86kj3n" path="res://assets/static/frame_4_delay-0.06s.jpg" id="6_hemee"]
 [ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_vfeng"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_kty0j"]
+frames = 5
+speed_scale = 0.5
+frame_0/texture = ExtResource("2_wa00i")
+frame_0/duration = 0.06
+frame_1/texture = ExtResource("3_vfeng")
+frame_1/duration = 0.06
+frame_2/texture = ExtResource("4_mnraf")
+frame_2/duration = 0.06
+frame_3/texture = ExtResource("5_u68x6")
+frame_3/duration = 0.06
+frame_4/texture = ExtResource("6_hemee")
+frame_4/duration = 0.06
 
 [node name="lose_screen" type="Control"]
 process_mode = 3
@@ -34,19 +52,14 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8nsmu")
 
 [node name="Bg" type="TextureRect" parent="Result"]
+modulate = Color(0.784314, 0.784314, 0.784314, 1)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -270.0
-offset_top = -345.0
-offset_right = 269.0
-offset_bottom = 48.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_xcbfj")
+texture = SubResource("AnimatedTexture_kty0j")
 
 [node name="Losetxt" type="Label" parent="Result"]
 z_index = 1
@@ -60,6 +73,8 @@ offset_right = 155.0
 offset_bottom = 193.0
 grow_horizontal = 2
 theme = ExtResource("3_cuqn6")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
 theme_override_font_sizes/font_size = 80
 text = "Stream Disconnected"
 horizontal_alignment = 1

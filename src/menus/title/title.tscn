@@ -48,7 +48,7 @@ grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_8fcrf")
 
-[node name="Losetxt" type="Label" parent="Panel"]
+[node name="StartingSoontxt" type="Label" parent="Panel"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 5
@@ -83,7 +83,7 @@ texture_normal = ExtResource("4_ouxlp")
 texture_pressed = ExtResource("5_mucou")
 texture_hover = ExtResource("6_hokf8")
 
-[node name="Retrytxt" type="Label" parent="Panel/Credits"]
+[node name="Creditstxt" type="Label" parent="Panel/Credits"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,7 +116,7 @@ texture_normal = ExtResource("4_ouxlp")
 texture_pressed = ExtResource("5_mucou")
 texture_hover = ExtResource("6_hokf8")
 
-[node name="Hometxt" type="Label" parent="Panel/Exit"]
+[node name="Exittxt" type="Label" parent="Panel/Exit"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -149,7 +149,7 @@ texture_normal = ExtResource("4_ouxlp")
 texture_pressed = ExtResource("5_mucou")
 texture_hover = ExtResource("6_hokf8")
 
-[node name="Continuetxt" type="Label" parent="Panel/Play"]
+[node name="Playtxt" type="Label" parent="Panel/Play"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://e8bd70gepqrg"]
 
 [ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_127vf"]
-[ext_resource type="Texture2D" uid="uid://2ibp38le6np" path="res://assets/placeholder_sprites/Sad.png" id="2_lykw6"]
+[ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://assets/placeholder_sprites/images.jpg" id="2_lykw6"]
 [ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_bb21g"]
 [ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_q513j"]
 [ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_d4qyc"]
@@ -39,15 +39,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -607.0
-offset_top = -402.0
-offset_right = 673.0
-offset_bottom = 451.0
+offset_left = -473.0
+offset_top = -343.0
+offset_right = 807.0
+offset_bottom = 510.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_lykw6")
 
-[node name="tyTxt" type="Label" parent="Result"]
+[node name="thanksTxt" type="Label" parent="Result"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 5
@@ -60,7 +61,7 @@ offset_bottom = 193.0
 grow_horizontal = 2
 theme = ExtResource("3_bb21g")
 theme_override_font_sizes/font_size = 80
-text = "Thank You For Playing!!"
+text = "Thank You For Watching!!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
