@@ -106,14 +106,9 @@ public partial class Player : CharacterBody2D
 
     void PushBlock()
     {
-        // TODO tween this backward
-        /*         Position = Position with
-                {
-                    X = Position.X - 20,
-                }; */
         Velocity = GetMovementVelocity(
             Position,
-            new(Position.X - 100, Position.Y),
+            new(Position.X - 200, Position.Y),
             FramesToSeconds(6)
         );
     }
