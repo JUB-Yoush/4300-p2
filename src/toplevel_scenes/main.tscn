@@ -7,3 +7,6 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("1_3u0g6")]
+idle = null
+startup = null
+attack = null

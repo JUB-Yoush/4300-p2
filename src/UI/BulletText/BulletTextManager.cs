@@ -5,7 +5,8 @@ public partial class BulletTextManager : Node
 {
     [Export]
     private string[] positiveChats = null!,
-        negativeChats = null!;
+        negativeChats = null!,
+        chosen = null!;
     string textPath = "res://src/UI/BulletText/bullet_message.tscn";
     PackedScene? textScene;
 
@@ -39,22 +40,25 @@ public partial class BulletTextManager : Node
             msg.Text = GetMessage();
             msg.SetSize(msg.GetThemeDefaultFont().GetStringSize(msg.Text));
             AddChild(msg);
-            int direction = (int)(GD.Randi() % 2) * 2 - 1;
+            int direction = -1;
+            if(chosen == negativeChats)
+                direction = 1;
             ((BulletMessage)msg).direction = -direction;
             var ScreenSize = GetViewport().GetVisibleRect().Size;
             msg.Position = new Vector2(
                 (ScreenSize.X / 2)
                     + (ScreenSize.X / 2 * direction)
                     + (msg.Size.X * direction)
-                    + (SPAWN_BUFFER_SPACE * direction),
-                GD.Randi() % ScreenSize.Y
+                    + (SPAWN_BUFFER_SPACE * direction) 
+                    - ScreenSize.X / 2,
+                (GD.Randi() % ScreenSize.Y) - ScreenSize.Y / 2
             );
         }
     }
 
     private string GetMessage()
     {
-        string[] chosen = positiveChats;
+        chosen = positiveChats;
         if ((GD.Randi() % ((REPUTATION_LIMIT * 2) + 1)) - REPUTATION_LIMIT + (reputation * 4) < 0)
             chosen = negativeChats;
         return chosen[GD.Randi() % chosen.Length];
