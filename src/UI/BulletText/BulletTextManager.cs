@@ -10,7 +10,7 @@ public partial class BulletTextManager : Node
     string textPath = "res://src/UI/BulletText/bullet_message.tscn";
     PackedScene? textScene;
 
-    private double reputation = -1000;
+    private double reputation = 0;
     private const double REPUTATION_LIMIT = 1000;
     private const double REPUTATION_DECAY = 150;
     private const float SPAWN_BUFFER_SPACE = 200;
@@ -49,9 +49,8 @@ public partial class BulletTextManager : Node
                 (ScreenSize.X / 2)
                     + (ScreenSize.X / 2 * direction)
                     + (msg.Size.X * direction)
-                    + (SPAWN_BUFFER_SPACE * direction) 
-                    - ScreenSize.X / 2,
-                (GD.Randi() % ScreenSize.Y) - ScreenSize.Y / 2
+                    + (SPAWN_BUFFER_SPACE * direction),
+                GD.Randi() % ScreenSize.Y
             );
         }
     }

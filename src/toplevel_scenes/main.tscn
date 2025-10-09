@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=6 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="Texture2D" uid="uid://j7pufv7r8ne6" path="res://assets/placeholder_sprites/ryu_idle.png" id="2_kvr80"]
 [ext_resource type="Script" uid="uid://6x3wtowj3hwh" path="res://src/entities/Enemy/Enemy.cs" id="2_swlc7"]
+[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/UI/BulletText/bullet_text_manager.tscn" id="4_qrw7u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
 size = Vector2(28, 97)
@@ -108,3 +109,5 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/HurtboxArea"]
 position = Vector2(-6, 8.5)
 shape = SubResource("RectangleShape2D_kvr80")
+
+[node name="BulletTextManager" parent="." instance=ExtResource("4_qrw7u")]
