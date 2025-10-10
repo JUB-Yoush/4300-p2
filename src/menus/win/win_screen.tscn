@@ -1,0 +1,165 @@
+[gd_scene load_steps=8 format=3 uid="uid://bvwoxqh7tcwce"]
+
+[ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_0v50n"]
+[ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://assets/placeholder_sprites/images.jpg" id="2_mkkuv"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_lce0n"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_ig05b"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_e75ih"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_d010b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
+bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
+
+[node name="win_screen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_0v50n")
+
+[node name="Result" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 1900.0
+offset_bottom = 1060.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8nsmu")
+
+[node name="Bg" type="TextureRect" parent="Result"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.0
+offset_top = -345.0
+offset_right = 269.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_mkkuv")
+
+[node name="Wintxt" type="Label" parent="Result"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.0
+offset_top = 83.0
+offset_right = 155.0
+offset_bottom = 193.0
+grow_horizontal = 2
+theme = ExtResource("3_lce0n")
+theme_override_font_sizes/font_size = 80
+text = "You Won!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Reset" type="TextureButton" parent="Result"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -850.0
+offset_top = 195.0
+offset_right = 1265.0
+offset_bottom = 836.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("4_ig05b")
+texture_pressed = ExtResource("5_e75ih")
+texture_hover = ExtResource("6_d010b")
+
+[node name="Resetxt" type="Label" parent="Result/Reset"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_lce0n")
+theme_override_font_sizes/font_size = 250
+text = "Retry"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Home" type="TextureButton" parent="Result"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 350.0
+offset_top = 195.0
+offset_right = 2465.0
+offset_bottom = 836.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("4_ig05b")
+texture_pressed = ExtResource("5_e75ih")
+texture_hover = ExtResource("6_d010b")
+
+[node name="Hometxt" type="Label" parent="Result/Home"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_lce0n")
+theme_override_font_sizes/font_size = 250
+text = "Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Continue" type="TextureButton" parent="Result"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -254.0
+offset_top = 195.0
+offset_right = 1861.0
+offset_bottom = 836.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("4_ig05b")
+texture_pressed = ExtResource("5_e75ih")
+texture_hover = ExtResource("6_d010b")
+
+[node name="Continuetxt" type="Label" parent="Result/Continue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_lce0n")
+theme_override_font_sizes/font_size = 250
+text = "Continue"
+horizontal_alignment = 1
+vertical_alignment = 1
