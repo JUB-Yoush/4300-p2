@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=7 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="PackedScene" uid="uid://ds3e3mqfouyq3" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
@@ -6,7 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
-size = Vector2(32, 256)
+size = Vector2(106, 1240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrw7u"]
+size = Vector2(106, 1821)
 
 [node name="main" type="Node"]
 
@@ -82,6 +85,14 @@ offset_top = 48.0
 offset_right = 190.0
 offset_bottom = 71.0
 
+[node name="VelLabel" type="Label" parent="UI/Panel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 33.0
+offset_top = 99.0
+offset_right = 127.0
+offset_bottom = 122.0
+
 [node name="lose_screen" parent="UI" instance=ExtResource("4_i584b")]
 visible = false
 
@@ -89,19 +100,35 @@ visible = false
 visible = false
 
 [node name="Player" parent="." instance=ExtResource("1_3u0g6")]
-position = Vector2(679, 302)
+position = Vector2(338, 678)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" parent="Player" index="0"]
+frame = 16
 
 [node name="Enemy" parent="." instance=ExtResource("2_kvr80")]
-position = Vector2(742, 277)
+position = Vector2(742, -172)
 
 [node name="Walls" type="StaticBody2D" parent="."]
 collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
-position = Vector2(515, 221)
+position = Vector2(19, 529)
 shape = SubResource("RectangleShape2D_kvr80")
 
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2(972, 1103)
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_qrw7u")
+
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
-position = Vector2(875, 228)
+position = Vector2(1930, 538)
 shape = SubResource("RectangleShape2D_kvr80")
+
+[node name="GameCamera" type="Camera2D" parent="."]
+visible = false
+position = Vector2(338, 684)
+enabled = false
+
+[editable path="Player"]
