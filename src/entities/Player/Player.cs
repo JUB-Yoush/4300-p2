@@ -35,7 +35,7 @@ public partial class Player : CharacterBody2D
     }
 
     Sprite2D Sprite = null!;
-    Tween tween = null!;
+    Tween? tween = null;
 
     Tween? MovementTween = null;
 
@@ -43,6 +43,7 @@ public partial class Player : CharacterBody2D
     Action[] SetUps = [];
 
     bool CanFollowUp = false;
+    bool CanDoStartup = false;
     bool tweening = false;
     bool wasBlocked = false;
 
@@ -66,13 +67,13 @@ public partial class Player : CharacterBody2D
         setupHeight = Height.NONE;
 
         HurtboxArea = GetNode<Area2D>("HurtboxArea");
-        HurtboxArea.CollisionLayer = (uint)Collisions.PLAYER_HURT;
-        HurtboxArea.CollisionMask = (uint)Collisions.ENEMY_HIT;
+        // HurtboxArea.CollisionLayer = (uint)Collisions.PLAYER_HURT;
+        // HurtboxArea.CollisionMask = (uint)Collisions.ENEMY_HIT;
         HurtboxArea.AreaEntered += HitByEnemy;
 
         HitboxArea = GetNode<Area2D>("HitboxArea");
-        HitboxArea.CollisionLayer = (uint)Collisions.PLAYER_HIT;
-        HitboxArea.CollisionMask = (uint)Collisions.ENEMY_HURT;
+        // HitboxArea.CollisionLayer = (uint)Collisions.PLAYER_HIT;
+        // HitboxArea.CollisionMask = (uint)Collisions.ENEMY_HURT;
         HitboxArea.AreaEntered += HitEnemy;
     }
 
@@ -114,6 +115,8 @@ public partial class Player : CharacterBody2D
 
     void PushBlock()
     {
+        CanDoStartup = true;
+        //Reset();
         // Velocity = GetMovementVelocity(
         //     Position,
         //     new(Position.X - 20, Position.Y),
@@ -157,13 +160,15 @@ public partial class Player : CharacterBody2D
                 return;
             }
 
-            tween.Stop();
+            tween!.Stop();
             state = State.ATTACKING;
             AttackHeight = level;
             FollowUps[(int)level]();
         }
-        else if (state == State.IDLE)
+        else if (state == State.IDLE || CanDoStartup)
         {
+            Reset();
+            tween?.Stop();
             setupHeight = level;
             AttackHeight = Height.NONE;
             state = State.STARTUP;
@@ -295,6 +300,7 @@ public partial class Player : CharacterBody2D
         Sprite.Frame = 7;
         Velocity = Vector2.Zero;
         wasBlocked = false;
+        CanDoStartup = false;
     }
 
     void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)
