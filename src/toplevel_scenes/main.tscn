@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
-[ext_resource type="PackedScene" uid="uid://ds3e3mqfouyq3" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
+[ext_resource type="PackedScene" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
 
@@ -95,8 +95,6 @@ offset_bottom = 122.0
 
 [node name="lose_screen" parent="UI" instance=ExtResource("4_i584b")]
 visible = false
-[node name="Player" parent="." instance=ExtResource("1_3u0g6")]
-position = Vector2(679, 302)
 
 [node name="win_screen" parent="UI" instance=ExtResource("3_tjs3j")]
 visible = false
@@ -104,9 +102,6 @@ visible = false
 [node name="Player" parent="." instance=ExtResource("1_3u0g6")]
 position = Vector2(321, 688)
 metadata/_edit_group_ = true
-
-[node name="Sprite2D" parent="Player" index="0"]
-frame = 16
 
 [node name="Enemy" parent="." instance=ExtResource("2_kvr80")]
 position = Vector2(742, -172)
@@ -132,5 +127,3 @@ shape = SubResource("RectangleShape2D_kvr80")
 visible = false
 position = Vector2(338, 684)
 enabled = false
-
-[editable path="Player"]

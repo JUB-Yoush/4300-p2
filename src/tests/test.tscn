@@ -9,7 +9,7 @@ size = Vector2(57, 311)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_im6f8"]
 size = Vector2(122, 121)
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 metadata/_edit_vertical_guides_ = [99.0, 499.0]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
