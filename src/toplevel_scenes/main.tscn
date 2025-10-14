@@ -95,6 +95,8 @@ offset_bottom = 122.0
 
 [node name="lose_screen" parent="UI" instance=ExtResource("4_i584b")]
 visible = false
+[node name="Player" parent="." instance=ExtResource("1_3u0g6")]
+position = Vector2(679, 302)
 
 [node name="win_screen" parent="UI" instance=ExtResource("3_tjs3j")]
 visible = false

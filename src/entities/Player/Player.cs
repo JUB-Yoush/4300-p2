@@ -190,6 +190,7 @@ public partial class Player : CharacterBody2D
     {
         CanFollowUp = false;
 
+        // moving forward
         tween = CreateTween();
 
         // starts animation
