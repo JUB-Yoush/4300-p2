@@ -100,7 +100,7 @@ visible = false
 visible = false
 
 [node name="Player" parent="." instance=ExtResource("1_3u0g6")]
-position = Vector2(338, 678)
+position = Vector2(321, 688)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" parent="Player" index="0"]
