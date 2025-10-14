@@ -108,6 +108,8 @@ public partial class Player : CharacterBody2D
             return;
         }
         enemy.GotHit();
+        CanDoStartup = true;
+
         // play hit effect
         // apply hit stun
         // switch to hit animation on enemy
@@ -115,7 +117,7 @@ public partial class Player : CharacterBody2D
 
     void PushBlock()
     {
-        CanDoStartup = true;
+        //CanDoStartup = true;
         //Reset();
         // Velocity = GetMovementVelocity(
         //     Position,
