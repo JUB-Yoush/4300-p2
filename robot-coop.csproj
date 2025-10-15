@@ -3,5 +3,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>robotcoop</RootNamespace>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 </Project>
