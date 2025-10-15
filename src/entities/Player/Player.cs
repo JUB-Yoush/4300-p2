@@ -42,7 +42,7 @@ public partial class Player : CharacterBody2D
 
     Tween? MovementTween = null;
 
-    Action[] FollowUps = [];
+    Action[,] FollowUps = { };
     Action[] SetUps = [];
 
     bool CanFollowUp = false;
@@ -62,8 +62,13 @@ public partial class Player : CharacterBody2D
     {
         Sprite = GetNode<Sprite2D>("Sprite2D");
 
-        // should be a multidimensional list for the 2 follow ups off of every set up
-        FollowUps = [LowFollowUp, MidFollowUp, HighFollowUp];
+        Action[,] FollowUps1 =
+        {
+            { null!, LowMidFollowUp, LowHighFollowUp },
+            { MidLowFollowUp, null!, MidHighFollowUp },
+            { HighLowFollowUp, HighMidFollowUp, null! },
+        };
+        FollowUps = FollowUps1;
         SetUps = [LowSetUp, MidSetUp, HighSetUp];
 
         state = State.IDLE;
@@ -136,6 +141,9 @@ public partial class Player : CharacterBody2D
         ((Label)GetParent().GetNode("%HeightLabel")).Text = setupHeight.ToString();
         ((Label)GetParent().GetNode("%AttackLabel")).Text = AttackHeight.ToString();
         ((Label)GetParent().GetNode("%VelLabel")).Text = Velocity.ToString();
+        ((Label)GetParent().GetNode("%EnemyLabel")).Text = GetParent()
+            .GetNode<Enemy>("Enemy")
+            .BlockHeight.ToString();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -173,9 +181,9 @@ public partial class Player : CharacterBody2D
             tween!.Stop();
             state = State.ATTACKING;
             AttackHeight = level;
-            FollowUps[(int)level]();
+            FollowUps[(int)setupHeight, (int)AttackHeight]();
         }
-        else if (state == State.IDLE || CanDoStartup)
+        else if ((state == State.IDLE || CanDoStartup) && IsOnFloor())
         {
             Reset();
             tween?.Stop();
@@ -254,11 +262,6 @@ public partial class Player : CharacterBody2D
             UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M);
         });
 
-        // tween.VelocityMovement(
-        //     this,
-        //     new Vector2(Position.X + 50, Position.Y + 50),
-        //     FramesToSeconds(24)
-        // );
         tween.Call(() =>
         {
             Velocity = new(Velocity.X + 1000, Velocity.Y - 1000);
@@ -285,7 +288,7 @@ public partial class Player : CharacterBody2D
         tween.Call(Reset);
     }
 
-    void HighFollowUp()
+    void MidHighFollowUp()
     {
         tweening = true;
         CanFollowUp = false;
@@ -293,13 +296,13 @@ public partial class Player : CharacterBody2D
         tween.Call(() =>
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH);
-            Sprite.Frame = 5;
+            Sprite.Frame = 9;
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
         tween.Call(Reset);
     }
 
-    void LowFollowUp()
+    void MidLowFollowUp()
     {
         tweening = true;
         CanFollowUp = false;
@@ -307,14 +310,28 @@ public partial class Player : CharacterBody2D
         tween.Call(() =>
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.ML);
-            Sprite.Frame = 4;
+            Sprite.Frame = 11;
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
 
         tween.Call(Reset);
     }
 
-    void MidFollowUp()
+    void LowHighFollowUp()
+    {
+        tweening = true;
+        CanFollowUp = false;
+        tween = CreateTween();
+        tween.Call(() =>
+        {
+            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LH);
+            Sprite.Frame = 8;
+        });
+        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.Call(Reset);
+    }
+
+    void LowMidFollowUp()
     {
         tweening = true;
         CanFollowUp = false;
@@ -324,7 +341,7 @@ public partial class Player : CharacterBody2D
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM);
             Sprite.Frame = 6;
         });
-        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.VelocityMovement(this, new Vector2(Position.X - 20, Position.Y), FramesToSeconds(24));
         //TODO maybe this instead?
         // tween.TweenProperty(
         //     this,
@@ -332,6 +349,34 @@ public partial class Player : CharacterBody2D
         //     GetMovementVelocity(Position, new(Position.X + 20, Position.Y), FramesToSeconds(24)),
         //     FramesToSeconds(24)
         // );
+        tween.Call(Reset);
+    }
+
+    void HighMidFollowUp()
+    {
+        tweening = true;
+        CanFollowUp = false;
+        tween = CreateTween();
+        tween.Call(() =>
+        {
+            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HM);
+            Sprite.Frame = 1;
+        });
+        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.Call(Reset);
+    }
+
+    void HighLowFollowUp()
+    {
+        tweening = true;
+        CanFollowUp = false;
+        tween = CreateTween();
+        tween.Call(() =>
+        {
+            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HL);
+            Sprite.Frame = 2;
+        });
+        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
         tween.Call(Reset);
     }
 

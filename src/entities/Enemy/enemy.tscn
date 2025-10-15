@@ -4,19 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://c33574w8tvt5w" path="res://assets/2d/sprites/monster_spritesheet.png" id="2_nwlv3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwlv3"]
-size = Vector2(103.75, 21.5)
+size = Vector2(763.5, 188.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sct5a"]
-size = Vector2(105, 23.5)
+size = Vector2(765, 171.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aw8am"]
-size = Vector2(105, 24.5)
+size = Vector2(759, 176)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
-size = Vector2(28, 97)
+size = Vector2(218, 662)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swlc7"]
-size = Vector2(21, 126)
+size = Vector2(141, 540)
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 32
@@ -34,22 +34,22 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="L" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-52.125, 51)
+position = Vector2(-383.25, 278)
 shape = SubResource("RectangleShape2D_nwlv3")
 
 [node name="M" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-52.5, -2)
+position = Vector2(-382.5, 72.125)
 shape = SubResource("RectangleShape2D_sct5a")
 
 [node name="H" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-52.5, -47)
+position = Vector2(-383.5, -120)
 shape = SubResource("RectangleShape2D_aw8am")
 
 [node name="HurtboxArea" type="Area2D" parent="."]
 collision_layer = 8
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxArea"]
-position = Vector2(-29, 5)
+position = Vector2(-18, 21)
 shape = SubResource("RectangleShape2D_kvr80")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -57,7 +57,7 @@ collision_layer = 32
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-7.5, 0)
+position = Vector2(-4, -2)
 shape = SubResource("RectangleShape2D_swlc7")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]

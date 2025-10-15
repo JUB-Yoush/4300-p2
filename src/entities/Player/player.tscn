@@ -54,7 +54,7 @@ shape = SubResource("RectangleShape2D_jjnl3")
 disabled = true
 
 [node name="LH" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(307.063, 98.9277)
+position = Vector2(311, 127)
 shape = SubResource("RectangleShape2D_loq5s")
 disabled = true
 

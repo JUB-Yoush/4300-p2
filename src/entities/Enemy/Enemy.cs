@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using static CollisionBoxes;
@@ -32,6 +33,8 @@ public partial class Enemy : CharacterBody2D
     public State CurrentState = State.BLOCKING;
     Timer attackTimer = null!;
 
+    Sprite2D Sprite = null!;
+
     Area2D HitboxArea = null!;
     Area2D HurtboxArea = null!;
 
@@ -42,7 +45,7 @@ public partial class Enemy : CharacterBody2D
         attackTimer = new();
         AddChild(attackTimer);
         attackTimer.OneShot = true;
-        attackTimer.Start(4);
+        attackTimer.Start(3);
         attackTimer.Timeout += Attack;
 
         Attacks = [LowAttack, MidAttack, HighAttack];
@@ -56,6 +59,7 @@ public partial class Enemy : CharacterBody2D
         // HitboxArea.CollisionLayer = (uint)Collisions.ENEMY_HIT;
         // HitboxArea.CollisionMask = (uint)Collisions.ENEMY_HURT;
         //HitboxArea.AreaEntered += HitEnemy;
+        Sprite = GetNode<Sprite2D>("Sprite2D");
         ChangeBlockHeight();
     }
 
@@ -86,7 +90,7 @@ public partial class Enemy : CharacterBody2D
     {
         CurrentState = State.BLOCKING;
         ChangeBlockHeight();
-        attackTimer.Start(4);
+        attackTimer.Start(3);
     }
 
     void MidAttack()
@@ -106,29 +110,58 @@ public partial class Enemy : CharacterBody2D
 
     public void ChangeBlockHeight()
     {
-        //BlockHeight = (Height)new Random().Next(0, 3);
-        BlockHeight = Height.MID;
-        //GD.Print(BlockHeight);
+        var blockFrameMap = new Dictionary<Height, int>()
+        {
+            { Height.HIGH, 5 },
+            { Height.MID, 9 },
+            { Height.LOW, 7 },
+        };
+
+        var newBlockHeight = (Height)new Random().Next(0, 3);
+        while (newBlockHeight == BlockHeight)
+        {
+            newBlockHeight = (Height)new Random().Next(0, 3);
+        }
+        BlockHeight = newBlockHeight;
+        //BlockHeight = Height.MID;
+        Sprite.Frame = blockFrameMap[BlockHeight];
     }
 
     public void GotHit()
     {
         //Position = Position with { X = Position.X + 20 };
         var tween = CreateTween();
-        tween.Call(() => CurrentState = State.HIT);
+        tween.Call(() =>
+        {
+            CurrentState = State.HIT;
+            Sprite.Frame = 11;
+        });
         tween.VelocityMovement(this, new(Position.X + 5, Position.Y), FramesToSeconds(8));
-        tween.TweenInterval(2);
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(() =>
         {
             ResetCollisionBox(BoxType.HITBOX);
+            Sprite.Frame = 12;
             ChangeToBlocking();
         });
     }
 
     public void Blocked()
     {
-        var tween = CreateTween();
-        tween.VelocityMovement(this, new(Position.X + 10, Position.Y), FramesToSeconds(8));
+        var blockFrameMap = new Dictionary<Height, int>()
+        {
+            { Height.HIGH, 5 },
+            { Height.MID, 9 },
+            { Height.LOW, 7 },
+        };
+
+        //do an attack
+
+        //var tween = CreateTween();
+        // tween.VelocityMovement(this, new(Position.X + 10, Position.Y), FramesToSeconds(8), false);
+        // tween.Call(() => Sprite.Frame = blockFrameMap[BlockHeight]);
+        // tween.TweenInterval(FramesToSeconds(30));
+        // tween.Call(() => Sprite.Frame = 12);
     }
 
     void UpdateCollisionBox(BoxType boxtype, Move move)
