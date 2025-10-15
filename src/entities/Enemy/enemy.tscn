@@ -27,7 +27,7 @@ script = ExtResource("1_nwlv3")
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_nwlv3")
 hframes = 4
-vframes = 4
+vframes = 5
 
 [node name="HitboxArea" type="Area2D" parent="."]
 collision_layer = 4
