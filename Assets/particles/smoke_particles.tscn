@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://ctxt2cxk01d05"]
 
-[ext_resource type="Texture2D" uid="uid://dtpigdnvho36y" path="res://Assets/particles/Circle.png" id="1_eawph"]
+[ext_resource type="Texture2D" uid="uid://dtpigdnvho36y" path="res://Assets/particles/RoughCircle.png" id="1_eawph"]
 
 [sub_resource type="Curve" id="Curve_4pmdf"]
 _limits = [-360.0, 360.0, 0.0, 1.0]

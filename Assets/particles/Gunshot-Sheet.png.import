@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtpigdnvho36y"
-path="res://.godot/imported/Circle.png-90dff944867dd169c96055e85f9a2351.ctex"
+uid="uid://b4fxjgnk6fkom"
+path="res://.godot/imported/Gunshot-Sheet.png-62c650efd64344e0b7c72b7fffcab2e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/particles/Circle.png"
-dest_files=["res://.godot/imported/Circle.png-90dff944867dd169c96055e85f9a2351.ctex"]
+source_file="res://Assets/particles/Gunshot-Sheet.png"
+dest_files=["res://.godot/imported/Gunshot-Sheet.png-62c650efd64344e0b7c72b7fffcab2e9.ctex"]
 
 [params]
 
