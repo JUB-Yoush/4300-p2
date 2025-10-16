@@ -1,16 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://bn1sondwl58ft"]
+[gd_scene load_steps=13 format=3 uid="uid://bn1sondwl58ft"]
 
 [ext_resource type="Script" uid="uid://dtqb44nqyol50" path="res://src/entities/Player/Player.cs" id="2_loq5s"]
-[ext_resource type="Texture2D" uid="uid://ekqliteegusq" path="res://assets/placeholder_sprites/slayer1-sheet.png" id="5_bimrn"]
+[ext_resource type="Texture2D" uid="uid://b6wpnpbm7g0qy" path="res://assets/2d/sprites/mecha_spritesheet.png" id="2_pjr3c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjnl3"]
-size = Vector2(34, 11)
+size = Vector2(1105, 116.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_loq5s"]
+size = Vector2(363.875, 353.344)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gk04w"]
-size = Vector2(34, 18)
+size = Vector2(683, 131)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j63m"]
-size = Vector2(19, 70)
+size = Vector2(2793, 99.4999)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bimrn"]
+size = Vector2(400.938, 189)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ky3l"]
+size = Vector2(911.469, 201.672)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w6i4f"]
 size = Vector2(25, 33)
@@ -18,37 +27,60 @@ size = Vector2(25, 33)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppn71"]
 size = Vector2(25.5, 25.5)
 
-[node name="Player" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hq84m"]
+size = Vector2(125, 652.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pjr3c"]
+size = Vector2(204.5, 652.75)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 96
 script = ExtResource("2_loq5s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("5_bimrn")
-flip_h = true
-hframes = 8
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_pjr3c")
+hframes = 4
+vframes = 5
 frame = 5
 
 [node name="HitboxArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 0
+collision_mask = 8
 
 [node name="LM" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(35, -5)
+position = Vector2(516.12, -241)
 shape = SubResource("RectangleShape2D_jjnl3")
 disabled = true
 
+[node name="LH" type="CollisionShape2D" parent="HitboxArea"]
+position = Vector2(311, 127)
+shape = SubResource("RectangleShape2D_loq5s")
+disabled = true
+
 [node name="ML" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(32, 29)
+position = Vector2(579.5, -29.395)
 shape = SubResource("RectangleShape2D_gk04w")
 disabled = true
 
 [node name="MH" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(5.5, 1)
+position = Vector2(1434.5, -130.145)
 shape = SubResource("RectangleShape2D_4j63m")
 disabled = true
 
+[node name="HL" type="CollisionShape2D" parent="HitboxArea"]
+position = Vector2(421.531, 237)
+shape = SubResource("RectangleShape2D_bimrn")
+disabled = true
+
+[node name="HM" type="CollisionShape2D" parent="HitboxArea"]
+position = Vector2(668.266, 13.5691)
+shape = SubResource("RectangleShape2D_5ky3l")
+disabled = true
+
 [node name="HurtboxArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 2
+collision_mask = 4
 
 [node name="IDLE" type="CollisionShape2D" parent="HurtboxArea"]
 position = Vector2(0, 7)
@@ -59,3 +91,15 @@ disabled = true
 position = Vector2(-13.25, 19)
 shape = SubResource("RectangleShape2D_ppn71")
 disabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-7, 7)
+shape = SubResource("RectangleShape2D_hq84m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-47, 15)
+shape = SubResource("RectangleShape2D_pjr3c")
