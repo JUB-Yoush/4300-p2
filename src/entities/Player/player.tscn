@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://bn1sondwl58ft"]
+[gd_scene load_steps=15 format=3 uid="uid://bn1sondwl58ft"]
 
 [ext_resource type="Script" uid="uid://dtqb44nqyol50" path="res://src/entities/Player/Player.cs" id="2_loq5s"]
 [ext_resource type="Texture2D" uid="uid://b6wpnpbm7g0qy" path="res://assets/2d/sprites/mecha_spritesheet.png" id="2_pjr3c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjnl3"]
-size = Vector2(1105, 116.75)
+size = Vector2(1311.38, 180.375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loq5s"]
 size = Vector2(363.875, 353.344)
@@ -22,13 +22,19 @@ size = Vector2(400.938, 189)
 size = Vector2(911.469, 201.672)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w6i4f"]
-size = Vector2(25, 33)
+size = Vector2(316, 523.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppn71"]
-size = Vector2(25.5, 25.5)
+size = Vector2(156.75, 522.438)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tj66a"]
+size = Vector2(257, 346.965)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jv72d"]
+size = Vector2(257, 161.93)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hq84m"]
-size = Vector2(125, 652.75)
+size = Vector2(386, 652.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjr3c"]
 size = Vector2(204.5, 652.75)
@@ -39,17 +45,18 @@ collision_mask = 96
 script = ExtResource("2_loq5s")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -1)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_pjr3c")
 hframes = 4
 vframes = 5
-frame = 5
+frame = 3
 
 [node name="HitboxArea" type="Area2D" parent="."]
 collision_mask = 8
 
 [node name="LM" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(516.12, -241)
+position = Vector2(619.31, -209.188)
 shape = SubResource("RectangleShape2D_jjnl3")
 disabled = true
 
@@ -83,13 +90,23 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="IDLE" type="CollisionShape2D" parent="HurtboxArea"]
-position = Vector2(0, 7)
+position = Vector2(11, 89)
 shape = SubResource("RectangleShape2D_w6i4f")
 disabled = true
 
 [node name="M" type="CollisionShape2D" parent="HurtboxArea"]
-position = Vector2(-13.25, 19)
+position = Vector2(-149, 88.7812)
 shape = SubResource("RectangleShape2D_ppn71")
+disabled = true
+
+[node name="L" type="CollisionShape2D" parent="HurtboxArea"]
+position = Vector2(31, -78.4824)
+shape = SubResource("RectangleShape2D_tj66a")
+disabled = true
+
+[node name="H" type="CollisionShape2D" parent="HurtboxArea"]
+position = Vector2(-111, 270.965)
+shape = SubResource("RectangleShape2D_jv72d")
 disabled = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -97,7 +114,7 @@ collision_layer = 16
 collision_mask = 32
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-7, 7)
+position = Vector2(-41, 7)
 shape = SubResource("RectangleShape2D_hq84m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

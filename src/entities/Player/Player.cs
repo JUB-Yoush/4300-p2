@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,11 +24,25 @@ public partial class Player : CharacterBody2D
         HM,
     }
 
+    public Dictionary<Move, int> DamageMap = new Dictionary<Move, int>
+    {
+        { Move.LM, 5 },
+        { Move.LH, 5 },
+        { Move.ML, 5 },
+        { Move.MH, 5 },
+        { Move.HL, 5 },
+        { Move.HM, 5 },
+    };
+
+    Move currentMove = Move.IDLE;
+
     enum State
     {
         IDLE,
         STARTUP,
         ATTACKING,
+        BLOCKING,
+        HIT,
     }
 
     public enum Height
@@ -58,10 +74,13 @@ public partial class Player : CharacterBody2D
     Area2D HitboxArea = null!;
     Area2D HurtboxArea = null!;
 
+    int Hp = 100;
+
     public override void _Ready()
     {
         Sprite = GetNode<Sprite2D>("Sprite2D");
 
+        // don't ask me why i have to instanitate it like this because i couldn't tell you.
         Action[,] FollowUps1 =
         {
             { null!, LowMidFollowUp, LowHighFollowUp },
@@ -87,14 +106,24 @@ public partial class Player : CharacterBody2D
 
     void HitByEnemy(Area2D area)
     {
-        GD.Print("got hit");
-
-        var enemy = area.GetParent<Enemy>();
-        if (BlockHeight == enemy.AttackHeight)
+        if (state == State.HIT)
         {
-            // TODO attack blocking
             return;
         }
+        var enemy = area.GetParent<Enemy>();
+        tween?.Stop();
+        if (IsOnFloor()) { }
+        Velocity = Vector2.Zero;
+        tween = CreateTween();
+        tween.Call(() =>
+        {
+            state = State.HIT;
+            Sprite.Frame = 3;
+            Hp -= enemy.DamageMap[enemy.currentMove];
+        });
+        tween.VelocityMovement(this, new(Position.X - 50, Position.Y), FramesToSeconds(8));
+        tween.TweenInterval(FramesToSeconds(30));
+        tween.Call(Reset);
     }
 
     void HitEnemy(Area2D area)
@@ -115,7 +144,9 @@ public partial class Player : CharacterBody2D
 
             return;
         }
-        enemy.GotHit();
+        var hitstun = 5;
+        var damage = DamageMap[currentMove];
+        enemy.GotHit(hitstun, damage);
         CanDoStartup = true;
 
         // play hit effect
@@ -161,12 +192,21 @@ public partial class Player : CharacterBody2D
         {
             ProcessAttack(Height.LOW);
         }
+        else if (Input.IsActionJustPressed("block"))
+        {
+            Block();
+        }
         UpdateDebugPanel();
         MoveAndSlide();
         if (!IsOnFloor() && (tween == null || !tween.IsRunning()))
         {
             Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 10) };
         }
+    }
+
+    void Block()
+    {
+        if (state != State.IDLE || state == State.BLOCKING) { }
     }
 
     void ProcessAttack(Height level)
@@ -231,7 +271,7 @@ public partial class Player : CharacterBody2D
         tween.Call(() =>
         {
             Sprite.Frame = 14;
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.H);
         });
 
         tween.VelocityMovement(
@@ -258,7 +298,7 @@ public partial class Player : CharacterBody2D
         tween.Call(() =>
         {
             Sprite.Frame = 17;
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M);
+            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.L);
         });
 
         tween.Call(() =>
@@ -330,7 +370,11 @@ public partial class Player : CharacterBody2D
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LH);
             Sprite.Frame = 8;
         });
-        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.VelocityMovement(
+            this,
+            new Vector2(Position.X, Position.Y + 200),
+            FramesToSeconds(24)
+        );
         tween.Call(Reset);
     }
 
@@ -403,6 +447,12 @@ public partial class Player : CharacterBody2D
         ResetCollisionBox(boxtype);
 
         var area = boxtype == CollisionBoxes.BoxType.HITBOX ? HitboxArea : HurtboxArea;
+
+        if (boxtype == CollisionBoxes.BoxType.HITBOX)
+        {
+            currentMove = move;
+        }
+
         area.GetNode<CollisionShape2D>(move.ToString()).Disabled = false;
     }
 
