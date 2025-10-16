@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://cmwoleb37aggd"]
 
 [ext_resource type="Script" uid="uid://5qo5taxywxo1" path="res://src/menus/title/Title.cs" id="1_8fcrf"]
-[ext_resource type="Texture2D" uid="uid://2ibp38le6np" path="res://assets/placeholder_sprites/Sad.png" id="2_8fcrf"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_vnrfo"]
-[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_ouxlp"]
-[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_mucou"]
-[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_hokf8"]
+[ext_resource type="Texture2D" uid="uid://2ibp38le6np" path="res://Assets/placeholder_sprites/Sad.png" id="2_8fcrf"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://Assets/text_themes/menus_basic.tres" id="3_vnrfo"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://Assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_ouxlp"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://Assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_mucou"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://Assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_hokf8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -79,9 +79,12 @@ offset_bottom = 959.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_left = NodePath("../Exit")
+focus_neighbor_right = NodePath("../Play")
 texture_normal = ExtResource("4_ouxlp")
 texture_pressed = ExtResource("5_mucou")
 texture_hover = ExtResource("6_hokf8")
+texture_focused = ExtResource("6_hokf8")
 
 [node name="Creditstxt" type="Label" parent="Panel/Credits"]
 layout_mode = 1
@@ -112,9 +115,12 @@ offset_bottom = 959.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_left = NodePath("../Play")
+focus_neighbor_right = NodePath("../Credits")
 texture_normal = ExtResource("4_ouxlp")
 texture_pressed = ExtResource("5_mucou")
 texture_hover = ExtResource("6_hokf8")
+texture_focused = ExtResource("6_hokf8")
 
 [node name="Exittxt" type="Label" parent="Panel/Exit"]
 layout_mode = 1
@@ -145,9 +151,12 @@ offset_bottom = 959.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_left = NodePath("../Credits")
+focus_neighbor_right = NodePath("../Exit")
 texture_normal = ExtResource("4_ouxlp")
 texture_pressed = ExtResource("5_mucou")
 texture_hover = ExtResource("6_hokf8")
+texture_focused = ExtResource("6_hokf8")
 
 [node name="Playtxt" type="Label" parent="Panel/Play"]
 layout_mode = 1

@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dw6btvd76bxdj"]
 
 [ext_resource type="Script" uid="uid://bk5kab6a77sev" path="res://src/menus/pause/PauseMenu.cs" id="1_aqhcl"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="2_nulr0"]
-[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="3_24rtq"]
-[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="4_j4mso"]
-[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="5_v5a41"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://Assets/text_themes/menus_basic.tres" id="2_nulr0"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://Assets/placeholder_sprites/smell_UI/Button Idle.svg" id="3_24rtq"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://Assets/placeholder_sprites/smell_UI/Button Click.svg" id="4_j4mso"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://Assets/placeholder_sprites/smell_UI/Button Hover.svg" id="5_v5a41"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -146,9 +146,12 @@ offset_bottom = 713.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_top = NodePath("../Home")
+focus_neighbor_bottom = NodePath("../Home")
 texture_normal = ExtResource("3_24rtq")
 texture_pressed = ExtResource("4_j4mso")
 texture_hover = ExtResource("5_v5a41")
+texture_focused = ExtResource("5_v5a41")
 
 [node name="Resumetxt" type="Label" parent="Paused/Resume"]
 layout_mode = 1
@@ -177,9 +180,12 @@ offset_bottom = 946.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_top = NodePath("../Resume")
+focus_neighbor_bottom = NodePath("../Resume")
 texture_normal = ExtResource("3_24rtq")
 texture_pressed = ExtResource("4_j4mso")
 texture_hover = ExtResource("5_v5a41")
+texture_focused = ExtResource("5_v5a41")
 
 [node name="Hometxt" type="Label" parent="Paused/Home"]
 layout_mode = 1

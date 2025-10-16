@@ -1,15 +1,15 @@
 [gd_scene load_steps=13 format=3 uid="uid://df6kcscvynj70"]
 
 [ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_81pcp"]
-[ext_resource type="Texture2D" uid="uid://my6xlfav6g61" path="res://assets/static/frame_0_delay-0.06s.jpg" id="2_wa00i"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_cuqn6"]
-[ext_resource type="Texture2D" uid="uid://pu4nqpx2n8cl" path="res://assets/static/frame_1_delay-0.06s.jpg" id="3_vfeng"]
-[ext_resource type="Texture2D" uid="uid://7x5djhfi8pq1" path="res://assets/static/frame_2_delay-0.06s.jpg" id="4_mnraf"]
-[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_pskuv"]
-[ext_resource type="Texture2D" uid="uid://8fqp8d25fgus" path="res://assets/static/frame_3_delay-0.06s.jpg" id="5_u68x6"]
-[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_wa00i"]
-[ext_resource type="Texture2D" uid="uid://dhfh0qo86kj3n" path="res://assets/static/frame_4_delay-0.06s.jpg" id="6_hemee"]
-[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_vfeng"]
+[ext_resource type="Texture2D" uid="uid://my6xlfav6g61" path="res://Assets/static/frame_0_delay-0.06s.jpg" id="2_wa00i"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://Assets/text_themes/menus_basic.tres" id="3_cuqn6"]
+[ext_resource type="Texture2D" uid="uid://pu4nqpx2n8cl" path="res://Assets/static/frame_1_delay-0.06s.jpg" id="3_vfeng"]
+[ext_resource type="Texture2D" uid="uid://7x5djhfi8pq1" path="res://Assets/static/frame_2_delay-0.06s.jpg" id="4_mnraf"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://Assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_pskuv"]
+[ext_resource type="Texture2D" uid="uid://8fqp8d25fgus" path="res://Assets/static/frame_3_delay-0.06s.jpg" id="5_u68x6"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://Assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_wa00i"]
+[ext_resource type="Texture2D" uid="uid://dhfh0qo86kj3n" path="res://Assets/static/frame_4_delay-0.06s.jpg" id="6_hemee"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://Assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_vfeng"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -94,9 +94,12 @@ offset_bottom = 749.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_top = NodePath("../Home")
+focus_neighbor_bottom = NodePath("../Home")
 texture_normal = ExtResource("4_pskuv")
 texture_pressed = ExtResource("5_wa00i")
 texture_hover = ExtResource("6_vfeng")
+texture_focused = ExtResource("6_vfeng")
 
 [node name="Retrytxt" type="Label" parent="Result/Reset"]
 layout_mode = 1
@@ -127,9 +130,12 @@ offset_bottom = 946.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_top = NodePath("../Reset")
+focus_neighbor_bottom = NodePath("../Reset")
 texture_normal = ExtResource("4_pskuv")
 texture_pressed = ExtResource("5_wa00i")
 texture_hover = ExtResource("6_vfeng")
+texture_focused = ExtResource("6_vfeng")
 
 [node name="Hometxt" type="Label" parent="Result/Home"]
 layout_mode = 1

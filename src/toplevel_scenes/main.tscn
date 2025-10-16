@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
-[ext_resource type="Texture2D" uid="uid://j7pufv7r8ne6" path="res://assets/placeholder_sprites/ryu_idle.png" id="2_kvr80"]
+[ext_resource type="Texture2D" uid="uid://j7pufv7r8ne6" path="res://Assets/placeholder_sprites/ryu_idle.png" id="2_kvr80"]
 [ext_resource type="PackedScene" uid="uid://dw6btvd76bxdj" path="res://src/menus/pause/pause_menu.tscn" id="2_qrw7u"]
 [ext_resource type="Script" uid="uid://6x3wtowj3hwh" path="res://src/entities/Enemy/Enemy.cs" id="2_swlc7"]
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]

@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://e8bd70gepqrg"]
 
 [ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_127vf"]
-[ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://assets/placeholder_sprites/images.jpg" id="2_lykw6"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_bb21g"]
-[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_q513j"]
-[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_d4qyc"]
-[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_io45t"]
+[ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://Assets/placeholder_sprites/images.jpg" id="2_lykw6"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://Assets/text_themes/menus_basic.tres" id="3_bb21g"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://Assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_q513j"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://Assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_d4qyc"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://Assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_io45t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2jnr"]
 bg_color = Color(0.509994, 0.435061, 0.789425, 1)
@@ -82,6 +82,7 @@ scale = Vector2(0.25, 0.25)
 texture_normal = ExtResource("4_q513j")
 texture_pressed = ExtResource("5_d4qyc")
 texture_hover = ExtResource("6_io45t")
+texture_focused = ExtResource("6_io45t")
 
 [node name="Hometxt" type="Label" parent="Result/Home"]
 layout_mode = 1

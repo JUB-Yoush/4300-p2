@@ -24,6 +24,7 @@ public partial class PauseMenu : Control
     {
         if (Input.IsActionJustPressed("pause") && !GetTree().Paused)
         {
+            GetNode<TextureButton>("Paused/Home").GrabFocus();
             Input.MouseMode = Input.MouseModeEnum.Visible;
             GetNode<Panel>("Paused").Visible = true;
             GetTree().Paused = true;
@@ -38,12 +39,14 @@ public partial class PauseMenu : Control
         {
             Input.MouseMode = Input.MouseModeEnum.Visible;
             GetParent().GetNode<ResultScreens>("win_screen").Visible = true;
+            GetParent().GetNode<ResultScreens>("win_screen").GetNode<TextureButton>("Result/Home").GrabFocus();
             GetTree().Paused = true;
         }
         else if (Input.IsActionJustPressed("lose_shortcut") && !GetTree().Paused)
         {
             Input.MouseMode = Input.MouseModeEnum.Visible;
             GetParent().GetNode<ResultScreens>("lose_screen").Visible = true;
+            GetParent().GetNode<ResultScreens>("lose_screen").GetNode<TextureButton>("Result/Home").GrabFocus();
             GetTree().Paused = true;
         }
     }

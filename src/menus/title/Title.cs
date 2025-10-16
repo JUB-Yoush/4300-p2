@@ -19,6 +19,7 @@ public partial class Title : Control
 	public override void _Ready()
 	{
 		playBtn = GetNode<TextureButton>("Panel/Play");
+		playBtn.GrabFocus();
 		creditsBtn = GetNode<TextureButton>("Panel/Credits");
 		exitBtn = GetNode<TextureButton>("Panel/Exit");
 
@@ -89,7 +90,7 @@ public partial class Title : Control
 			}
 			else
 			{
-				_ButtonStandby(button);
+				//_ButtonStandby(button);
 			}
 		}
 	}

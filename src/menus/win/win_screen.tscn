@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://bvwoxqh7tcwce"]
 
 [ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_0v50n"]
-[ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://assets/placeholder_sprites/images.jpg" id="2_mkkuv"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_lce0n"]
-[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_ig05b"]
-[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_e75ih"]
-[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_d010b"]
+[ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://Assets/placeholder_sprites/images.jpg" id="2_mkkuv"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://Assets/text_themes/menus_basic.tres" id="3_lce0n"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://Assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_ig05b"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://Assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_e75ih"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://Assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_d010b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -79,9 +79,12 @@ offset_bottom = 836.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_left = NodePath("../Home")
+focus_neighbor_right = NodePath("../Continue")
 texture_normal = ExtResource("4_ig05b")
 texture_pressed = ExtResource("5_e75ih")
 texture_hover = ExtResource("6_d010b")
+texture_focused = ExtResource("6_d010b")
 
 [node name="Resetxt" type="Label" parent="Result/Reset"]
 layout_mode = 1
@@ -112,9 +115,12 @@ offset_bottom = 836.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_left = NodePath("../Continue")
+focus_neighbor_right = NodePath("../Reset")
 texture_normal = ExtResource("4_ig05b")
 texture_pressed = ExtResource("5_e75ih")
 texture_hover = ExtResource("6_d010b")
+texture_focused = ExtResource("6_d010b")
 
 [node name="Hometxt" type="Label" parent="Result/Home"]
 layout_mode = 1
@@ -145,9 +151,12 @@ offset_bottom = 836.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.25, 0.25)
+focus_neighbor_left = NodePath("../Reset")
+focus_neighbor_right = NodePath("../Home")
 texture_normal = ExtResource("4_ig05b")
 texture_pressed = ExtResource("5_e75ih")
 texture_hover = ExtResource("6_d010b")
+texture_focused = ExtResource("6_d010b")
 
 [node name="Continuetxt" type="Label" parent="Result/Continue"]
 layout_mode = 1

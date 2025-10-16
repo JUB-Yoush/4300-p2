@@ -8,6 +8,7 @@ public partial class ResultScreens : Control
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Visible;
+        GetNode<TextureButton>("Result/Home").GrabFocus();
         GetNode<TextureButton>("Result/Reset").Pressed += () =>
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
