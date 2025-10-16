@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://btbjdhaoxuisx"]
+
+[ext_resource type="Texture2D" uid="uid://dtpigdnvho36y" path="res://Assets/particles/RoughCircle.png" id="1_qt8hk"]
+[ext_resource type="Texture2D" uid="uid://br5m2nj2bs3q6" path="res://Assets/particles/Triangle.png" id="2_t26mt"]
+
+[sub_resource type="Curve" id="Curve_trsfj"]
+_data = [Vector2(0, 0.235955), 0.0, 0.0, 0, 0, Vector2(0.102941, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_p4e46"]
+curve = SubResource("Curve_trsfj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l13ug"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(20, 0, 0)
+emission_shape_scale = Vector3(20, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 0, 1)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 1.7
+linear_accel_max = 2.45
+scale_min = 0.02
+scale_max = 0.02
+scale_curve = SubResource("CurveTexture_p4e46")
+color = Color(0.2, 0.803922, 0.792157, 1)
+
+[sub_resource type="Curve" id="Curve_wdos0"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 44.4944), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gdjo3"]
+curve = SubResource("Curve_wdos0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iso5f"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.5, 0.5)
+angle_min = -3.99999
+angle_max = 1.07288e-05
+angle_curve = SubResource("CurveTexture_gdjo3")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_p4e46")
+color = Color(0.2, 0.803922, 0.792157, 0.784314)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xeox1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.5, 0.5)
+angle_min = 1.07288e-05
+angle_max = 4.00001
+angle_curve = SubResource("CurveTexture_gdjo3")
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_p4e46")
+color = Color(0.2, 0.803922, 0.792157, 0.784314)
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+amount = 200
+texture = ExtResource("1_qt8hk")
+lifetime = 0.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_l13ug")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 2
+texture = ExtResource("2_t26mt")
+lifetime = 0.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_iso5f")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+amount = 2
+lifetime = 0.5
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xeox1")
