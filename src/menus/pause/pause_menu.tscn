@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw6btvd76bxdj"]
+[gd_scene load_steps=11 format=3 uid="uid://dw6btvd76bxdj"]
 
 [ext_resource type="Script" uid="uid://bk5kab6a77sev" path="res://src/menus/pause/PauseMenu.cs" id="1_aqhcl"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://Assets/text_themes/menus_basic.tres" id="2_nulr0"]
-[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://Assets/placeholder_sprites/smell_UI/Button Idle.svg" id="3_24rtq"]
-[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://Assets/placeholder_sprites/smell_UI/Button Click.svg" id="4_j4mso"]
-[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://Assets/placeholder_sprites/smell_UI/Button Hover.svg" id="5_v5a41"]
+[ext_resource type="Texture2D" uid="uid://dvljuvq35xdre" path="res://assets/ui/paused_UI/Pause Background (1).png" id="2_24rtq"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="2_nulr0"]
+[ext_resource type="Texture2D" uid="uid://fvwq1h857fet" path="res://assets/ui/paused_UI/Control Panel.svg" id="3_v5a41"]
+[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="4_j4mso"]
+[ext_resource type="Texture2D" uid="uid://d1h0w7ikaf3ge" path="res://assets/ui/paused_UI/Skip Ads Idle.svg" id="5_v5a41"]
+[ext_resource type="Texture2D" uid="uid://7xf4kp4hqwd6" path="res://assets/ui/paused_UI/Skip Ads Hover.svg" id="6_8nsmu"]
+[ext_resource type="Texture2D" uid="uid://1r51h3or6mor" path="res://assets/ui/paused_UI/Leave Stream Idle.svg" id="7_kp3y8"]
+[ext_resource type="Texture2D" uid="uid://cnovfco4ap8dx" path="res://assets/ui/paused_UI/Leave Stream Hover.svg" id="8_a652i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -33,51 +37,100 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8nsmu")
 
-[node name="Bg" type="TextureRect" parent="Paused"]
+[node name="Background" type="TextureRect" parent="Paused"]
+layout_mode = 0
+offset_right = 1927.0
+offset_bottom = 1087.0
+texture = ExtResource("2_24rtq")
+
+[node name="Controls" type="TextureRect" parent="Paused"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -750.0
-offset_top = -400.0
-offset_right = 750.0
-offset_bottom = 400.0
+offset_left = 219.0
+offset_top = -423.0
+offset_right = 907.0
+offset_bottom = 87.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_v5a41")
+stretch_mode = 3
 
-[node name="Pausedtxt" type="Label" parent="Paused"]
+[node name="brbtxt" type="Label" parent="Paused"]
+visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -154.0
-offset_top = 83.0
-offset_right = 155.0
-offset_bottom = 193.0
-grow_horizontal = 2
-theme = ExtResource("2_nulr0")
-theme_override_font_sizes/font_size = 80
-text = "PAUSED"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="brbtxt" type="Label" parent="Paused/Pausedtxt"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -154.0
-offset_top = 83.0
-offset_right = 155.0
-offset_bottom = 193.0
+offset_left = -256.5
+offset_top = 166.0
+offset_right = 258.5
+offset_bottom = 276.0
 grow_horizontal = 2
 theme = ExtResource("2_nulr0")
 theme_override_font_sizes/font_size = 50
 text = "- We'll Be Right Back -"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PAUSED" type="Label" parent="Paused"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -750.0
+offset_top = 286.0
+offset_right = -25.0
+offset_bottom = 478.0
+grow_horizontal = 2
+theme = ExtResource("2_nulr0")
+theme_override_colors/font_color = Color(0.282353, 0.0470588, 0.603922, 1)
+theme_override_fonts/font = ExtResource("4_j4mso")
+theme_override_font_sizes/font_size = 150
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="STREAM" type="Label" parent="Paused"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -714.0
+offset_top = 133.0
+offset_right = -90.0
+offset_bottom = 297.0
+grow_horizontal = 2
+theme = ExtResource("2_nulr0")
+theme_override_colors/font_color = Color(0.968627, 0.913725, 1, 1)
+theme_override_fonts/font = ExtResource("4_j4mso")
+theme_override_font_sizes/font_size = 128
+text = "STREAM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="commericals" type="Label" parent="Paused"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -748.0
+offset_top = 471.0
+offset_right = -30.0
+offset_bottom = 635.0
+grow_horizontal = 2
+theme = ExtResource("2_nulr0")
+theme_override_colors/font_color = Color(0.968627, 0.913725, 1, 1)
+theme_override_fonts/font = ExtResource("4_j4mso")
+theme_override_font_sizes/font_size = 64
+text = "FOR COMMERICALS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -87,14 +140,16 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -162.0
-offset_top = 294.0
-offset_right = 164.0
-offset_bottom = 404.0
+offset_left = 247.0
+offset_top = 119.0
+offset_right = 573.0
+offset_bottom = 229.0
 grow_horizontal = 2
 theme = ExtResource("2_nulr0")
-theme_override_font_sizes/font_size = 50
-text = "Controls"
+theme_override_colors/font_color = Color(0.960784, 0.835294, 0.937255, 1)
+theme_override_fonts/font = ExtResource("4_j4mso")
+theme_override_font_sizes/font_size = 48
+text = "CONTROLS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -104,13 +159,15 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -162.0
-offset_top = 64.0
-offset_right = 164.0
-offset_bottom = 174.0
+offset_left = -92.0
+offset_top = 119.0
+offset_right = 238.0
+offset_bottom = 229.0
 grow_horizontal = 2
 theme = ExtResource("2_nulr0")
-theme_override_font_sizes/font_size = 50
+theme_override_colors/font_color = Color(0.979652, 0.917376, 0.967301, 1)
+theme_override_fonts/font = ExtResource("4_j4mso")
+theme_override_font_sizes/font_size = 56
 text = "X - Attack"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -121,14 +178,16 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -162.0
-offset_top = 163.0
-offset_right = 164.0
-offset_bottom = 273.0
+offset_left = -90.0
+offset_top = 225.0
+offset_right = 198.0
+offset_bottom = 335.0
 grow_horizontal = 2
 theme = ExtResource("2_nulr0")
-theme_override_font_sizes/font_size = 50
-text = "Y - Block"
+theme_override_colors/font_color = Color(0.979652, 0.917376, 0.967301, 1)
+theme_override_fonts/font = ExtResource("4_j4mso")
+theme_override_font_sizes/font_size = 56
+text = "B - Block"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -139,30 +198,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -264.0
-offset_top = 72.0
-offset_right = 1851.0
-offset_bottom = 713.0
+offset_left = 336.0
+offset_top = 324.0
+offset_right = 959.0
+offset_bottom = 474.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
 focus_neighbor_top = NodePath("../Home")
 focus_neighbor_bottom = NodePath("../Home")
-texture_normal = ExtResource("3_24rtq")
-texture_pressed = ExtResource("4_j4mso")
-texture_hover = ExtResource("5_v5a41")
-texture_focused = ExtResource("5_v5a41")
+texture_normal = ExtResource("5_v5a41")
+texture_hover = ExtResource("6_8nsmu")
+stretch_mode = 3
 
 [node name="Resumetxt" type="Label" parent="Paused/Resume"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = 3.0
+offset_right = -2.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_nulr0")
-theme_override_font_sizes/font_size = 250
-text = "Resume"
+theme_override_colors/font_color = Color(0.968627, 0.913725, 1, 1)
+theme_override_fonts/font = ExtResource("4_j4mso")
+theme_override_font_sizes/font_size = 80
+text = "Skip Ads"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -173,31 +236,33 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -264.0
-offset_top = 305.0
-offset_right = 1851.0
-offset_bottom = 946.0
+offset_left = -960.0
+offset_top = 324.0
+offset_right = -337.0
+offset_bottom = 474.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
 focus_neighbor_top = NodePath("../Resume")
 focus_neighbor_bottom = NodePath("../Resume")
-texture_normal = ExtResource("3_24rtq")
-texture_pressed = ExtResource("4_j4mso")
-texture_hover = ExtResource("5_v5a41")
-texture_focused = ExtResource("5_v5a41")
+texture_normal = ExtResource("7_kp3y8")
+texture_hover = ExtResource("8_a652i")
+stretch_mode = 3
 
 [node name="Hometxt" type="Label" parent="Paused/Home"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_bottom = 23.0
+offset_left = 15.0
+offset_top = 16.0
+offset_right = -170.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_nulr0")
-theme_override_font_sizes/font_size = 250
-text = "Menu"
+theme_override_colors/font_color = Color(0.968627, 0.913725, 1, 1)
+theme_override_fonts/font = ExtResource("4_j4mso")
+theme_override_font_sizes/font_size = 48
+text = "Leave Stream"
 horizontal_alignment = 1
 vertical_alignment = 1

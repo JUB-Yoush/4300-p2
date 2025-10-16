@@ -1,15 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://df6kcscvynj70"]
+[gd_scene load_steps=17 format=3 uid="uid://df6kcscvynj70"]
 
 [ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_81pcp"]
-[ext_resource type="Texture2D" uid="uid://my6xlfav6g61" path="res://Assets/static/frame_0_delay-0.06s.jpg" id="2_wa00i"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://Assets/text_themes/menus_basic.tres" id="3_cuqn6"]
-[ext_resource type="Texture2D" uid="uid://pu4nqpx2n8cl" path="res://Assets/static/frame_1_delay-0.06s.jpg" id="3_vfeng"]
-[ext_resource type="Texture2D" uid="uid://7x5djhfi8pq1" path="res://Assets/static/frame_2_delay-0.06s.jpg" id="4_mnraf"]
-[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://Assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_pskuv"]
-[ext_resource type="Texture2D" uid="uid://8fqp8d25fgus" path="res://Assets/static/frame_3_delay-0.06s.jpg" id="5_u68x6"]
-[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://Assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_wa00i"]
-[ext_resource type="Texture2D" uid="uid://dhfh0qo86kj3n" path="res://Assets/static/frame_4_delay-0.06s.jpg" id="6_hemee"]
-[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://Assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_vfeng"]
+[ext_resource type="Texture2D" uid="uid://cprdhdsd0rhp4" path="res://assets/ui/Background General.png" id="2_hemee"]
+[ext_resource type="Texture2D" uid="uid://my6xlfav6g61" path="res://assets/static/frame_0_delay-0.06s.jpg" id="2_wa00i"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_cuqn6"]
+[ext_resource type="Texture2D" uid="uid://pu4nqpx2n8cl" path="res://assets/static/frame_1_delay-0.06s.jpg" id="3_vfeng"]
+[ext_resource type="Texture2D" uid="uid://7x5djhfi8pq1" path="res://assets/static/frame_2_delay-0.06s.jpg" id="4_mnraf"]
+[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_pskuv"]
+[ext_resource type="Texture2D" uid="uid://8fqp8d25fgus" path="res://assets/static/frame_3_delay-0.06s.jpg" id="5_u68x6"]
+[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_wa00i"]
+[ext_resource type="Texture2D" uid="uid://dhfh0qo86kj3n" path="res://assets/static/frame_4_delay-0.06s.jpg" id="6_hemee"]
+[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_vfeng"]
+[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="9_kty0j"]
+[ext_resource type="Texture2D" uid="uid://810ppyk325b2" path="res://assets/ui/start_UI/Start Button Idle.svg" id="10_hdhp8"]
+[ext_resource type="Texture2D" uid="uid://c76a12orkk1va" path="res://assets/ui/start_UI/Start Button Hover.svg" id="11_0fquj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -51,8 +55,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8nsmu")
 
+[node name="TextureRect" type="TextureRect" parent="Result"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_hemee")
+
 [node name="Bg" type="TextureRect" parent="Result"]
-modulate = Color(0.784314, 0.784314, 0.784314, 1)
+modulate = Color(0.431373, 0.403922, 0.784314, 0.294118)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,16 +77,17 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -154.0
-offset_top = 83.0
-offset_right = 155.0
-offset_bottom = 193.0
+offset_left = -480.0
+offset_top = 152.0
+offset_right = 486.0
+offset_bottom = 483.0
 grow_horizontal = 2
 theme = ExtResource("3_cuqn6")
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 25
-theme_override_font_sizes/font_size = 80
-text = "Stream Disconnected"
+theme_override_colors/font_color = Color(0.901961, 0.882353, 0.964706, 1)
+theme_override_fonts/font = ExtResource("9_kty0j")
+theme_override_font_sizes/font_size = 128
+text = "Stream
+Disconnected"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -87,31 +98,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -264.0
-offset_top = 108.0
-offset_right = 1851.0
-offset_bottom = 749.0
+offset_left = -272.0
+offset_top = 284.0
+offset_right = 337.0
+offset_bottom = 418.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.9, 0.9)
 focus_neighbor_top = NodePath("../Home")
 focus_neighbor_bottom = NodePath("../Home")
-texture_normal = ExtResource("4_pskuv")
-texture_pressed = ExtResource("5_wa00i")
-texture_hover = ExtResource("6_vfeng")
-texture_focused = ExtResource("6_vfeng")
+texture_normal = ExtResource("10_hdhp8")
+texture_hover = ExtResource("11_0fquj")
+stretch_mode = 3
 
 [node name="Retrytxt" type="Label" parent="Result/Reset"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_bottom = 23.0
+offset_left = 248.889
+offset_top = 8.8889
+offset_right = -64.1111
+offset_bottom = -9.1111
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_cuqn6")
-theme_override_font_sizes/font_size = 250
+theme_override_colors/font_color = Color(0.901961, 0.882353, 0.964706, 1)
+theme_override_fonts/font = ExtResource("9_kty0j")
+theme_override_font_sizes/font_size = 90
 text = "Retry"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -123,32 +137,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -264.0
-offset_top = 305.0
-offset_right = 1851.0
-offset_bottom = 946.0
+offset_left = -304.0
+offset_top = 52.0
+offset_right = 305.0
+offset_bottom = 186.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
 focus_neighbor_top = NodePath("../Reset")
 focus_neighbor_bottom = NodePath("../Reset")
-texture_normal = ExtResource("4_pskuv")
-texture_pressed = ExtResource("5_wa00i")
-texture_hover = ExtResource("6_vfeng")
-texture_focused = ExtResource("6_vfeng")
+texture_normal = ExtResource("10_hdhp8")
+texture_hover = ExtResource("11_0fquj")
+stretch_mode = 3
 
 [node name="Hometxt" type="Label" parent="Result/Home"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_bottom = 23.0
+offset_left = 208.0
+offset_top = 8.0
+offset_right = -72.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_cuqn6")
-theme_override_font_sizes/font_size = 250
-text = "Menu"
+theme_override_colors/font_color = Color(0.901961, 0.882353, 0.964706, 1)
+theme_override_fonts/font = ExtResource("9_kty0j")
+theme_override_font_sizes/font_size = 96
+text = "HOME"
 horizontal_alignment = 1
 vertical_alignment = 1
 

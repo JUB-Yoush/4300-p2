@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clybmve0fmi8e"
-path="res://.godot/imported/ryu_attack.png-12961b2f4bacab9bf8db367b04a89beb.ctex"
+uid="uid://cprdhdsd0rhp4"
+path="res://.godot/imported/Background General.png-88af80af27e3630dfa628caeff5bee2c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholder_sprites/ryu_attack.png"
-dest_files=["res://.godot/imported/ryu_attack.png-12961b2f4bacab9bf8db367b04a89beb.ctex"]
+source_file="res://assets/ui/Background General.png"
+dest_files=["res://.godot/imported/Background General.png-88af80af27e3630dfa628caeff5bee2c.ctex"]
 
 [params]
 

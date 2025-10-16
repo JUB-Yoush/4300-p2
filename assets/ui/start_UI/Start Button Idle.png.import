@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clybmve0fmi8e"
-path="res://.godot/imported/ryu_attack.png-12961b2f4bacab9bf8db367b04a89beb.ctex"
+uid="uid://rqqrjirx4qf5"
+path="res://.godot/imported/Start Button Idle.png-bfd1d16dc274dd565ea09707acee100a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholder_sprites/ryu_attack.png"
-dest_files=["res://.godot/imported/ryu_attack.png-12961b2f4bacab9bf8db367b04a89beb.ctex"]
+source_file="res://assets/ui/start_UI/Start Button Idle.png"
+dest_files=["res://.godot/imported/Start Button Idle.png-bfd1d16dc274dd565ea09707acee100a.ctex"]
 
 [params]
 

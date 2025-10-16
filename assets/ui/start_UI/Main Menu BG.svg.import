@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clybmve0fmi8e"
-path="res://.godot/imported/ryu_attack.png-12961b2f4bacab9bf8db367b04a89beb.ctex"
+uid="uid://ch8635gqcb3hf"
+path="res://.godot/imported/Main Menu BG.svg-853101a78c2f1ace70a05ad2a9515170.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholder_sprites/ryu_attack.png"
-dest_files=["res://.godot/imported/ryu_attack.png-12961b2f4bacab9bf8db367b04a89beb.ctex"]
+source_file="res://assets/ui/start_UI/Main Menu BG.svg"
+dest_files=["res://.godot/imported/Main Menu BG.svg-853101a78c2f1ace70a05ad2a9515170.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
