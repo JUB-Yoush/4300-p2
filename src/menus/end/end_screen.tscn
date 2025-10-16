@@ -9,7 +9,7 @@
 [ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="5_ikc8u"]
 [ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_io45t"]
 [ext_resource type="Texture2D" uid="uid://810ppyk325b2" path="res://assets/ui/start_UI/Start Button Idle.svg" id="6_rcgeu"]
-[ext_resource type="Texture2D" uid="uid://c76a12orkk1va" path="res://assets/ui/start_UI/Start Button Hover.svg" id="7_rtk2h"]
+[ext_resource type="Texture2D" uid="uid://dbtfxhpftitfv" path="res://assets/ui/ButtonX.svg" id="7_ikc8u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2jnr"]
 bg_color = Color(0.509994, 0.435061, 0.789425, 1)
@@ -93,7 +93,7 @@ offset_bottom = 242.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("6_rcgeu")
-texture_hover = ExtResource("7_rtk2h")
+texture_hover = ExtResource("7_ikc8u")
 stretch_mode = 3
 
 [node name="Hometxt" type="Label" parent="Result/Home"]

@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_lce0n"]
 [ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="5_a4cwf"]
 [ext_resource type="Texture2D" uid="uid://810ppyk325b2" path="res://assets/ui/start_UI/Start Button Idle.svg" id="6_upcf7"]
-[ext_resource type="Texture2D" uid="uid://c76a12orkk1va" path="res://assets/ui/start_UI/Start Button Hover.svg" id="7_8jpk6"]
+[ext_resource type="Texture2D" uid="uid://dbtfxhpftitfv" path="res://assets/ui/ButtonX.svg" id="7_5hlu4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -113,7 +113,7 @@ scale = Vector2(0.9, 0.9)
 focus_neighbor_left = NodePath("../Home")
 focus_neighbor_right = NodePath("../Continue")
 texture_normal = ExtResource("6_upcf7")
-texture_hover = ExtResource("7_8jpk6")
+texture_hover = ExtResource("7_5hlu4")
 stretch_mode = 3
 
 [node name="Resetxt" type="Label" parent="Result/Reset"]
@@ -151,7 +151,7 @@ grow_vertical = 2
 focus_neighbor_left = NodePath("../Continue")
 focus_neighbor_right = NodePath("../Reset")
 texture_normal = ExtResource("6_upcf7")
-texture_hover = ExtResource("7_8jpk6")
+texture_hover = ExtResource("7_5hlu4")
 stretch_mode = 3
 
 [node name="Hometxt" type="Label" parent="Result/Home"]
@@ -190,7 +190,7 @@ scale = Vector2(0.9, 0.9)
 focus_neighbor_left = NodePath("../Reset")
 focus_neighbor_right = NodePath("../Home")
 texture_normal = ExtResource("6_upcf7")
-texture_hover = ExtResource("7_8jpk6")
+texture_hover = ExtResource("7_5hlu4")
 stretch_mode = 3
 
 [node name="Continuetxt" type="Label" parent="Result/Continue"]

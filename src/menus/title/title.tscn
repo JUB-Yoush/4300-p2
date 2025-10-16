@@ -9,7 +9,7 @@
 [ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="5_xtatr"]
 [ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_hokf8"]
 [ext_resource type="Texture2D" uid="uid://810ppyk325b2" path="res://assets/ui/start_UI/Start Button Idle.svg" id="9_pdpxx"]
-[ext_resource type="Texture2D" uid="uid://c76a12orkk1va" path="res://assets/ui/start_UI/Start Button Hover.svg" id="10_hjmfe"]
+[ext_resource type="Texture2D" uid="uid://dbtfxhpftitfv" path="res://assets/ui/ButtonX.svg" id="10_xtatr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -157,7 +157,7 @@ scale = Vector2(0.85, 0.85)
 focus_neighbor_left = NodePath("../Play")
 focus_neighbor_right = NodePath("../Credits")
 texture_normal = ExtResource("9_pdpxx")
-texture_hover = ExtResource("10_hjmfe")
+texture_hover = ExtResource("10_xtatr")
 stretch_mode = 3
 
 [node name="Exittxt" type="Label" parent="Panel/Exit"]
@@ -194,7 +194,7 @@ grow_vertical = 2
 focus_neighbor_left = NodePath("../Credits")
 focus_neighbor_right = NodePath("../Exit")
 texture_normal = ExtResource("9_pdpxx")
-texture_hover = ExtResource("10_hjmfe")
+texture_hover = ExtResource("10_xtatr")
 stretch_mode = 3
 
 [node name="Playtxt" type="Label" parent="Panel/Play"]

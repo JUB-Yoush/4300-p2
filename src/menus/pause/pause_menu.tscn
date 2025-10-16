@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://fvwq1h857fet" path="res://assets/ui/paused_UI/Control Panel.svg" id="3_v5a41"]
 [ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="4_j4mso"]
 [ext_resource type="Texture2D" uid="uid://d1h0w7ikaf3ge" path="res://assets/ui/paused_UI/Skip Ads Idle.svg" id="5_v5a41"]
-[ext_resource type="Texture2D" uid="uid://7xf4kp4hqwd6" path="res://assets/ui/paused_UI/Skip Ads Hover.svg" id="6_8nsmu"]
 [ext_resource type="Texture2D" uid="uid://1r51h3or6mor" path="res://assets/ui/paused_UI/Leave Stream Idle.svg" id="7_kp3y8"]
-[ext_resource type="Texture2D" uid="uid://cnovfco4ap8dx" path="res://assets/ui/paused_UI/Leave Stream Hover.svg" id="8_a652i"]
+[ext_resource type="Texture2D" uid="uid://ccwygt7w3dx57" path="res://assets/ui/SkipX.svg" id="7_v5a41"]
+[ext_resource type="Texture2D" uid="uid://b74cnrrgoki7y" path="res://assets/ui/LeaveX.svg" id="9_8nsmu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -207,7 +207,7 @@ grow_vertical = 2
 focus_neighbor_top = NodePath("../Home")
 focus_neighbor_bottom = NodePath("../Home")
 texture_normal = ExtResource("5_v5a41")
-texture_hover = ExtResource("6_8nsmu")
+texture_hover = ExtResource("7_v5a41")
 stretch_mode = 3
 
 [node name="Resumetxt" type="Label" parent="Paused/Resume"]
@@ -245,7 +245,7 @@ grow_vertical = 2
 focus_neighbor_top = NodePath("../Resume")
 focus_neighbor_bottom = NodePath("../Resume")
 texture_normal = ExtResource("7_kp3y8")
-texture_hover = ExtResource("8_a652i")
+texture_hover = ExtResource("9_8nsmu")
 stretch_mode = 3
 
 [node name="Hometxt" type="Label" parent="Paused/Home"]
