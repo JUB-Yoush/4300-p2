@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2ugdxlnxenjb"]
+
+[ext_resource type="Script" uid="uid://6x3wtowj3hwh" path="res://src/entities/Enemy/Enemy.cs" id="1_nwlv3"]
+[ext_resource type="Texture2D" uid="uid://c33574w8tvt5w" path="res://assets/2d/sprites/monster_spritesheet.png" id="2_nwlv3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwlv3"]
+size = Vector2(763.5, 188.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sct5a"]
+size = Vector2(765, 171.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aw8am"]
+size = Vector2(759, 176)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
+size = Vector2(218, 662)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swlc7"]
+size = Vector2(141, 540)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 32
+collision_mask = 80
+script = ExtResource("1_nwlv3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_nwlv3")
+hframes = 4
+vframes = 5
+
+[node name="HitboxArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="L" type="CollisionShape2D" parent="HitboxArea"]
+position = Vector2(-383.25, 278)
+shape = SubResource("RectangleShape2D_nwlv3")
+
+[node name="M" type="CollisionShape2D" parent="HitboxArea"]
+position = Vector2(-382.5, 72.125)
+shape = SubResource("RectangleShape2D_sct5a")
+
+[node name="H" type="CollisionShape2D" parent="HitboxArea"]
+position = Vector2(-383.5, -120)
+shape = SubResource("RectangleShape2D_aw8am")
+
+[node name="HurtboxArea" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxArea"]
+position = Vector2(-18, 21)
+shape = SubResource("RectangleShape2D_kvr80")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-4, -2)
+shape = SubResource("RectangleShape2D_swlc7")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-3.5, 0)
+shape = SubResource("RectangleShape2D_swlc7")
+
+[node name="Spikes" type="Node2D" parent="."]
