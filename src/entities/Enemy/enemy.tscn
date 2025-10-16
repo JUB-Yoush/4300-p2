@@ -63,3 +63,5 @@ shape = SubResource("RectangleShape2D_swlc7")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_swlc7")
+
+[node name="Spikes" type="Node2D" parent="."]

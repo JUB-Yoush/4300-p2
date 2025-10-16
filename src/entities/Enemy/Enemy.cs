@@ -71,26 +71,65 @@ public partial class Enemy : CharacterBody2D
         Attacks[(int)AttackHeight]();
     }
 
-    void LowAttack()
-    {
-        var tween = CreateTween();
-        tween.Call(() =>
-        {
-            UpdateCollisionBox(BoxType.HITBOX, (Move)AttackHeight);
-        });
-        tween.TweenInterval(2);
-        tween.Call(() =>
-        {
-            ResetCollisionBox(BoxType.HITBOX);
-            ChangeToBlocking();
-        });
-    }
-
     void ChangeToBlocking()
     {
         CurrentState = State.BLOCKING;
         ChangeBlockHeight();
         attackTimer.Start(3);
+    }
+
+    void LowAttack()
+    {
+        var tween = CreateTween();
+        tween.SetTrans(Tween.TransitionType.Quad);
+        tween.Call(() => Sprite.Frame = 0);
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X + 10, Position.Y),
+            FramesToSeconds(10)
+        );
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X - 10, Position.Y),
+            FramesToSeconds(10)
+        );
+        tween.TweenProperty(
+            this,
+            "position",
+            new Vector2(Position.X, Position.Y + 10),
+            FramesToSeconds(10)
+        );
+        tween.TweenInterval(FramesToSeconds(10));
+
+        tween.TweenInterval(FramesToSeconds(20));
+        tween.Call(() => Sprite.Frame = 1);
+        tween.Call(() =>
+        {
+            UpdateCollisionBox(BoxType.HITBOX, Move.L);
+            SpawnSpike(new(GlobalPosition.X - 600, GlobalPosition.Y + 300));
+        });
+        tween.TweenInterval(FramesToSeconds(5));
+        tween.Call(() => SpawnSpike(new(GlobalPosition.X - 900, GlobalPosition.Y + 300)));
+        tween.TweenInterval(FramesToSeconds(5));
+        tween.Call(() => SpawnSpike(new(GlobalPosition.X - 1200, GlobalPosition.Y + 300)));
+        tween.TweenInterval(FramesToSeconds(5));
+        tween.Call(() => SpawnSpike(new(GlobalPosition.X - 1500, GlobalPosition.Y + 300)));
+        tween.TweenInterval(FramesToSeconds(30));
+        tween.Call(() =>
+        {
+            ResetCollisionBox(BoxType.HITBOX);
+            ChangeToBlocking();
+        });
+        tween.Call(() =>
+        {
+            var Spikes = GetNode<Node2D>("Spikes");
+            for (int i = 0; i < Spikes.GetChildCount(); i++)
+            {
+                Spikes.GetChild(i).QueueFree();
+            }
+        });
     }
 
     void MidAttack()
@@ -101,6 +140,14 @@ public partial class Enemy : CharacterBody2D
     void HighAttack()
     {
         LowAttack();
+    }
+
+    void SpawnSpike(Vector2 spawnPosition)
+    {
+        Spike spike = Spike.PackedScene.Instantiate<Spike>();
+        spike.TopLevel = true;
+        spike.GlobalPosition = spawnPosition;
+        GetNode<Node2D>("Spikes").AddChild(spike);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -122,8 +169,8 @@ public partial class Enemy : CharacterBody2D
         {
             newBlockHeight = (Height)new Random().Next(0, 3);
         }
-        BlockHeight = newBlockHeight;
-        //BlockHeight = Height.MID;
+        //BlockHeight = newBlockHeight;
+        BlockHeight = Height.HIGH;
         Sprite.Frame = blockFrameMap[BlockHeight];
     }
 
