@@ -215,9 +215,8 @@ public partial class Player : CharacterBody2D
         );
         tween.Call(() =>
         {
-            GD.Print("actionable");
             CanFollowUp = true;
-            Sprite.Frame = 18;
+            Sprite.Frame = 19;
         });
         tween.Call(Reset, FramesToSeconds(12));
     }
@@ -275,7 +274,7 @@ public partial class Player : CharacterBody2D
         tween.TweenProperty(
             this,
             "velocity",
-            new Vector2(Velocity.X, Velocity.Y + 300),
+            new Vector2(Velocity.X, Velocity.Y + 1000),
             FramesToSeconds(30)
         );
 
@@ -293,12 +292,16 @@ public partial class Player : CharacterBody2D
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
+        // tween.Call(() => Sprite.Frame = 19);
+        // tween.TweenInterval(FramesToSeconds(10));
         tween.Call(() =>
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH);
             Sprite.Frame = 9;
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.Call(() => Sprite.Frame = 10);
+        tween.TweenInterval(FramesToSeconds(10));
         tween.Call(Reset);
     }
 
