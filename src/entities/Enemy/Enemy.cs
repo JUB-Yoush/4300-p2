@@ -43,13 +43,12 @@ public partial class Enemy : CharacterBody2D
 
     Action[] Attacks = [];
 
-    public Dictionary<Move, int> DamageMap = new()
+    public Dictionary<Move, AttackData> AttackDataMap = new()
     {
-        { Move.L, 5 },
-        { Move.M, 5 },
-        { Move.H, 5 },
+        { Move.L, new(5, 100, 15) },
+        { Move.M, new(5, 100, 15) },
+        { Move.H, new(5, 100, 15) },
     };
-
     public Move currentMove;
 
     public override void _Ready()

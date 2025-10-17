@@ -130,6 +130,7 @@ public partial class Player : CharacterBody2D
             return;
         }
         var enemy = area.GetParent<Enemy>();
+        var move = enemy.AttackDataMap[enemy.currentMove];
         tween?.Stop();
         if (IsOnFloor()) { }
         Velocity = Vector2.Zero;
@@ -138,12 +139,15 @@ public partial class Player : CharacterBody2D
         {
             state = State.HIT;
             Sprite.Frame = 3;
-            Hp -= enemy.DamageMap[enemy.currentMove];
+            Hp -= move.damage;
             CanDoStartup = false;
             CanFollowUp = false;
         });
-        tween.VelocityMovement(this, new(Position.X - 50, Position.Y), FramesToSeconds(8));
-        tween.TweenInterval(FramesToSeconds(30));
+        tween.VelocityMovement(
+            this,
+            new(Position.X - move.knockback, Position.Y),
+            FramesToSeconds(move.hitstun)
+        );
         tween.Call(Reset);
     }
 
