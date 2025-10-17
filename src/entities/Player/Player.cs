@@ -241,7 +241,7 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 0;
             state = State.BLOCKING;
         });
-        tween.TweenInterval(FramesToSeconds(10));
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 

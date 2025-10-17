@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c33574w8tvt5w" path="res://assets/2d/sprites/monster_spritesheet.png" id="2_nwlv3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwlv3"]
-size = Vector2(1356.5, 305.375)
+size = Vector2(1346.5, 305.375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sct5a"]
 size = Vector2(1322.75, 422)
@@ -37,7 +37,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="L" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-551.75, 278)
+position = Vector2(-546.75, 278)
 shape = SubResource("RectangleShape2D_nwlv3")
 disabled = true
 
