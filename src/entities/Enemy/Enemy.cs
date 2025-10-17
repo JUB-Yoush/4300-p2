@@ -86,6 +86,7 @@ public partial class Enemy : CharacterBody2D
     void ChangeToBlocking()
     {
         CurrentState = State.BLOCKING;
+        ClearSpikes();
         ChangeBlockHeight();
         attackTimer.Start(3);
     }
@@ -170,14 +171,15 @@ public partial class Enemy : CharacterBody2D
             ResetCollisionBox(BoxType.HITBOX);
             ChangeToBlocking();
         });
-        tween.Call(() =>
+    }
+
+    void ClearSpikes()
+    {
+        var Spikes = GetNode<Node2D>("Spikes");
+        for (int i = 0; i < Spikes.GetChildCount(); i++)
         {
-            var Spikes = GetNode<Node2D>("Spikes");
-            for (int i = 0; i < Spikes.GetChildCount(); i++)
-            {
-                Spikes.GetChild(i).QueueFree();
-            }
-        });
+            Spikes.GetChild(i).QueueFree();
+        }
     }
 
     void HighAttack()
@@ -228,8 +230,7 @@ public partial class Enemy : CharacterBody2D
         {
             newBlockHeight = (Height)new Random().Next(0, 3);
         }
-        BlockHeight = Height.HIGH;
-        //BlockHeight = newBlockHeight;
+        BlockHeight = newBlockHeight;
         Sprite.Frame = blockFrameMap[BlockHeight];
     }
 

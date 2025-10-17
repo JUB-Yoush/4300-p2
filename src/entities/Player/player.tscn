@@ -16,7 +16,7 @@ size = Vector2(683, 131)
 size = Vector2(2793, 99.4999)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bimrn"]
-size = Vector2(400.938, 189)
+size = Vector2(535, 189)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ky3l"]
 size = Vector2(911.469, 201.672)
@@ -50,7 +50,7 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_pjr3c")
 hframes = 4
 vframes = 5
-frame = 3
+frame = 4
 
 [node name="HitboxArea" type="Area2D" parent="."]
 collision_mask = 8
@@ -76,12 +76,12 @@ shape = SubResource("RectangleShape2D_4j63m")
 disabled = true
 
 [node name="HL" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(421.531, 237)
+position = Vector2(354.5, 237)
 shape = SubResource("RectangleShape2D_bimrn")
 disabled = true
 
 [node name="HM" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(668.266, 13.5691)
+position = Vector2(616, 2)
 shape = SubResource("RectangleShape2D_5ky3l")
 disabled = true
 

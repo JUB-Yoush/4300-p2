@@ -66,6 +66,10 @@ public partial class Player : CharacterBody2D
     bool tweening = false;
     bool wasBlocked = false;
 
+    float BlockCooldown = FramesToSeconds(60);
+    bool CanBlock = true;
+    bool BlockSuccessful = false;
+
     private State state;
     private Height setupHeight,
         AttackHeight;
@@ -73,6 +77,7 @@ public partial class Player : CharacterBody2D
     public Height BlockHeight = Height.NONE;
     Area2D HitboxArea = null!;
     Area2D HurtboxArea = null!;
+    Timer resetTimer = new();
 
     int Hp = 100;
 
@@ -102,12 +107,25 @@ public partial class Player : CharacterBody2D
         // HitboxArea.CollisionLayer = (uint)Collisions.PLAYER_HIT;
         // HitboxArea.CollisionMask = (uint)Collisions.ENEMY_HURT;
         HitboxArea.AreaEntered += HitEnemy;
+
+        resetTimer.Timeout += () =>
+        {
+            CanBlock = true;
+        };
+        AddChild(resetTimer);
     }
 
     void HitByEnemy(Area2D area)
     {
         if (state == State.HIT)
         {
+            return;
+        }
+
+        if (state == State.BLOCKING)
+        {
+            GD.Print("blocked!!!");
+            BlockWorked();
             return;
         }
         var enemy = area.GetParent<Enemy>();
@@ -192,10 +210,12 @@ public partial class Player : CharacterBody2D
         {
             ProcessAttack(Height.LOW);
         }
-        else if (Input.IsActionJustPressed("block"))
+        else if (Input.IsActionJustPressed("block") && CanBlock)
         {
             Block();
+            resetTimer.Start(BlockCooldown);
         }
+
         UpdateDebugPanel();
         MoveAndSlide();
         if (!IsOnFloor() && (tween == null || !tween.IsRunning()))
@@ -206,7 +226,29 @@ public partial class Player : CharacterBody2D
 
     void Block()
     {
-        if (state != State.IDLE || state == State.BLOCKING) { }
+        if (state != State.IDLE)
+            return;
+        CanBlock = false;
+        //enemy.GotHit(15, 0);
+        tween?.Stop();
+        tween = CreateTween();
+        tween.Call(() =>
+        {
+            Sprite.Frame = 0;
+            state = State.BLOCKING;
+        });
+        tween.TweenInterval(FramesToSeconds(15));
+        tween.Call(Reset);
+    }
+
+    void BlockWorked()
+    {
+        var enemy = GetParent().GetNode<Enemy>("Enemy");
+        enemy
+            .GetNode<CollisionShape2D>($"HitboxArea/{enemy.currentMove}")
+            .SetDeferred("disabled", true);
+        CanBlock = true;
+        CanDoStartup = true;
     }
 
     void ProcessAttack(Height level)
@@ -223,7 +265,7 @@ public partial class Player : CharacterBody2D
             AttackHeight = level;
             FollowUps[(int)setupHeight, (int)AttackHeight]();
         }
-        else if ((state == State.IDLE || CanDoStartup) && IsOnFloor())
+        else if ((state == State.IDLE || CanDoStartup) && (IsOnFloor() || level == Height.LOW))
         {
             Reset();
             tween?.Stop();
