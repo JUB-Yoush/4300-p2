@@ -1,22 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2ugdxlnxenjb"]
+[gd_scene load_steps=10 format=3 uid="uid://b2ugdxlnxenjb"]
 
 [ext_resource type="Script" uid="uid://6x3wtowj3hwh" path="res://src/entities/Enemy/Enemy.cs" id="1_nwlv3"]
-[ext_resource type="Texture2D" uid="uid://c33574w8tvt5w" path="res://assets/2d/sprites/monster_spritesheet.png" id="2_nwlv3"]
+[ext_resource type="Texture2D" uid="uid://c33574w8tvt5w" path="res://Assets/2d/sprites/monster_spritesheet.png" id="2_nwlv3"]
+[ext_resource type="PackedScene" uid="uid://btbjdhaoxuisx" path="res://Assets/particles/enemy_laser.tscn" id="3_sct5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwlv3"]
-size = Vector2(763.5, 188.75)
+size = Vector2(1356.5, 305.375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sct5a"]
-size = Vector2(765, 171.75)
+size = Vector2(1322.75, 422)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aw8am"]
-size = Vector2(759, 176)
+size = Vector2(1340, 329)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
-size = Vector2(218, 662)
+size = Vector2(218, 759)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fcp5"]
+size = Vector2(282.5, 714)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swlc7"]
-size = Vector2(141, 540)
+size = Vector2(252.5, 540)
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 32
@@ -34,22 +38,25 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="L" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-383.25, 278)
+position = Vector2(-551.75, 278)
 shape = SubResource("RectangleShape2D_nwlv3")
+disabled = true
 
 [node name="M" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-382.5, 72.125)
+position = Vector2(-557.625, 72.125)
 shape = SubResource("RectangleShape2D_sct5a")
+disabled = true
 
 [node name="H" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-383.5, -120)
+position = Vector2(-549, -120)
 shape = SubResource("RectangleShape2D_aw8am")
+disabled = true
 
 [node name="HurtboxArea" type="Area2D" parent="."]
 collision_layer = 8
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtboxArea"]
-position = Vector2(-18, 21)
+position = Vector2(-18, -27.5)
 shape = SubResource("RectangleShape2D_kvr80")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -57,11 +64,14 @@ collision_layer = 32
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-4, -2)
-shape = SubResource("RectangleShape2D_swlc7")
+position = Vector2(-74.75, 10)
+shape = SubResource("RectangleShape2D_3fcp5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_swlc7")
 
 [node name="Spikes" type="Node2D" parent="."]
+
+[node name="EnemyLaser" parent="." instance=ExtResource("3_sct5a")]
+position = Vector2(-1039, -134)

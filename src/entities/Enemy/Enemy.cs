@@ -32,20 +32,32 @@ public partial class Enemy : CharacterBody2D
     public float AttackCooldown = 5f;
     public State CurrentState = State.BLOCKING;
     Timer attackTimer = null!;
+    Tween tween = null!;
 
     Sprite2D Sprite = null!;
 
     Area2D HitboxArea = null!;
     Area2D HurtboxArea = null!;
 
+    int Hp = 100;
+
     Action[] Attacks = [];
+
+    public Dictionary<Move, int> DamageMap = new Dictionary<Move, int>
+    {
+        { Move.L, 5 },
+        { Move.M, 5 },
+        { Move.H, 5 },
+    };
+
+    public Move currentMove;
 
     public override void _Ready()
     {
         attackTimer = new();
         AddChild(attackTimer);
         attackTimer.OneShot = true;
-        attackTimer.Start(3);
+        attackTimer.Start(1);
         attackTimer.Timeout += Attack;
 
         Attacks = [LowAttack, MidAttack, HighAttack];
@@ -80,7 +92,7 @@ public partial class Enemy : CharacterBody2D
 
     void LowAttack()
     {
-        var tween = CreateTween();
+        tween = CreateTween();
         tween.SetTrans(Tween.TransitionType.Quad);
         tween.Call(() => Sprite.Frame = 0);
         tween.TweenProperty(
@@ -134,12 +146,62 @@ public partial class Enemy : CharacterBody2D
 
     void MidAttack()
     {
-        LowAttack();
+        tween = CreateTween();
+        tween.SetTrans(Tween.TransitionType.Quad);
+        tween.Call(() => Sprite.Frame = 3);
+        tween.TweenInterval(FramesToSeconds(20));
+        tween.Call(() => Sprite.Frame = 4);
+        tween.Call(() =>
+        {
+            UpdateCollisionBox(BoxType.HITBOX, Move.M);
+        });
+        tween.TweenProperty(Sprite, "scale", new Vector2(1.5f, .75f), FramesToSeconds(5));
+        tween
+            .Parallel()
+            .TweenProperty(
+                this,
+                "position",
+                new Vector2(Position.X - 150, Position.Y),
+                FramesToSeconds(5)
+            );
+        tween.TweenProperty(Sprite, "scale", new Vector2(.75f, .75f), FramesToSeconds(30));
+        tween.Call(() =>
+        {
+            ResetCollisionBox(BoxType.HITBOX);
+            ChangeToBlocking();
+        });
+        tween.Call(() =>
+        {
+            var Spikes = GetNode<Node2D>("Spikes");
+            for (int i = 0; i < Spikes.GetChildCount(); i++)
+            {
+                Spikes.GetChild(i).QueueFree();
+            }
+        });
     }
 
     void HighAttack()
     {
-        LowAttack();
+        tween = CreateTween();
+        tween.SetTrans(Tween.TransitionType.Sine);
+        tween.Call(() => Sprite.Frame = 16);
+        tween.TweenProperty(Sprite, "scale", new Vector2(.75f, 1f), FramesToSeconds(60));
+        tween.TweenProperty(Sprite, "scale", new Vector2(.75f, .75f), FramesToSeconds(5));
+        tween.Call(() => Sprite.Frame = 17);
+        tween.Call(() =>
+        {
+            UpdateCollisionBox(BoxType.HITBOX, Move.H);
+            GetNode<GpuParticles2D>("EnemyLaser").Emitting = true;
+            GetNode<GpuParticles2D>("EnemyLaser/GPUParticles2D").Emitting = true;
+            GetNode<GpuParticles2D>("EnemyLaser/GPUParticles2D2").Emitting = true;
+        });
+        tween.TweenProperty(Sprite, "scale", new Vector2(1f, .75f), FramesToSeconds(30));
+        tween.Call(() =>
+        {
+            ResetCollisionBox(BoxType.HITBOX);
+            ChangeToBlocking();
+        });
+        tween.TweenProperty(Sprite, "scale", new Vector2(.75f, .75f), FramesToSeconds(5));
     }
 
     void SpawnSpike(Vector2 spawnPosition)
@@ -169,22 +231,24 @@ public partial class Enemy : CharacterBody2D
         {
             newBlockHeight = (Height)new Random().Next(0, 3);
         }
-        //BlockHeight = newBlockHeight;
         BlockHeight = Height.HIGH;
+        //BlockHeight = newBlockHeight;
         Sprite.Frame = blockFrameMap[BlockHeight];
     }
 
-    public void GotHit()
+    public void GotHit(int hitstun, int damage)
     {
         //Position = Position with { X = Position.X + 20 };
-        var tween = CreateTween();
+        Sprite.Scale = new(.75f, .75f);
+        tween?.Stop();
+        tween = CreateTween();
         tween.Call(() =>
         {
             CurrentState = State.HIT;
             Sprite.Frame = 11;
+            Hp -= damage;
         });
-        tween.VelocityMovement(this, new(Position.X + 5, Position.Y), FramesToSeconds(8));
-        tween.TweenInterval(FramesToSeconds(15));
+        tween.VelocityMovement(this, new(Position.X + 50, Position.Y), FramesToSeconds(hitstun));
         tween.Call(() =>
         {
             ResetCollisionBox(BoxType.HITBOX);
@@ -195,14 +259,9 @@ public partial class Enemy : CharacterBody2D
 
     public void Blocked()
     {
-        var blockFrameMap = new Dictionary<Height, int>()
-        {
-            { Height.HIGH, 5 },
-            { Height.MID, 9 },
-            { Height.LOW, 7 },
-        };
-
         //do an attack
+        tween?.Stop();
+        Attack();
 
         //var tween = CreateTween();
         // tween.VelocityMovement(this, new(Position.X + 10, Position.Y), FramesToSeconds(8), false);
@@ -216,6 +275,10 @@ public partial class Enemy : CharacterBody2D
         ResetCollisionBox(boxtype);
 
         var area = boxtype == BoxType.HITBOX ? HitboxArea : HurtboxArea;
+        if (boxtype == BoxType.HITBOX)
+        {
+            currentMove = move;
+        }
         area.GetNode<CollisionShape2D>(move.ToString()).Disabled = false;
     }
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ekqliteegusq"
-path="res://.godot/imported/slayer1-sheet.png-3715c71666ee83e23f8dfe3b7bf9d40c.ctex"
+path="res://.godot/imported/slayer1-sheet.png-6ab30570353042bb42e10aa2a8e529ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholder_sprites/slayer1-sheet.png"
-dest_files=["res://.godot/imported/slayer1-sheet.png-3715c71666ee83e23f8dfe3b7bf9d40c.ctex"]
+source_file="res://Assets/placeholder_sprites/slayer1-sheet.png"
+dest_files=["res://.godot/imported/slayer1-sheet.png-6ab30570353042bb42e10aa2a8e529ba.ctex"]
 
 [params]
 

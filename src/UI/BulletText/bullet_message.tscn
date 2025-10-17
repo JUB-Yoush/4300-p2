@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp5b7cctps1bl"]
+
+[ext_resource type="Script" uid="uid://ddl6f0stphq1s" path="res://src/UI/BulletText/BulletMessage.cs" id="1_qnh0i"]
+
+[node name="BulletMessage" type="RichTextLabel"]
+z_index = -3
+offset_right = 1156.0
+offset_bottom = 40.0
+text = "hi"
+script = ExtResource("1_qnh0i")
