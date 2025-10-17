@@ -39,7 +39,7 @@ public partial class Enemy : CharacterBody2D
     Area2D HitboxArea = null!;
     Area2D HurtboxArea = null!;
 
-    int Hp = 100;
+    public int Hp = 100;
 
     Action[] Attacks = [];
 
