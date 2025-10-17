@@ -147,6 +147,9 @@ shape = SubResource("RectangleShape2D_kvr80")
 [node name="GameCamera" type="Camera2D" parent="."]
 limit_left = -670
 limit_right = 2797
+drag_horizontal_enabled = true
+drag_left_margin = 0.5
+drag_right_margin = 0.5
 script = ExtResource("5_5o53v")
 
 [node name="Border" type="StaticBody2D" parent="GameCamera"]
