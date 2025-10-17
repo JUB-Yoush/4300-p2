@@ -1,17 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=9 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="PackedScene" uid="uid://b2ugdxlnxenjb" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
+[ext_resource type="Script" uid="uid://gw8dq4rhwsf2" path="res://src/entities/Camera/GameCamera.cs" id="5_5o53v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
 size = Vector2(106, 1240)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrw7u"]
-size = Vector2(106, 1821)
+size = Vector2(106, 3499)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5o53v"]
+size = Vector2(27, 1240)
 
 [node name="main" type="Node"]
+metadata/_edit_vertical_guides_ = [-689.0, 2797.0]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -116,10 +121,10 @@ visible = false
 visible = false
 
 [node name="Enemy" parent="." instance=ExtResource("2_kvr80")]
-position = Vector2(1548, 678)
+position = Vector2(795, 673)
 
 [node name="Player" parent="." instance=ExtResource("1_3u0g6")]
-position = Vector2(321, 688)
+position = Vector2(280, 692)
 metadata/_edit_group_ = true
 
 [node name="Walls" type="StaticBody2D" parent="."]
@@ -127,21 +132,36 @@ collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
-position = Vector2(19, 529)
+position = Vector2(-719, 528)
 shape = SubResource("RectangleShape2D_kvr80")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
-position = Vector2(972, 1103)
+position = Vector2(1049.5, 1103)
 rotation = -1.57079
 shape = SubResource("RectangleShape2D_qrw7u")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1930, 538)
+position = Vector2(2737, 536)
 shape = SubResource("RectangleShape2D_kvr80")
 
 [node name="GameCamera" type="Camera2D" parent="."]
-visible = false
-position = Vector2(338, 684)
-enabled = false
+limit_left = -670
+limit_right = 2797
+script = ExtResource("5_5o53v")
+
+[node name="Border" type="StaticBody2D" parent="GameCamera"]
+position = Vector2(-938, -506)
+collision_layer = 64
+collision_mask = 0
+
+[node name="LeftWall" type="CollisionShape2D" parent="GameCamera/Border"]
+position = Vector2(-90, 500)
+shape = SubResource("RectangleShape2D_5o53v")
+disabled = true
+
+[node name="RightWall" type="CollisionShape2D" parent="GameCamera/Border"]
+position = Vector2(1977, 487)
+shape = SubResource("RectangleShape2D_5o53v")
+disabled = true
 
 [editable path="Enemy"]

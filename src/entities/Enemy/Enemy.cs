@@ -57,7 +57,7 @@ public partial class Enemy : CharacterBody2D
         attackTimer = new();
         AddChild(attackTimer);
         attackTimer.OneShot = true;
-        attackTimer.Start(1);
+        attackTimer.Start(AttackCooldown);
         attackTimer.Timeout += Attack;
 
         Attacks = [LowAttack, MidAttack, HighAttack];
@@ -259,7 +259,10 @@ public partial class Enemy : CharacterBody2D
     {
         //do an attack
         tween?.Stop();
-        Attack();
+        if (CurrentState != State.ATTACKING)
+        {
+            Attack();
+        }
 
         //var tween = CreateTween();
         // tween.VelocityMovement(this, new(Position.X + 10, Position.Y), FramesToSeconds(8), false);

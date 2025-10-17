@@ -166,7 +166,7 @@ public partial class Player : CharacterBody2D
 
             return;
         }
-        var hitstun = 5;
+        var hitstun = 15;
         var damage = DamageMap[currentMove];
         enemy.GotHit(hitstun, damage);
         CanDoStartup = true;
