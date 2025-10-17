@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b557esg48hsxe"
-path="res://.godot/imported/Button Hover.svg-bb160eb138f46c295fa3c37c484ec2be.ctex"
+uid="uid://b4fxjgnk6fkom"
+path="res://.godot/imported/Gunshot-Sheet.png-62c650efd64344e0b7c72b7fffcab2e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/placeholder_sprites/smell_UI/Button Hover.svg"
-dest_files=["res://.godot/imported/Button Hover.svg-bb160eb138f46c295fa3c37c484ec2be.ctex"]
+source_file="res://Assets/particles/Gunshot-Sheet.png"
+dest_files=["res://.godot/imported/Gunshot-Sheet.png-62c650efd64344e0b7c72b7fffcab2e9.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

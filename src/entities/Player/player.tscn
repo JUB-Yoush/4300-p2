@@ -1,7 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bn1sondwl58ft"]
+[gd_scene load_steps=21 format=3 uid="uid://bn1sondwl58ft"]
 
 [ext_resource type="Script" uid="uid://dtqb44nqyol50" path="res://src/entities/Player/Player.cs" id="2_loq5s"]
-[ext_resource type="Texture2D" uid="uid://b6wpnpbm7g0qy" path="res://assets/2d/sprites/mecha_spritesheet.png" id="2_pjr3c"]
+[ext_resource type="Texture2D" uid="uid://b6wpnpbm7g0qy" path="res://Assets/2d/sprites/mecha_spritesheet.png" id="2_pjr3c"]
+[ext_resource type="PackedScene" uid="uid://dysi5joh0n6eg" path="res://Assets/particles/player_laser.tscn" id="3_5ky3l"]
+[ext_resource type="PackedScene" uid="uid://ge73p0iikfme" path="res://Assets/particles/gun_particle.tscn" id="4_bimrn"]
+[ext_resource type="PackedScene" uid="uid://ctxt2cxk01d05" path="res://Assets/particles/smoke_particles.tscn" id="5_bimrn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjnl3"]
 size = Vector2(1311.38, 180.375)
@@ -38,6 +41,30 @@ size = Vector2(386, 652.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjr3c"]
 size = Vector2(204.5, 652.75)
+
+[sub_resource type="Curve" id="Curve_trsfj"]
+_data = [Vector2(0, 0.235955), 0.0, 0.0, 0, 0, Vector2(0.102941, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_p4e46"]
+curve = SubResource("Curve_trsfj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5ky3l"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(600, 0, 0)
+emission_shape_scale = Vector3(600, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 0, 1)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 200.0
+scale_min = 30.0
+scale_max = 60.0
+scale_curve = SubResource("CurveTexture_p4e46")
+color = Color(0.839216, 0.0823529, 0.0117647, 0.811765)
+sub_emitter_mode = 4
+sub_emitter_amount_at_start = 1
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 16
@@ -121,3 +148,16 @@ shape = SubResource("RectangleShape2D_hq84m")
 visible = false
 position = Vector2(-47, 15)
 shape = SubResource("RectangleShape2D_pjr3c")
+
+[node name="PlayerMidLaser" parent="." instance=ExtResource("3_5ky3l")]
+position = Vector2(106, -122)
+
+[node name="PlayerJumpLaser" parent="." instance=ExtResource("3_5ky3l")]
+position = Vector2(36, -239)
+process_material = SubResource("ParticleProcessMaterial_5ky3l")
+
+[node name="PlayerGunshot" parent="." instance=ExtResource("4_bimrn")]
+position = Vector2(345, -14)
+
+[node name="PlayerRocket" parent="." instance=ExtResource("5_bimrn")]
+position = Vector2(295, 26)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2ugdxlnxenjb"]
+[gd_scene load_steps=10 format=3 uid="uid://b2ugdxlnxenjb"]
 
 [ext_resource type="Script" uid="uid://6x3wtowj3hwh" path="res://src/entities/Enemy/Enemy.cs" id="1_nwlv3"]
-[ext_resource type="Texture2D" uid="uid://c33574w8tvt5w" path="res://assets/2d/sprites/monster_spritesheet.png" id="2_nwlv3"]
+[ext_resource type="Texture2D" uid="uid://c33574w8tvt5w" path="res://Assets/2d/sprites/monster_spritesheet.png" id="2_nwlv3"]
+[ext_resource type="PackedScene" uid="uid://btbjdhaoxuisx" path="res://Assets/particles/enemy_laser.tscn" id="3_sct5a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwlv3"]
 size = Vector2(1320, 305.375)
@@ -73,3 +74,6 @@ position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_swlc7")
 
 [node name="Spikes" type="Node2D" parent="."]
+
+[node name="EnemyLaser" parent="." instance=ExtResource("3_sct5a")]
+position = Vector2(-1039, -134)

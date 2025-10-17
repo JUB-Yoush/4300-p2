@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://6lyri468ci1g"]
+
+[node name="RocketVfx" type="GPUParticles2D"]

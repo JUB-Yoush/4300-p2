@@ -196,6 +196,9 @@ public partial class Enemy : CharacterBody2D
         tween.Call(() =>
         {
             UpdateCollisionBox(BoxType.HITBOX, Move.H);
+            GetNode<GpuParticles2D>("EnemyLaser").Emitting = true;
+            GetNode<GpuParticles2D>("EnemyLaser/GPUParticles2D").Emitting = true;
+            GetNode<GpuParticles2D>("EnemyLaser/GPUParticles2D2").Emitting = true;
         });
         tween.TweenProperty(Sprite, "scale", new Vector2(1f, .75f), FramesToSeconds(30));
         tween.Call(() =>

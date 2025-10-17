@@ -81,10 +81,23 @@ public partial class Player : CharacterBody2D
     Timer resetTimer = new();
 
     public int Hp = 100;
+    GpuParticles2D Laser = null!,
+        JumpLaser = null!,
+        Rocket = null!,
+        RocketExplosion = null!;
+    CpuParticles2D Gunshot = null!;
+    BulletTextManager BulletText = null!;
+    private const int HEALTH_TO_REPUTATION = 50;
 
     public override void _Ready()
     {
         Sprite = GetNode<Sprite2D>("Sprite2D");
+        Laser = GetNode<GpuParticles2D>("PlayerMidLaser");
+        JumpLaser = GetNode<GpuParticles2D>("PlayerJumpLaser");
+        Gunshot = GetNode<CpuParticles2D>("PlayerGunshot");
+        Rocket = GetNode<GpuParticles2D>("PlayerRocket");
+        RocketExplosion = GetNode<GpuParticles2D>("PlayerRocket/GPUParticles2D");
+        BulletText = GetParent().GetNode<BulletTextManager>("BulletTextManager");
 
         // don't ask me why i have to instanitate it like this because i couldn't tell you.
         Action[,] FollowUps1 =
@@ -139,7 +152,10 @@ public partial class Player : CharacterBody2D
         {
             state = State.HIT;
             Sprite.Frame = 3;
-            Hp -= move.damage;
+            Hp -= enemy.DamageMap[enemy.currentMove];
+            BulletText.InfluenceReputation(
+                -enemy.DamageMap[enemy.currentMove] * HEALTH_TO_REPUTATION
+            );
             CanDoStartup = false;
             CanFollowUp = false;
         });
@@ -175,6 +191,20 @@ public partial class Player : CharacterBody2D
         var hitstun = AttackDataMap[currentMove].hitstun;
         var knockback = AttackDataMap[currentMove].knockback;
         enemy.GotHit(hitstun, damage, knockback);
+
+        if (currentMove == Move.HM)
+        {
+            RocketExplosion.GlobalPosition = new Vector2(
+                enemy.GlobalPosition.X,
+                RocketExplosion.GlobalPosition.Y
+            );
+            RocketExplosion.Emitting = true;
+        }
+
+        var hitstun = 5;
+        var damage = DamageMap[currentMove];
+        BulletText.InfluenceReputation(damage * HEALTH_TO_REPUTATION);
+        enemy.GotHit(hitstun, damage);
         CanDoStartup = true;
 
         // play hit effect
@@ -381,6 +411,8 @@ public partial class Player : CharacterBody2D
     void MidHighFollowUp()
     {
         currentMove = Move.MH;
+        Laser.Emitting = true;
+        GetNode<GpuParticles2D>("PlayerMidLaser/GPUParticles2D").Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -398,6 +430,7 @@ public partial class Player : CharacterBody2D
     void MidLowFollowUp()
     {
         currentMove = Move.ML;
+        Gunshot.Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -434,6 +467,8 @@ public partial class Player : CharacterBody2D
     void LowMidFollowUp()
     {
         currentMove = Move.LM;
+        JumpLaser.Emitting = true;
+        GetNode<GpuParticles2D>("PlayerJumpLaser/GPUParticles2D").Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -450,6 +485,7 @@ public partial class Player : CharacterBody2D
     void HighMidFollowUp()
     {
         currentMove = Move.HM;
+        Rocket.Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();

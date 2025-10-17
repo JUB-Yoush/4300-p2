@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
 [ext_resource type="Script" uid="uid://gw8dq4rhwsf2" path="res://src/entities/Camera/GameCamera.cs" id="5_5o53v"]
+[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/UI/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
 size = Vector2(106, 1240)
@@ -185,5 +186,7 @@ disabled = true
 position = Vector2(1977, 487)
 shape = SubResource("RectangleShape2D_5o53v")
 disabled = true
+
+[node name="BulletTextManager" parent="." instance=ExtResource("5_5o53v")]
 
 [editable path="Enemy"]

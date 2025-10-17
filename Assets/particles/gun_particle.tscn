@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://ge73p0iikfme"]
+
+[ext_resource type="Texture2D" uid="uid://b4fxjgnk6fkom" path="res://Assets/particles/Gunshot-Sheet.png" id="1_f84js"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7j2jf"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Gradient" id="Gradient_7dfht"]
+offsets = PackedFloat32Array(0, 0.22, 0.64, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0.337255, 1, 0.764706, 0.411765, 0.109804, 1, 0.699151, 0.0795415, 3.85046e-07, 1)
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_7j2jf")
+position = Vector2(10, 0)
+emitting = false
+amount = 1
+texture = ExtResource("1_f84js")
+lifetime = 0.1
+one_shot = true
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_7dfht")
+anim_speed_min = 2.0
+anim_speed_max = 2.0

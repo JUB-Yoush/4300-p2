@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://dysi5joh0n6eg"]
+
+[sub_resource type="Curve" id="Curve_trsfj"]
+_data = [Vector2(0, 0.235955), 0.0, 0.0, 0, 0, Vector2(0.102941, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_p4e46"]
+curve = SubResource("Curve_trsfj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dvxdh"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(1350, 0, 0)
+emission_shape_scale = Vector3(1350, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 0, 1)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 200.0
+scale_min = 30.0
+scale_max = 40.0
+scale_curve = SubResource("CurveTexture_p4e46")
+color = Color(0.839216, 0.0823529, 0.0117647, 0.811765)
+sub_emitter_mode = 4
+sub_emitter_amount_at_start = 1
+
+[sub_resource type="Curve" id="Curve_wdos0"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 44.4944), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gdjo3"]
+curve = SubResource("Curve_wdos0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f0q52"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.5, 0.5)
+angle_min = -1.99999
+angle_max = 2.00001
+angle_curve = SubResource("CurveTexture_gdjo3")
+spread = 25.0
+initial_velocity_min = 100.0
+initial_velocity_max = 400.0
+gravity = Vector3(-100, 0, 0)
+linear_accel_min = 1.7
+linear_accel_max = 2.45
+scale_min = 20.0
+scale_max = 50.0
+scale_curve = SubResource("CurveTexture_p4e46")
+color = Color(0.584314, 0.0431373, 0.00392157, 0.768627)
+
+[node name="Player_Laser" type="GPUParticles2D"]
+emitting = false
+amount = 1000
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_dvxdh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_f0q52")
