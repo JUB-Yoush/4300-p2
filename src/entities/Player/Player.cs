@@ -10,467 +10,483 @@ using static Helpers;
 
 public partial class Player : CharacterBody2D
 {
-    public enum Move
-    {
-        IDLE,
-        L,
-        M,
-        H,
-        LM,
-        LH,
-        ML,
-        MH,
-        HL,
-        HM,
-    }
+	public enum Move
+	{
+		IDLE,
+		L,
+		M,
+		H,
+		LM,
+		LH,
+		ML,
+		MH,
+		HL,
+		HM,
+	}
 
-    public Dictionary<Move, int> DamageMap = new Dictionary<Move, int>
-    {
-        { Move.LM, 5 },
-        { Move.LH, 5 },
-        { Move.ML, 5 },
-        { Move.MH, 5 },
-        { Move.HL, 5 },
-        { Move.HM, 5 },
-    };
+	public Dictionary<Move, int> DamageMap = new Dictionary<Move, int>
+	{
+		{ Move.LM, 5 },
+		{ Move.LH, 5 },
+		{ Move.ML, 5 },
+		{ Move.MH, 5 },
+		{ Move.HL, 5 },
+		{ Move.HM, 5 },
+	};
 
-    Move currentMove = Move.IDLE;
+	Move currentMove = Move.IDLE;
 
-    enum State
-    {
-        IDLE,
-        STARTUP,
-        ATTACKING,
-        BLOCKING,
-        HIT,
-    }
+	enum State
+	{
+		IDLE,
+		STARTUP,
+		ATTACKING,
+		BLOCKING,
+		HIT,
+	}
 
-    public enum Height
-    {
-        LOW = 0,
-        MID = 1,
-        HIGH = 2,
-        NONE,
-    }
+	public enum Height
+	{
+		LOW = 0,
+		MID = 1,
+		HIGH = 2,
+		NONE,
+	}
 
-    Sprite2D Sprite = null!;
-    Tween? tween = null;
+	Sprite2D Sprite = null!;
+	Tween? tween = null;
 
-    Tween? MovementTween = null;
+	Tween? MovementTween = null;
 
-    Action[,] FollowUps = { };
-    Action[] SetUps = [];
+	Action[,] FollowUps = { };
+	Action[] SetUps = [];
 
-    bool CanFollowUp = false;
-    bool CanDoStartup = false;
-    bool tweening = false;
-    bool wasBlocked = false;
+	bool CanFollowUp = false;
+	bool CanDoStartup = false;
+	bool tweening = false;
+	bool wasBlocked = false;
 
-    private State state;
-    private Height setupHeight,
-        AttackHeight;
+	private State state;
+	private Height setupHeight,
+		AttackHeight;
 
-    public Height BlockHeight = Height.NONE;
-    Area2D HitboxArea = null!;
-    Area2D HurtboxArea = null!;
+	public Height BlockHeight = Height.NONE;
+	Area2D HitboxArea = null!;
+	Area2D HurtboxArea = null!;
 
-    int Hp = 100;
+	public int Hp = 100;
+	public Healthbar HealthBar;
 
-    public override void _Ready()
-    {
-        Sprite = GetNode<Sprite2D>("Sprite2D");
 
-        // don't ask me why i have to instanitate it like this because i couldn't tell you.
-        Action[,] FollowUps1 =
-        {
-            { null!, LowMidFollowUp, LowHighFollowUp },
-            { MidLowFollowUp, null!, MidHighFollowUp },
-            { HighLowFollowUp, HighMidFollowUp, null! },
-        };
-        FollowUps = FollowUps1;
-        SetUps = [LowSetUp, MidSetUp, HighSetUp];
+	public override void _Ready()
+	{
+		Sprite = GetNode<Sprite2D>("Sprite2D");
+		
+		HealthBar = GetNode<Healthbar>("main/UI/Hud");
 
-        state = State.IDLE;
-        setupHeight = Height.NONE;
+		// don't ask me why i have to instanitate it like this because i couldn't tell you.
+		Action[,] FollowUps1 =
+		{
+			{ null!, LowMidFollowUp, LowHighFollowUp },
+			{ MidLowFollowUp, null!, MidHighFollowUp },
+			{ HighLowFollowUp, HighMidFollowUp, null! },
+		};
+		FollowUps = FollowUps1;
+		SetUps = [LowSetUp, MidSetUp, HighSetUp];
 
-        HurtboxArea = GetNode<Area2D>("HurtboxArea");
-        // HurtboxArea.CollisionLayer = (uint)Collisions.PLAYER_HURT;
-        // HurtboxArea.CollisionMask = (uint)Collisions.ENEMY_HIT;
-        HurtboxArea.AreaEntered += HitByEnemy;
+		state = State.IDLE;
+		setupHeight = Height.NONE;
 
-        HitboxArea = GetNode<Area2D>("HitboxArea");
-        // HitboxArea.CollisionLayer = (uint)Collisions.PLAYER_HIT;
-        // HitboxArea.CollisionMask = (uint)Collisions.ENEMY_HURT;
-        HitboxArea.AreaEntered += HitEnemy;
-    }
+		HurtboxArea = GetNode<Area2D>("HurtboxArea");
+		// HurtboxArea.CollisionLayer = (uint)Collisions.PLAYER_HURT;
+		// HurtboxArea.CollisionMask = (uint)Collisions.ENEMY_HIT;
+		HurtboxArea.AreaEntered += HitByEnemy;
 
-    void HitByEnemy(Area2D area)
-    {
-        if (state == State.HIT)
-        {
-            return;
-        }
-        var enemy = area.GetParent<Enemy>();
-        tween?.Stop();
-        if (IsOnFloor()) { }
-        Velocity = Vector2.Zero;
-        tween = CreateTween();
-        tween.Call(() =>
-        {
-            state = State.HIT;
-            Sprite.Frame = 3;
-            Hp -= enemy.DamageMap[enemy.currentMove];
-        });
-        tween.VelocityMovement(this, new(Position.X - 50, Position.Y), FramesToSeconds(8));
-        tween.TweenInterval(FramesToSeconds(30));
-        tween.Call(Reset);
-    }
+		HitboxArea = GetNode<Area2D>("HitboxArea");
+		// HitboxArea.CollisionLayer = (uint)Collisions.PLAYER_HIT;
+		// HitboxArea.CollisionMask = (uint)Collisions.ENEMY_HURT;
+		HitboxArea.AreaEntered += HitEnemy;
+	}
+	
+	public int getHP()
+	{
+		return Hp;
+	}
 
-    void HitEnemy(Area2D area)
-    {
-        GD.Print("you hit the enemy");
-        var enemy = area.GetParent<Enemy>();
-        if (enemy.BlockHeight == AttackHeight)
-        {
-            if (wasBlocked)
-            {
-                return;
-            }
-            // TODO attack blocking
-            wasBlocked = true;
-            enemy.Blocked();
-            GD.Print("they blocked it");
-            PushBlock();
+	void HitByEnemy(Area2D area)
+	{
+		if (state == State.HIT)
+		{
+			return;
+		}
+		var enemy = area.GetParent<Enemy>();
+		tween?.Stop();
+		if (IsOnFloor()) { }
+		Velocity = Vector2.Zero;
+		tween = CreateTween();
+		tween.Call(() =>
+		{
+			state = State.HIT;
+			Sprite.Frame = 3;
+			Hp -= enemy.DamageMap[enemy.currentMove];
+			
+			GD.Print(HealthBar.Phealth.ToString());
+			HealthBar.PlayerHB.Value = Hp;
+			HealthBar.PlayerHurt(50);
+			
+		});
+		tween.VelocityMovement(this, new(Position.X - 50, Position.Y), FramesToSeconds(8));
+		tween.TweenInterval(FramesToSeconds(30));
+		tween.Call(Reset);
+	}
 
-            return;
-        }
-        var hitstun = 5;
-        var damage = DamageMap[currentMove];
-        enemy.GotHit(hitstun, damage);
-        CanDoStartup = true;
+	void HitEnemy(Area2D area)
+	{
+		GD.Print("you hit the enemy");
+		var enemy = area.GetParent<Enemy>();
+		if (enemy.BlockHeight == AttackHeight)
+		{
+			if (wasBlocked)
+			{
+				return;
+			}
+			// TODO attack blocking
+			wasBlocked = true;
+			enemy.Blocked();
+			GD.Print("they blocked it");
+			PushBlock();
 
-        // play hit effect
-        // apply hit stun
-        // switch to hit animation on enemy
-    }
+			return;
+		}
+		var hitstun = 5;
+		var damage = DamageMap[currentMove];
+		enemy.GotHit(hitstun, damage);
+		CanDoStartup = true;
 
-    void PushBlock()
-    {
-        //CanDoStartup = true;
-        //Reset();
-        // Velocity = GetMovementVelocity(
-        //     Position,
-        //     new(Position.X - 20, Position.Y),
-        //     FramesToSeconds(2)
-        // );
-    }
+		// play hit effect
+		// apply hit stun
+		// switch to hit animation on enemy
+	}
 
-    void UpdateDebugPanel()
-    {
-        ((Label)GetParent().GetNode("%CancelLabel")).Text = CanFollowUp.ToString();
-        ((Label)GetParent().GetNode("%StateLabel")).Text = state.ToString();
-        ((Label)GetParent().GetNode("%HeightLabel")).Text = setupHeight.ToString();
-        ((Label)GetParent().GetNode("%AttackLabel")).Text = AttackHeight.ToString();
-        ((Label)GetParent().GetNode("%VelLabel")).Text = Velocity.ToString();
-        ((Label)GetParent().GetNode("%EnemyLabel")).Text = GetParent()
-            .GetNode<Enemy>("Enemy")
-            .BlockHeight.ToString();
-    }
+	void PushBlock()
+	{
+		//CanDoStartup = true;
+		//Reset();
+		// Velocity = GetMovementVelocity(
+		//     Position,
+		//     new(Position.X - 20, Position.Y),
+		//     FramesToSeconds(2)
+		// );
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        //GD.Print(CanFollowUp, tweening);
-        if (Input.IsActionJustPressed("high_attack"))
-        {
-            ProcessAttack(Height.HIGH);
-        }
-        else if (Input.IsActionJustPressed("medium_attack"))
-        {
-            ProcessAttack(Height.MID);
-        }
-        else if (Input.IsActionJustPressed("low_attack"))
-        {
-            ProcessAttack(Height.LOW);
-        }
-        else if (Input.IsActionJustPressed("block"))
-        {
-            Block();
-        }
-        UpdateDebugPanel();
-        MoveAndSlide();
-        if (!IsOnFloor() && (tween == null || !tween.IsRunning()))
-        {
-            Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 10) };
-        }
-    }
+	void UpdateDebugPanel()
+	{
+		((Label)GetParent().GetNode("%CancelLabel")).Text = CanFollowUp.ToString();
+		((Label)GetParent().GetNode("%StateLabel")).Text = state.ToString();
+		((Label)GetParent().GetNode("%HeightLabel")).Text = setupHeight.ToString();
+		((Label)GetParent().GetNode("%AttackLabel")).Text = AttackHeight.ToString();
+		((Label)GetParent().GetNode("%VelLabel")).Text = Velocity.ToString();
+		((Label)GetParent().GetNode("%EnemyLabel")).Text = GetParent()
+			.GetNode<Enemy>("Enemy")
+			.BlockHeight.ToString();
+			
+		((Label)GetParent().GetNode("%HealthLabel")).Text = Hp.ToString();
+	}
 
-    void Block()
-    {
-        if (state != State.IDLE || state == State.BLOCKING) { }
-    }
+	public override void _PhysicsProcess(double delta)
+	{
+		//GD.Print(CanFollowUp, tweening);
+		if (Input.IsActionJustPressed("high_attack"))
+		{
+			ProcessAttack(Height.HIGH);
+		}
+		else if (Input.IsActionJustPressed("medium_attack"))
+		{
+			ProcessAttack(Height.MID);
+		}
+		else if (Input.IsActionJustPressed("low_attack"))
+		{
+			ProcessAttack(Height.LOW);
+		}
+		else if (Input.IsActionJustPressed("block"))
+		{
+			Block();
+		}
+		UpdateDebugPanel();
+		MoveAndSlide();
+		if (!IsOnFloor() && (tween == null || !tween.IsRunning()))
+		{
+			Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 10) };
+		}
+	}
 
-    void ProcessAttack(Height level)
-    {
-        if (state == State.STARTUP)
-        {
-            if (!CanFollowUp || level == setupHeight)
-            {
-                return;
-            }
+	void Block()
+	{
+		if (state != State.IDLE || state == State.BLOCKING) { }
+	}
 
-            tween!.Stop();
-            state = State.ATTACKING;
-            AttackHeight = level;
-            FollowUps[(int)setupHeight, (int)AttackHeight]();
-        }
-        else if ((state == State.IDLE || CanDoStartup) && IsOnFloor())
-        {
-            Reset();
-            tween?.Stop();
-            setupHeight = level;
-            AttackHeight = Height.NONE;
-            state = State.STARTUP;
-            SetUps[(int)setupHeight]();
-        }
-    }
+	void ProcessAttack(Height level)
+	{
+		if (state == State.STARTUP)
+		{
+			if (!CanFollowUp || level == setupHeight)
+			{
+				return;
+			}
 
-    void MidSetUp()
-    {
-        CanFollowUp = false;
+			tween!.Stop();
+			state = State.ATTACKING;
+			AttackHeight = level;
+			FollowUps[(int)setupHeight, (int)AttackHeight]();
+		}
+		else if ((state == State.IDLE || CanDoStartup) && IsOnFloor())
+		{
+			Reset();
+			tween?.Stop();
+			setupHeight = level;
+			AttackHeight = Height.NONE;
+			state = State.STARTUP;
+			SetUps[(int)setupHeight]();
+		}
+	}
 
-        // moving forward
-        tween = CreateTween();
+	void MidSetUp()
+	{
+		CanFollowUp = false;
 
-        // starts animation
-        tween.Call(() =>
-        {
-            Sprite.Frame = 18;
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M);
-        });
+		// moving forward
+		tween = CreateTween();
 
-        tween.VelocityMovement(
-            this,
-            new Vector2(Position.X - 300, Position.Y),
-            FramesToSeconds(24)
-        );
-        tween.Call(() =>
-        {
-            CanFollowUp = true;
-            Sprite.Frame = 19;
-        });
-        tween.Call(Reset, FramesToSeconds(12));
-    }
+		// starts animation
+		tween.Call(() =>
+		{
+			Sprite.Frame = 18;
+			UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M);
+		});
 
-    void HighSetUp()
-    {
-        CanFollowUp = false;
+		tween.VelocityMovement(
+			this,
+			new Vector2(Position.X - 300, Position.Y),
+			FramesToSeconds(24)
+		);
+		tween.Call(() =>
+		{
+			CanFollowUp = true;
+			Sprite.Frame = 19;
+		});
+		tween.Call(Reset, FramesToSeconds(12));
+	}
 
-        tween = CreateTween();
+	void HighSetUp()
+	{
+		CanFollowUp = false;
 
-        // starts animation
-        tween.Call(() =>
-        {
-            Sprite.Frame = 14;
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.H);
-        });
+		tween = CreateTween();
 
-        tween.VelocityMovement(
-            this,
-            new Vector2(Position.X + 300, Position.Y),
-            FramesToSeconds(24)
-        );
-        tween.Call(() => Sprite.Frame = 15, FramesToSeconds(12), true);
-        tween.Call(() =>
-        {
-            CanFollowUp = true;
-            Sprite.Frame = 13;
-        });
-        tween.Call(Reset, FramesToSeconds(12));
-    }
+		// starts animation
+		tween.Call(() =>
+		{
+			Sprite.Frame = 14;
+			UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.H);
+		});
 
-    void LowSetUp()
-    {
-        CanFollowUp = false;
+		tween.VelocityMovement(
+			this,
+			new Vector2(Position.X + 300, Position.Y),
+			FramesToSeconds(24)
+		);
+		tween.Call(() => Sprite.Frame = 15, FramesToSeconds(12), true);
+		tween.Call(() =>
+		{
+			CanFollowUp = true;
+			Sprite.Frame = 13;
+		});
+		tween.Call(Reset, FramesToSeconds(12));
+	}
 
-        tween = CreateTween();
+	void LowSetUp()
+	{
+		CanFollowUp = false;
 
-        // starts animation
-        tween.Call(() =>
-        {
-            Sprite.Frame = 17;
-            UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.L);
-        });
+		tween = CreateTween();
 
-        tween.Call(() =>
-        {
-            Velocity = new(Velocity.X + 1000, Velocity.Y - 1000);
-        });
-        tween.TweenProperty(this, "velocity", new Vector2(Velocity.X, 0), FramesToSeconds(24));
-        tween.Call(() => Sprite.Frame = 7, FramesToSeconds(20), true);
-        tween.Call(() =>
-        {
-            CanFollowUp = true;
-        });
-        tween.TweenProperty(
-            this,
-            "velocity",
-            new Vector2(Velocity.X, Velocity.Y + 1000),
-            FramesToSeconds(30)
-        );
+		// starts animation
+		tween.Call(() =>
+		{
+			Sprite.Frame = 17;
+			UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.L);
+		});
 
-        tween.Call(() =>
-        {
-            Sprite.Frame = 13;
-            CanFollowUp = false;
-        });
-        tween.TweenInterval(FramesToSeconds(24));
-        tween.Call(Reset);
-    }
+		tween.Call(() =>
+		{
+			Velocity = new(Velocity.X + 1000, Velocity.Y - 1000);
+		});
+		tween.TweenProperty(this, "velocity", new Vector2(Velocity.X, 0), FramesToSeconds(24));
+		tween.Call(() => Sprite.Frame = 7, FramesToSeconds(20), true);
+		tween.Call(() =>
+		{
+			CanFollowUp = true;
+		});
+		tween.TweenProperty(
+			this,
+			"velocity",
+			new Vector2(Velocity.X, Velocity.Y + 1000),
+			FramesToSeconds(30)
+		);
 
-    void MidHighFollowUp()
-    {
-        tweening = true;
-        CanFollowUp = false;
-        tween = CreateTween();
-        // tween.Call(() => Sprite.Frame = 19);
-        // tween.TweenInterval(FramesToSeconds(10));
-        tween.Call(() =>
-        {
-            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH);
-            Sprite.Frame = 9;
-        });
-        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
-        tween.Call(() => Sprite.Frame = 10);
-        tween.TweenInterval(FramesToSeconds(10));
-        tween.Call(Reset);
-    }
+		tween.Call(() =>
+		{
+			Sprite.Frame = 13;
+			CanFollowUp = false;
+		});
+		tween.TweenInterval(FramesToSeconds(24));
+		tween.Call(Reset);
+	}
 
-    void MidLowFollowUp()
-    {
-        tweening = true;
-        CanFollowUp = false;
-        tween = CreateTween();
-        tween.Call(() =>
-        {
-            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.ML);
-            Sprite.Frame = 11;
-        });
-        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+	void MidHighFollowUp()
+	{
+		tweening = true;
+		CanFollowUp = false;
+		tween = CreateTween();
+		// tween.Call(() => Sprite.Frame = 19);
+		// tween.TweenInterval(FramesToSeconds(10));
+		tween.Call(() =>
+		{
+			UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH);
+			Sprite.Frame = 9;
+		});
+		tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+		tween.Call(() => Sprite.Frame = 10);
+		tween.TweenInterval(FramesToSeconds(10));
+		tween.Call(Reset);
+	}
 
-        tween.Call(Reset);
-    }
+	void MidLowFollowUp()
+	{
+		tweening = true;
+		CanFollowUp = false;
+		tween = CreateTween();
+		tween.Call(() =>
+		{
+			UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.ML);
+			Sprite.Frame = 11;
+		});
+		tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
 
-    void LowHighFollowUp()
-    {
-        tweening = true;
-        CanFollowUp = false;
-        tween = CreateTween();
-        tween.Call(() =>
-        {
-            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LH);
-            Sprite.Frame = 8;
-        });
-        tween.VelocityMovement(
-            this,
-            new Vector2(Position.X, Position.Y + 200),
-            FramesToSeconds(24)
-        );
-        tween.Call(Reset);
-    }
+		tween.Call(Reset);
+	}
 
-    void LowMidFollowUp()
-    {
-        tweening = true;
-        CanFollowUp = false;
-        tween = CreateTween();
-        tween.Call(() =>
-        {
-            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM);
-            Sprite.Frame = 6;
-        });
-        tween.VelocityMovement(this, new Vector2(Position.X - 20, Position.Y), FramesToSeconds(24));
-        //TODO maybe this instead?
-        // tween.TweenProperty(
-        //     this,
-        //     "velocity",
-        //     GetMovementVelocity(Position, new(Position.X + 20, Position.Y), FramesToSeconds(24)),
-        //     FramesToSeconds(24)
-        // );
-        tween.Call(Reset);
-    }
+	void LowHighFollowUp()
+	{
+		tweening = true;
+		CanFollowUp = false;
+		tween = CreateTween();
+		tween.Call(() =>
+		{
+			UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LH);
+			Sprite.Frame = 8;
+		});
+		tween.VelocityMovement(
+			this,
+			new Vector2(Position.X, Position.Y + 200),
+			FramesToSeconds(24)
+		);
+		tween.Call(Reset);
+	}
 
-    void HighMidFollowUp()
-    {
-        tweening = true;
-        CanFollowUp = false;
-        tween = CreateTween();
-        tween.Call(() =>
-        {
-            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HM);
-            Sprite.Frame = 1;
-        });
-        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
-        tween.Call(Reset);
-    }
+	void LowMidFollowUp()
+	{
+		tweening = true;
+		CanFollowUp = false;
+		tween = CreateTween();
+		tween.Call(() =>
+		{
+			UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM);
+			Sprite.Frame = 6;
+		});
+		tween.VelocityMovement(this, new Vector2(Position.X - 20, Position.Y), FramesToSeconds(24));
+		//TODO maybe this instead?
+		// tween.TweenProperty(
+		//     this,
+		//     "velocity",
+		//     GetMovementVelocity(Position, new(Position.X + 20, Position.Y), FramesToSeconds(24)),
+		//     FramesToSeconds(24)
+		// );
+		tween.Call(Reset);
+	}
 
-    void HighLowFollowUp()
-    {
-        tweening = true;
-        CanFollowUp = false;
-        tween = CreateTween();
-        tween.Call(() =>
-        {
-            UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HL);
-            Sprite.Frame = 2;
-        });
-        tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
-        tween.Call(Reset);
-    }
+	void HighMidFollowUp()
+	{
+		tweening = true;
+		CanFollowUp = false;
+		tween = CreateTween();
+		tween.Call(() =>
+		{
+			UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HM);
+			Sprite.Frame = 1;
+		});
+		tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+		tween.Call(Reset);
+	}
 
-    void Reset()
-    {
-        CanFollowUp = false;
-        state = State.IDLE;
-        ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
-        UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
-        Sprite.Frame = 4;
-        if (IsOnFloor())
-        {
-            Velocity = Vector2.Zero;
-        }
-        wasBlocked = false;
-        CanDoStartup = false;
-    }
+	void HighLowFollowUp()
+	{
+		tweening = true;
+		CanFollowUp = false;
+		tween = CreateTween();
+		tween.Call(() =>
+		{
+			UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HL);
+			Sprite.Frame = 2;
+		});
+		tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+		tween.Call(Reset);
+	}
 
-    void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)
-    {
-        ResetCollisionBox(boxtype);
+	void Reset()
+	{
+		CanFollowUp = false;
+		state = State.IDLE;
+		ResetCollisionBox(CollisionBoxes.BoxType.HITBOX);
+		UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.IDLE);
+		Sprite.Frame = 4;
+		if (IsOnFloor())
+		{
+			Velocity = Vector2.Zero;
+		}
+		wasBlocked = false;
+		CanDoStartup = false;
+	}
 
-        var area = boxtype == CollisionBoxes.BoxType.HITBOX ? HitboxArea : HurtboxArea;
+	void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)
+	{
+		ResetCollisionBox(boxtype);
 
-        if (boxtype == CollisionBoxes.BoxType.HITBOX)
-        {
-            currentMove = move;
-        }
+		var area = boxtype == CollisionBoxes.BoxType.HITBOX ? HitboxArea : HurtboxArea;
 
-        area.GetNode<CollisionShape2D>(move.ToString()).Disabled = false;
-    }
+		if (boxtype == CollisionBoxes.BoxType.HITBOX)
+		{
+			currentMove = move;
+		}
 
-    void ResetCollisionBox(CollisionBoxes.BoxType boxtype)
-    {
-        var area = boxtype == CollisionBoxes.BoxType.HITBOX ? HitboxArea : HurtboxArea;
-        area.GetChildren()
-            .OfType<CollisionShape2D>()
-            .ToList()
-            .ForEach(child => child.Disabled = true);
-    }
+		area.GetNode<CollisionShape2D>(move.ToString()).Disabled = false;
+	}
+
+	void ResetCollisionBox(CollisionBoxes.BoxType boxtype)
+	{
+		var area = boxtype == CollisionBoxes.BoxType.HITBOX ? HitboxArea : HurtboxArea;
+		area.GetChildren()
+			.OfType<CollisionShape2D>()
+			.ToList()
+			.ForEach(child => child.Disabled = true);
+	}
 }
 
 public static class CollisionBoxes
 {
-    public enum BoxType
-    {
-        HITBOX,
-        HURTBOX,
-    }
+	public enum BoxType
+	{
+		HITBOX,
+		HURTBOX,
+	}
 }
