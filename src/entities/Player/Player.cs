@@ -75,10 +75,15 @@ public partial class Player : CharacterBody2D
     Area2D HurtboxArea = null!;
 
     int Hp = 100;
+    GpuParticles2D Laser = null!, JumpLaser = null!;
+    CpuParticles2D Gunshot = null!;
 
     public override void _Ready()
     {
         Sprite = GetNode<Sprite2D>("Sprite2D");
+        Laser = GetNode<GpuParticles2D>("PlayerMidLaser");
+        JumpLaser = GetNode<GpuParticles2D>("PlayerJumpLaser");
+        Gunshot = GetNode<CpuParticles2D>("PlayerGunshot");
 
         // don't ask me why i have to instanitate it like this because i couldn't tell you.
         Action[,] FollowUps1 =
@@ -329,6 +334,8 @@ public partial class Player : CharacterBody2D
 
     void MidHighFollowUp()
     {
+        Laser.Emitting = true;
+        GetNode<GpuParticles2D>("PlayerMidLaser/GPUParticles2D").Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -347,6 +354,7 @@ public partial class Player : CharacterBody2D
 
     void MidLowFollowUp()
     {
+        Gunshot.Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -380,6 +388,8 @@ public partial class Player : CharacterBody2D
 
     void LowMidFollowUp()
     {
+        JumpLaser.Emitting = true;
+        GetNode<GpuParticles2D>("PlayerJumpLaser/GPUParticles2D").Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
