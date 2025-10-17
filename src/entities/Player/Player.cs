@@ -233,7 +233,6 @@ public partial class Player : CharacterBody2D
         if (state != State.IDLE)
             return;
         CanBlock = false;
-        //enemy.GotHit(15, 0);
         tween?.Stop();
         tween = CreateTween();
         tween.Call(() =>
@@ -435,13 +434,6 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 6;
         });
         tween.VelocityMovement(this, new Vector2(Position.X - 20, Position.Y), FramesToSeconds(24));
-        //TODO maybe this instead?
-        // tween.TweenProperty(
-        //     this,
-        //     "velocity",
-        //     GetMovementVelocity(Position, new(Position.X + 20, Position.Y), FramesToSeconds(24)),
-        //     FramesToSeconds(24)
-        // );
         tween.Call(Reset);
     }
 
