@@ -69,6 +69,7 @@ public partial class Player : CharacterBody2D
     float BlockCooldown = FramesToSeconds(60);
     bool CanBlock = true;
     bool BlockSuccessful = false;
+    int ComboCount = 0;
 
     private State state;
     private Height setupHeight,
@@ -138,6 +139,8 @@ public partial class Player : CharacterBody2D
             state = State.HIT;
             Sprite.Frame = 3;
             Hp -= enemy.DamageMap[enemy.currentMove];
+            CanDoStartup = false;
+            CanFollowUp = false;
         });
         tween.VelocityMovement(this, new(Position.X - 50, Position.Y), FramesToSeconds(8));
         tween.TweenInterval(FramesToSeconds(30));
@@ -148,6 +151,7 @@ public partial class Player : CharacterBody2D
     {
         GD.Print("you hit the enemy");
         var enemy = area.GetParent<Enemy>();
+        CanBlock = true;
         if (enemy.BlockHeight == AttackHeight)
         {
             if (wasBlocked)
@@ -237,7 +241,7 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 0;
             state = State.BLOCKING;
         });
-        tween.TweenInterval(FramesToSeconds(15));
+        tween.TweenInterval(FramesToSeconds(10));
         tween.Call(Reset);
     }
 
@@ -481,7 +485,7 @@ public partial class Player : CharacterBody2D
             Velocity = Vector2.Zero;
         }
         wasBlocked = false;
-        CanDoStartup = false;
+        CanDoStartup = true;
     }
 
     void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)
