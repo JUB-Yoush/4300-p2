@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvwoxqh7tcwce"]
+[gd_scene load_steps=9 format=3 uid="uid://bvwoxqh7tcwce"]
 
 [ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_0v50n"]
+[ext_resource type="Texture2D" uid="uid://cprdhdsd0rhp4" path="res://assets/ui/Background General.png" id="2_cmdrh"]
 [ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://assets/placeholder_sprites/images.jpg" id="2_mkkuv"]
 [ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_lce0n"]
-[ext_resource type="Texture2D" uid="uid://bwqteyyxxue1m" path="res://assets/placeholder_sprites/smell_UI/Button Idle.svg" id="4_ig05b"]
-[ext_resource type="Texture2D" uid="uid://df5wx04ng8m7q" path="res://assets/placeholder_sprites/smell_UI/Button Click.svg" id="5_e75ih"]
-[ext_resource type="Texture2D" uid="uid://b557esg48hsxe" path="res://assets/placeholder_sprites/smell_UI/Button Hover.svg" id="6_d010b"]
+[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="5_a4cwf"]
+[ext_resource type="Texture2D" uid="uid://810ppyk325b2" path="res://assets/ui/start_UI/Start Button Idle.svg" id="6_upcf7"]
+[ext_resource type="Texture2D" uid="uid://dbtfxhpftitfv" path="res://assets/ui/ButtonX.svg" id="7_5hlu4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -33,7 +34,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8nsmu")
 
+[node name="background" type="TextureRect" parent="Result"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_cmdrh")
+stretch_mode = 3
+
 [node name="Bg" type="TextureRect" parent="Result"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -54,14 +63,36 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -154.0
-offset_top = 83.0
-offset_right = 155.0
-offset_bottom = 193.0
+offset_left = -506.0
+offset_top = 101.0
+offset_right = 513.0
+offset_bottom = 225.0
 grow_horizontal = 2
 theme = ExtResource("3_lce0n")
-theme_override_font_sizes/font_size = 80
-text = "You Won!"
+theme_override_colors/font_color = Color(0.92833, 0.895505, 0.98029, 1)
+theme_override_fonts/font = ExtResource("5_a4cwf")
+theme_override_font_sizes/font_size = 96
+text = "STREAM SUCCESS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ended" type="Label" parent="Result"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -336.0
+offset_top = 304.0
+offset_right = 340.0
+offset_bottom = 529.0
+grow_horizontal = 2
+theme = ExtResource("3_lce0n")
+theme_override_colors/font_color = Color(0.686275, 0.611765, 0.956863, 1)
+theme_override_fonts/font = ExtResource("5_a4cwf")
+theme_override_font_sizes/font_size = 86
+text = "Streamer
+Ended Stream"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -72,28 +103,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -850.0
-offset_top = 195.0
-offset_right = 1265.0
-offset_bottom = 836.0
+offset_left = -800.0
+offset_top = 284.0
+offset_right = -191.0
+offset_bottom = 418.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("4_ig05b")
-texture_pressed = ExtResource("5_e75ih")
-texture_hover = ExtResource("6_d010b")
+scale = Vector2(0.9, 0.9)
+focus_neighbor_left = NodePath("../Home")
+focus_neighbor_right = NodePath("../Continue")
+texture_normal = ExtResource("6_upcf7")
+texture_hover = ExtResource("7_5hlu4")
+stretch_mode = 3
 
 [node name="Resetxt" type="Label" parent="Result/Reset"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_bottom = 23.0
+offset_left = 222.222
+offset_top = 8.88888
+offset_right = -71.7778
+offset_bottom = -1.11113
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_lce0n")
-theme_override_font_sizes/font_size = 250
+theme_override_colors/font_color = Color(0.901961, 0.882353, 0.964706, 1)
+theme_override_fonts/font = ExtResource("5_a4cwf")
+theme_override_font_sizes/font_size = 90
 text = "Retry"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -105,29 +142,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 350.0
-offset_top = 195.0
-offset_right = 2465.0
-offset_bottom = 836.0
+offset_left = -304.0
+offset_top = 84.0
+offset_right = 305.0
+offset_bottom = 218.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("4_ig05b")
-texture_pressed = ExtResource("5_e75ih")
-texture_hover = ExtResource("6_d010b")
+focus_neighbor_left = NodePath("../Continue")
+focus_neighbor_right = NodePath("../Reset")
+texture_normal = ExtResource("6_upcf7")
+texture_hover = ExtResource("7_5hlu4")
+stretch_mode = 3
 
 [node name="Hometxt" type="Label" parent="Result/Home"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_bottom = 23.0
+offset_left = 176.0
+offset_top = 8.0
+offset_right = -49.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_lce0n")
-theme_override_font_sizes/font_size = 250
-text = "Menu"
+theme_override_colors/font_color = Color(0.901961, 0.882353, 0.964706, 1)
+theme_override_fonts/font = ExtResource("5_a4cwf")
+theme_override_font_sizes/font_size = 96
+text = "HOME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -138,28 +180,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -254.0
-offset_top = 195.0
-offset_right = 1861.0
-offset_bottom = 836.0
+offset_left = 192.0
+offset_top = 284.0
+offset_right = 801.0
+offset_bottom = 418.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("4_ig05b")
-texture_pressed = ExtResource("5_e75ih")
-texture_hover = ExtResource("6_d010b")
+scale = Vector2(0.9, 0.9)
+focus_neighbor_left = NodePath("../Reset")
+focus_neighbor_right = NodePath("../Home")
+texture_normal = ExtResource("6_upcf7")
+texture_hover = ExtResource("7_5hlu4")
+stretch_mode = 3
 
 [node name="Continuetxt" type="Label" parent="Result/Continue"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_bottom = 23.0
+offset_left = 128.0
+offset_top = 8.0
+offset_right = -5.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_lce0n")
-theme_override_font_sizes/font_size = 250
+theme_override_colors/font_color = Color(0.901961, 0.882353, 0.964706, 1)
+theme_override_fonts/font = ExtResource("5_a4cwf")
+theme_override_font_sizes/font_size = 85
 text = "Continue"
 horizontal_alignment = 1
 vertical_alignment = 1
