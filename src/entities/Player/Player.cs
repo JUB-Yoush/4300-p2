@@ -77,6 +77,8 @@ public partial class Player : CharacterBody2D
     int Hp = 100;
     GpuParticles2D Laser = null!, JumpLaser = null!;
     CpuParticles2D Gunshot = null!;
+    BulletTextManager BulletText = null!;
+    private const int HEALTH_TO_REPUTATION = 50;
 
     public override void _Ready()
     {
@@ -84,6 +86,7 @@ public partial class Player : CharacterBody2D
         Laser = GetNode<GpuParticles2D>("PlayerMidLaser");
         JumpLaser = GetNode<GpuParticles2D>("PlayerJumpLaser");
         Gunshot = GetNode<CpuParticles2D>("PlayerGunshot");
+        BulletText = GetParent().GetNode<BulletTextManager>("BulletTextManager");
 
         // don't ask me why i have to instanitate it like this because i couldn't tell you.
         Action[,] FollowUps1 =
@@ -125,6 +128,7 @@ public partial class Player : CharacterBody2D
             state = State.HIT;
             Sprite.Frame = 3;
             Hp -= enemy.DamageMap[enemy.currentMove];
+            BulletText.InfluenceReputation(-enemy.DamageMap[enemy.currentMove] * HEALTH_TO_REPUTATION);
         });
         tween.VelocityMovement(this, new(Position.X - 50, Position.Y), FramesToSeconds(8));
         tween.TweenInterval(FramesToSeconds(30));
@@ -151,6 +155,7 @@ public partial class Player : CharacterBody2D
         }
         var hitstun = 5;
         var damage = DamageMap[currentMove];
+        BulletText.InfluenceReputation(damage * HEALTH_TO_REPUTATION);
         enemy.GotHit(hitstun, damage);
         CanDoStartup = true;
 

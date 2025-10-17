@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=8 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="PackedScene" uid="uid://b2ugdxlnxenjb" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
+[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/UI/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
 size = Vector2(106, 1240)
@@ -143,5 +144,7 @@ shape = SubResource("RectangleShape2D_kvr80")
 visible = false
 position = Vector2(338, 684)
 enabled = false
+
+[node name="BulletTextManager" parent="." instance=ExtResource("5_5o53v")]
 
 [editable path="Enemy"]
