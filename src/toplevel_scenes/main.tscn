@@ -10,13 +10,13 @@
 size = Vector2(106, 1240)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrw7u"]
-size = Vector2(106, 3499)
+size = Vector2(118.006, 3523)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o53v"]
 size = Vector2(27, 1240)
 
 [node name="main" type="Node"]
-metadata/_edit_vertical_guides_ = [-689.0, 2797.0]
+metadata/_edit_vertical_guides_ = [-41.0, 3423.0, 2500.0]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -121,10 +121,10 @@ visible = false
 visible = false
 
 [node name="Enemy" parent="." instance=ExtResource("2_kvr80")]
-position = Vector2(795, 673)
+position = Vector2(2389, 687)
 
 [node name="Player" parent="." instance=ExtResource("1_3u0g6")]
-position = Vector2(280, 692)
+position = Vector2(1197, 692)
 metadata/_edit_group_ = true
 
 [node name="Walls" type="StaticBody2D" parent="."]
@@ -132,28 +132,26 @@ collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
-position = Vector2(-719, 528)
+position = Vector2(0, 540)
 shape = SubResource("RectangleShape2D_kvr80")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
-position = Vector2(1049.5, 1103)
+position = Vector2(1741.5, 1109.01)
 rotation = -1.57079
 shape = SubResource("RectangleShape2D_qrw7u")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
-position = Vector2(2737, 536)
+position = Vector2(3465, 548)
 shape = SubResource("RectangleShape2D_kvr80")
 
 [node name="GameCamera" type="Camera2D" parent="."]
-limit_left = -670
-limit_right = 2797
-drag_horizontal_enabled = true
-drag_left_margin = 0.5
-drag_right_margin = 0.5
+position = Vector2(924, 593)
+limit_left = 0
+limit_right = 3423
 script = ExtResource("5_5o53v")
 
 [node name="Border" type="StaticBody2D" parent="GameCamera"]
-position = Vector2(-938, -506)
+position = Vector2(-14, -506)
 collision_layer = 64
 collision_mask = 0
 

@@ -6,7 +6,7 @@ using Godot;
 public partial class GameCamera : Camera2D
 {
     private static readonly Vector2 Resolution = new(1920, 1080);
-    private static readonly int[] CameraLimits = [-670, 2797];
+    private static readonly int[] CameraLimits = [0, 3423];
     const int SCREEN_WIDTH = 1400;
     const int CAMERA_HEIGHT = 580;
 
@@ -25,6 +25,8 @@ public partial class GameCamera : Camera2D
 
     public override void _Ready()
     {
+        LimitLeft = CameraLimits[0];
+        LimitRight = CameraLimits[1];
         player = GetParent().GetNode<Player>("Player");
         enemy = GetParent().GetNode<Enemy>("Enemy");
         LeftWall = GetNode<CollisionShape2D>("Border/LeftWall");

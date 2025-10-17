@@ -50,7 +50,6 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_pjr3c")
 hframes = 4
 vframes = 5
-frame = 4
 
 [node name="HitboxArea" type="Area2D" parent="."]
 collision_mask = 8

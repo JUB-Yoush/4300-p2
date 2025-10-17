@@ -94,4 +94,11 @@ public static class Helpers
     {
         return (float)frames / 60;
     }
+
+    public struct AttackData(int damage, int knockback, int hitstun)
+    {
+        public int damage = damage;
+        public int knockback = knockback;
+        public int hitstun = hitstun;
+    }
 }

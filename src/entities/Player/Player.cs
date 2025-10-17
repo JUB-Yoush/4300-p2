@@ -24,14 +24,14 @@ public partial class Player : CharacterBody2D
         HM,
     }
 
-    public Dictionary<Move, int> DamageMap = new Dictionary<Move, int>
+    public Dictionary<Move, AttackData> AttackDataMap = new()
     {
-        { Move.LM, 5 },
-        { Move.LH, 5 },
-        { Move.ML, 5 },
-        { Move.MH, 5 },
-        { Move.HL, 5 },
-        { Move.HM, 5 },
+        { Move.LM, new(5, 100, 15) },
+        { Move.LH, new(5, 100, 15) },
+        { Move.ML, new(5, 100, 15) },
+        { Move.MH, new(5, 100, 15) },
+        { Move.HL, new(5, 100, 15) },
+        { Move.HM, new(5, 100, 15) },
     };
 
     Move currentMove = Move.IDLE;
@@ -166,9 +166,11 @@ public partial class Player : CharacterBody2D
 
             return;
         }
-        var hitstun = 15;
-        var damage = DamageMap[currentMove];
-        enemy.GotHit(hitstun, damage);
+        GD.Print($"Hit with {currentMove}");
+        var damage = AttackDataMap[currentMove].damage;
+        var hitstun = AttackDataMap[currentMove].hitstun;
+        var knockback = AttackDataMap[currentMove].knockback;
+        enemy.GotHit(hitstun, damage, knockback);
         CanDoStartup = true;
 
         // play hit effect
@@ -374,11 +376,10 @@ public partial class Player : CharacterBody2D
 
     void MidHighFollowUp()
     {
+        currentMove = Move.MH;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
-        // tween.Call(() => Sprite.Frame = 19);
-        // tween.TweenInterval(FramesToSeconds(10));
         tween.Call(() =>
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH);
@@ -386,12 +387,13 @@ public partial class Player : CharacterBody2D
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
         tween.Call(() => Sprite.Frame = 10);
-        tween.TweenInterval(FramesToSeconds(10));
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void MidLowFollowUp()
     {
+        currentMove = Move.ML;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -401,12 +403,13 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 11;
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
-
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void LowHighFollowUp()
     {
+        currentMove = Move.LH;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -420,25 +423,29 @@ public partial class Player : CharacterBody2D
             new Vector2(Position.X, Position.Y + 200),
             FramesToSeconds(24)
         );
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void LowMidFollowUp()
     {
+        currentMove = Move.LM;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
+        tween.Call(() => Sprite.Frame = 6);
         tween.Call(() =>
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM);
-            Sprite.Frame = 6;
         });
         tween.VelocityMovement(this, new Vector2(Position.X - 20, Position.Y), FramesToSeconds(24));
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void HighMidFollowUp()
     {
+        currentMove = Move.HM;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -448,11 +455,13 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 1;
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void HighLowFollowUp()
     {
+        currentMove = Move.HL;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -462,6 +471,7 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 2;
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 

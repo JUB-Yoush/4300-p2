@@ -43,7 +43,7 @@ public partial class Enemy : CharacterBody2D
 
     Action[] Attacks = [];
 
-    public Dictionary<Move, int> DamageMap = new Dictionary<Move, int>
+    public Dictionary<Move, int> DamageMap = new()
     {
         { Move.L, 5 },
         { Move.M, 5 },
@@ -77,6 +77,10 @@ public partial class Enemy : CharacterBody2D
 
     void Attack()
     {
+        if (CurrentState == State.ATTACKING)
+        {
+            return;
+        }
         CurrentState = State.ATTACKING;
         AttackHeight = BlockHeight;
         GD.Print($"Attacking {AttackHeight}");
@@ -234,9 +238,8 @@ public partial class Enemy : CharacterBody2D
         Sprite.Frame = blockFrameMap[BlockHeight];
     }
 
-    public void GotHit(int hitstun, int damage)
+    public void GotHit(int hitstun, int damage, int knockback)
     {
-        //Position = Position with { X = Position.X + 20 };
         Sprite.Scale = new(.75f, .75f);
         tween?.Stop();
         tween = CreateTween();
@@ -246,7 +249,11 @@ public partial class Enemy : CharacterBody2D
             Sprite.Frame = 11;
             Hp -= damage;
         });
-        tween.VelocityMovement(this, new(Position.X + 50, Position.Y), FramesToSeconds(hitstun));
+        tween.VelocityMovement(
+            this,
+            new(Position.X + knockback, Position.Y),
+            FramesToSeconds(hitstun)
+        );
         tween.Call(() =>
         {
             ResetCollisionBox(BoxType.HITBOX);
