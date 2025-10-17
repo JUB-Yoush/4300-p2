@@ -143,3 +143,5 @@ shape = SubResource("RectangleShape2D_kvr80")
 visible = false
 position = Vector2(338, 684)
 enabled = false
+
+[editable path="Enemy"]
