@@ -75,7 +75,10 @@ public partial class Player : CharacterBody2D
     Area2D HurtboxArea = null!;
 
     int Hp = 100;
-    GpuParticles2D Laser = null!, JumpLaser = null!;
+    GpuParticles2D Laser = null!,
+        JumpLaser = null!,
+        Rocket = null!,
+        RocketExplosion = null!;
     CpuParticles2D Gunshot = null!;
     BulletTextManager BulletText = null!;
     private const int HEALTH_TO_REPUTATION = 50;
@@ -86,6 +89,8 @@ public partial class Player : CharacterBody2D
         Laser = GetNode<GpuParticles2D>("PlayerMidLaser");
         JumpLaser = GetNode<GpuParticles2D>("PlayerJumpLaser");
         Gunshot = GetNode<CpuParticles2D>("PlayerGunshot");
+        Rocket = GetNode<GpuParticles2D>("PlayerRocket");
+        RocketExplosion = GetNode<GpuParticles2D>("PlayerRocket/GPUParticles2D");
         BulletText = GetParent().GetNode<BulletTextManager>("BulletTextManager");
 
         // don't ask me why i have to instanitate it like this because i couldn't tell you.
@@ -128,7 +133,9 @@ public partial class Player : CharacterBody2D
             state = State.HIT;
             Sprite.Frame = 3;
             Hp -= enemy.DamageMap[enemy.currentMove];
-            BulletText.InfluenceReputation(-enemy.DamageMap[enemy.currentMove] * HEALTH_TO_REPUTATION);
+            BulletText.InfluenceReputation(
+                -enemy.DamageMap[enemy.currentMove] * HEALTH_TO_REPUTATION
+            );
         });
         tween.VelocityMovement(this, new(Position.X - 50, Position.Y), FramesToSeconds(8));
         tween.TweenInterval(FramesToSeconds(30));
@@ -139,6 +146,7 @@ public partial class Player : CharacterBody2D
     {
         GD.Print("you hit the enemy");
         var enemy = area.GetParent<Enemy>();
+
         if (enemy.BlockHeight == AttackHeight)
         {
             if (wasBlocked)
@@ -153,6 +161,16 @@ public partial class Player : CharacterBody2D
 
             return;
         }
+
+        if (currentMove == Move.HM)
+        {
+            RocketExplosion.GlobalPosition = new Vector2(
+                enemy.GlobalPosition.X,
+                RocketExplosion.GlobalPosition.Y
+            );
+            RocketExplosion.Emitting = true;
+        }
+
         var hitstun = 5;
         var damage = DamageMap[currentMove];
         BulletText.InfluenceReputation(damage * HEALTH_TO_REPUTATION);
@@ -416,6 +434,7 @@ public partial class Player : CharacterBody2D
 
     void HighMidFollowUp()
     {
+        Rocket.Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
