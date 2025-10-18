@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cmwx2hjlbre76"
+path="res://.godot/imported/EnemySpike_FINAL.mp3-56950ce8bbbcbe1042401aac957e67f0.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Weapon Noises/EnemySpike_FINAL.mp3"
+dest_files=["res://.godot/imported/EnemySpike_FINAL.mp3-56950ce8bbbcbe1042401aac957e67f0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

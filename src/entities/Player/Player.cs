@@ -166,6 +166,7 @@ public partial class Player : CharacterBody2D
             CanDoStartup = false;
             CanFollowUp = false;
             AnimPlayer.Play("hitflash");
+            AudioManager.PlaySfx(SFX.MechDamage, true);
             Cam.SetScreenShake(8, 3f);
             Hitstop(0.05f, 100);
         });
@@ -270,7 +271,7 @@ public partial class Player : CharacterBody2D
         MoveAndSlide();
         if (!IsOnFloor() && (tween == null || !tween.IsRunning()))
         {
-            Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 10) };
+            Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 100) };
         }
     }
 
@@ -298,6 +299,7 @@ public partial class Player : CharacterBody2D
             .SetDeferred("disabled", true);
         CanBlock = true;
         BlockRect.Visible = true;
+        AudioManager.PlaySfx(SFX.MechShield);
         AnimPlayer.Play("block");
         Hitstop(0.05f, 200);
         BlockRect.Visible = false;
@@ -318,7 +320,7 @@ public partial class Player : CharacterBody2D
             AttackHeight = level;
             FollowUps[(int)setupHeight, (int)AttackHeight]();
         }
-        else if ((state == State.IDLE || CanDoStartup) && (IsOnFloor() || level == Height.LOW))
+        else if ((state == State.IDLE || CanDoStartup) && IsOnFloor())
         {
             Reset();
             tween?.Stop();
@@ -341,6 +343,7 @@ public partial class Player : CharacterBody2D
         {
             Sprite.Frame = 18;
             UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M);
+            AudioManager.PlaySfx(SFX.MechMidSetup);
         });
 
         tween.VelocityMovement(
@@ -394,6 +397,7 @@ public partial class Player : CharacterBody2D
         {
             Sprite.Frame = 17;
             UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.L);
+            AudioManager.PlaySfx(SFX.MechJump);
         });
 
         tween.Call(() =>
@@ -434,6 +438,7 @@ public partial class Player : CharacterBody2D
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH);
             Sprite.Frame = 9;
+            AudioManager.PlaySfx(SFX.MechLaser);
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
         tween.Call(() => Sprite.Frame = 10);
@@ -468,6 +473,7 @@ public partial class Player : CharacterBody2D
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LH);
             Sprite.Frame = 8;
+            AudioManager.PlaySfx(SFX.MechPunch);
         });
         tween.VelocityMovement(
             this,
@@ -490,6 +496,7 @@ public partial class Player : CharacterBody2D
         tween.Call(() =>
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM);
+            AudioManager.PlaySfx(SFX.MechLaser);
         });
         tween.VelocityMovement(this, new Vector2(Position.X - 20, Position.Y), FramesToSeconds(24));
         tween.TweenInterval(FramesToSeconds(15));
@@ -507,6 +514,7 @@ public partial class Player : CharacterBody2D
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HM);
             Sprite.Frame = 1;
+            AudioManager.PlaySfx(SFX.MechRocket);
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
         tween.TweenInterval(FramesToSeconds(15));
@@ -523,6 +531,7 @@ public partial class Player : CharacterBody2D
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HL);
             Sprite.Frame = 2;
+            AudioManager.PlaySfx(SFX.MechSpinKick);
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
         tween.TweenInterval(FramesToSeconds(15));

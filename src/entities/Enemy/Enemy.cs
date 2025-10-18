@@ -34,6 +34,8 @@ public partial class Enemy : CharacterBody2D
     Timer attackTimer = null!;
     Tween tween = null!;
 
+    AudioStream CurrentAttackSFX = null!;
+
     Sprite2D Sprite = null!;
 
     Area2D HitboxArea = null!;
@@ -124,6 +126,7 @@ public partial class Enemy : CharacterBody2D
         //     new Vector2(Position.X, Position.Y + 10),
         //     FramesToSeconds(10)
         // );
+        SetAttackSFX(SFX.KaijuLow);
         tween.TweenInterval(FramesToSeconds(10));
 
         tween.TweenInterval(FramesToSeconds(20));
@@ -158,9 +161,10 @@ public partial class Enemy : CharacterBody2D
     void MidAttack()
     {
         tween = CreateTween();
+        SetAttackSFX(SFX.KaijuMid);
         tween.SetTrans(Tween.TransitionType.Quad);
         tween.Call(() => Sprite.Frame = 3);
-        tween.TweenInterval(FramesToSeconds(20));
+        tween.TweenInterval(FramesToSeconds(30));
         tween.Call(() => Sprite.Frame = 4);
         tween.Call(() =>
         {
@@ -195,6 +199,7 @@ public partial class Enemy : CharacterBody2D
     void HighAttack()
     {
         tween = CreateTween();
+        SetAttackSFX(SFX.KaijuHigh);
         tween.SetTrans(Tween.TransitionType.Sine);
         tween.Call(() => Sprite.Frame = 16);
         tween.TweenProperty(Sprite, "scale", new Vector2(.75f, 1f), FramesToSeconds(30));
@@ -259,6 +264,8 @@ public partial class Enemy : CharacterBody2D
             CurrentState = State.HIT;
             Sprite.Frame = 11;
             Hp = Math.Max(0, Hp - damage);
+            AudioManager.StopSfx(CurrentAttackSFX);
+            AudioManager.PlaySfx(SFX.KaijuDamage);
             Cam.SetScreenShake(5, 3f);
             Hitstop(0.05f, 100);
             AnimPlayer.Play("hitflash");
@@ -307,5 +314,11 @@ public partial class Enemy : CharacterBody2D
             .OfType<CollisionShape2D>()
             .ToList()
             .ForEach(child => child.Disabled = true);
+    }
+
+    void SetAttackSFX(AudioStream sfx)
+    {
+        CurrentAttackSFX = sfx;
+        AudioManager.PlaySfx(sfx);
     }
 }

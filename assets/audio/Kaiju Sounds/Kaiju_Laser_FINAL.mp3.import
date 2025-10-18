@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://87tv2x607scl"
+path="res://.godot/imported/Kaiju_Laser_FINAL.mp3-72c0fb609176f4c47e382d3c6b8e88a3.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Kaiju Sounds/Kaiju_Laser_FINAL.mp3"
+dest_files=["res://.godot/imported/Kaiju_Laser_FINAL.mp3-72c0fb609176f4c47e382d3c6b8e88a3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
