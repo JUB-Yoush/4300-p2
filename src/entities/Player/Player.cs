@@ -152,9 +152,9 @@ public partial class Player : CharacterBody2D
         {
             state = State.HIT;
             Sprite.Frame = 3;
-            Hp -= enemy.DamageMap[enemy.currentMove];
+            Hp -= enemy.AttackDataMap[enemy.currentMove].damage;
             BulletText.InfluenceReputation(
-                -enemy.DamageMap[enemy.currentMove] * HEALTH_TO_REPUTATION
+                -enemy.AttackDataMap[enemy.currentMove].damage * HEALTH_TO_REPUTATION
             );
             CanDoStartup = false;
             CanFollowUp = false;
@@ -186,6 +186,7 @@ public partial class Player : CharacterBody2D
 
             return;
         }
+
         GD.Print($"Hit with {currentMove}");
         var damage = AttackDataMap[currentMove].damage;
         var hitstun = AttackDataMap[currentMove].hitstun;
@@ -200,12 +201,11 @@ public partial class Player : CharacterBody2D
             );
             RocketExplosion.Emitting = true;
         }
-
-        var hitstun = 5;
-        var damage = DamageMap[currentMove];
         BulletText.InfluenceReputation(damage * HEALTH_TO_REPUTATION);
-        enemy.GotHit(hitstun, damage);
-        CanDoStartup = true;
+        if (IsOnFloor())
+        {
+            CanDoStartup = true;
+        }
 
         // play hit effect
         // apply hit stun
@@ -404,7 +404,7 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 13;
             CanFollowUp = false;
         });
-        tween.TweenInterval(FramesToSeconds(24));
+        tween.TweenInterval(FramesToSeconds(60));
         tween.Call(Reset);
     }
 
@@ -525,9 +525,9 @@ public partial class Player : CharacterBody2D
         if (IsOnFloor())
         {
             Velocity = Vector2.Zero;
+            CanDoStartup = true;
         }
         wasBlocked = false;
-        CanDoStartup = true;
     }
 
     void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=13 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="PackedScene" uid="uid://dw6btvd76bxdj" path="res://src/menus/pause/pause_menu.tscn" id="1_5o53v"]
@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://b2ugdxlnxenjb" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
-[ext_resource type="Script" uid="uid://gw8dq4rhwsf2" path="res://src/entities/Camera/GameCamera.cs" id="5_5o53v"]
 [ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/UI/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
+[ext_resource type="Script" uid="uid://gw8dq4rhwsf2" path="res://src/entities/Camera/GameCamera.cs" id="7_i5ocd"]
+[ext_resource type="Texture2D" uid="uid://cj1sd2ff3dgpi" path="res://assets/2d/bg/Mech_Bg.png" id="9_oxt34"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
 size = Vector2(106, 1240)
@@ -167,13 +168,13 @@ position = Vector2(3465, 548)
 shape = SubResource("RectangleShape2D_kvr80")
 
 [node name="GameCamera" type="Camera2D" parent="."]
-position = Vector2(924, 593)
+position = Vector2(1771, 540)
 limit_left = 0
 limit_right = 3423
-script = ExtResource("5_5o53v")
+script = ExtResource("7_i5ocd")
 
 [node name="Border" type="StaticBody2D" parent="GameCamera"]
-position = Vector2(-14, -506)
+position = Vector2(-939, -527)
 collision_layer = 64
 collision_mask = 0
 
@@ -188,5 +189,11 @@ shape = SubResource("RectangleShape2D_5o53v")
 disabled = true
 
 [node name="BulletTextManager" parent="." instance=ExtResource("5_5o53v")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(1779, 576)
+scale = Vector2(1.88, 1)
+texture = ExtResource("9_oxt34")
 
 [editable path="Enemy"]
