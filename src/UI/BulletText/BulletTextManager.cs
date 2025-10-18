@@ -7,18 +7,11 @@ public partial class BulletTextManager : Node
     private string[] positiveChats = null!,
         negativeChats = null!,
         chosen = null!;
-    string textPath = "res://src/UI/BulletText/bullet_message.tscn";
-    PackedScene? textScene;
-
+    PackedScene textScene = GD.Load<PackedScene>("res://src/UI/BulletText/bullet_message.tscn");
     private double reputation = 0;
     private const double REPUTATION_LIMIT = 1000;
     private const double REPUTATION_DECAY = 150;
     private const float SPAWN_BUFFER_SPACE = 200;
-
-    public override void _Ready()
-    {
-        textScene = GD.Load<PackedScene>(textPath);
-    }
 
     public void InfluenceReputation(double impact)
     {
@@ -41,7 +34,7 @@ public partial class BulletTextManager : Node
             msg.SetSize(msg.GetThemeDefaultFont().GetStringSize(msg.Text));
             AddChild(msg);
             int direction = -1;
-            if(chosen == negativeChats)
+            if (chosen == negativeChats)
                 direction = 1;
             ((BulletMessage)msg).direction = -direction;
             var ScreenSize = GetViewport().GetVisibleRect().Size;

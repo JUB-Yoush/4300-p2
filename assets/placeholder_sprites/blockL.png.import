@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr78pcf06jkdr"
-path="res://.godot/imported/blockL.png-beceefa13b89758dd73cb0c4768c73e0.ctex"
+path="res://.godot/imported/blockL.png-b758dd854dd5388a8fd5df246c50eb52.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/placeholder_sprites/blockL.png"
-dest_files=["res://.godot/imported/blockL.png-beceefa13b89758dd73cb0c4768c73e0.ctex"]
+source_file="res://assets/placeholder_sprites/blockL.png"
+dest_files=["res://.godot/imported/blockL.png-b758dd854dd5388a8fd5df246c50eb52.ctex"]
 
 [params]
 

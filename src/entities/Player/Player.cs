@@ -24,14 +24,14 @@ public partial class Player : CharacterBody2D
         HM,
     }
 
-    public Dictionary<Move, int> DamageMap = new Dictionary<Move, int>
+    public Dictionary<Move, AttackData> AttackDataMap = new()
     {
-        { Move.LM, 5 },
-        { Move.LH, 5 },
-        { Move.ML, 5 },
-        { Move.MH, 5 },
-        { Move.HL, 5 },
-        { Move.HM, 5 },
+        { Move.LM, new(5, 100, 15) },
+        { Move.LH, new(5, 100, 15) },
+        { Move.ML, new(5, 100, 15) },
+        { Move.MH, new(5, 100, 15) },
+        { Move.HL, new(5, 100, 15) },
+        { Move.HM, new(5, 100, 15) },
     };
 
     Move currentMove = Move.IDLE;
@@ -66,6 +66,11 @@ public partial class Player : CharacterBody2D
     bool tweening = false;
     bool wasBlocked = false;
 
+    float BlockCooldown = FramesToSeconds(60);
+    bool CanBlock = true;
+    bool BlockSuccessful = false;
+    int ComboCount = 0;
+
     private State state;
     private Height setupHeight,
         AttackHeight;
@@ -73,8 +78,9 @@ public partial class Player : CharacterBody2D
     public Height BlockHeight = Height.NONE;
     Area2D HitboxArea = null!;
     Area2D HurtboxArea = null!;
+    Timer resetTimer = new();
 
-    int Hp = 100;
+    public int Hp = 100;
     GpuParticles2D Laser = null!,
         JumpLaser = null!,
         Rocket = null!,
@@ -83,8 +89,15 @@ public partial class Player : CharacterBody2D
     BulletTextManager BulletText = null!;
     private const int HEALTH_TO_REPUTATION = 50;
 
+    AnimationPlayer AnimPlayer = null!;
+    ColorRect BlockRect = null!;
+    GameCamera Cam = null!;
+
     public override void _Ready()
     {
+        Cam = GetParent().GetNode<GameCamera>("GameCamera");
+        BlockRect = GetParent().GetNode<ColorRect>("UI/BlockRect");
+        AnimPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         Sprite = GetNode<Sprite2D>("Sprite2D");
         Laser = GetNode<GpuParticles2D>("PlayerMidLaser");
         JumpLaser = GetNode<GpuParticles2D>("PlayerJumpLaser");
@@ -115,6 +128,12 @@ public partial class Player : CharacterBody2D
         // HitboxArea.CollisionLayer = (uint)Collisions.PLAYER_HIT;
         // HitboxArea.CollisionMask = (uint)Collisions.ENEMY_HURT;
         HitboxArea.AreaEntered += HitEnemy;
+
+        resetTimer.Timeout += () =>
+        {
+            CanBlock = true;
+        };
+        AddChild(resetTimer);
     }
 
     void HitByEnemy(Area2D area)
@@ -123,7 +142,15 @@ public partial class Player : CharacterBody2D
         {
             return;
         }
+
+        if (state == State.BLOCKING)
+        {
+            GD.Print("blocked!!!");
+            BlockWorked();
+            return;
+        }
         var enemy = area.GetParent<Enemy>();
+        var move = enemy.AttackDataMap[enemy.currentMove];
         tween?.Stop();
         if (IsOnFloor()) { }
         Velocity = Vector2.Zero;
@@ -132,13 +159,22 @@ public partial class Player : CharacterBody2D
         {
             state = State.HIT;
             Sprite.Frame = 3;
-            Hp -= enemy.DamageMap[enemy.currentMove];
+            Hp = Math.Max(0, Hp - enemy.AttackDataMap[enemy.currentMove].damage);
             BulletText.InfluenceReputation(
-                -enemy.DamageMap[enemy.currentMove] * HEALTH_TO_REPUTATION
+                -enemy.AttackDataMap[enemy.currentMove].damage * HEALTH_TO_REPUTATION
             );
+            CanDoStartup = false;
+            CanFollowUp = false;
+            AnimPlayer.Play("hitflash");
+            AudioManager.PlaySfx(SFX.MechDamage, true);
+            Cam.SetScreenShake(8, 3f);
+            Hitstop(0.05f, 100);
         });
-        tween.VelocityMovement(this, new(Position.X - 50, Position.Y), FramesToSeconds(8));
-        tween.TweenInterval(FramesToSeconds(30));
+        tween.VelocityMovement(
+            this,
+            new(Position.X - move.knockback, Position.Y),
+            FramesToSeconds(move.hitstun)
+        );
         tween.Call(Reset);
     }
 
@@ -146,7 +182,7 @@ public partial class Player : CharacterBody2D
     {
         GD.Print("you hit the enemy");
         var enemy = area.GetParent<Enemy>();
-
+        CanBlock = true;
         if (enemy.BlockHeight == AttackHeight)
         {
             if (wasBlocked)
@@ -162,6 +198,12 @@ public partial class Player : CharacterBody2D
             return;
         }
 
+        GD.Print($"Hit with {currentMove}");
+        var damage = AttackDataMap[currentMove].damage;
+        var hitstun = AttackDataMap[currentMove].hitstun;
+        var knockback = AttackDataMap[currentMove].knockback;
+        enemy.GotHit(hitstun, damage, knockback);
+
         if (currentMove == Move.HM)
         {
             RocketExplosion.GlobalPosition = new Vector2(
@@ -170,12 +212,11 @@ public partial class Player : CharacterBody2D
             );
             RocketExplosion.Emitting = true;
         }
-
-        var hitstun = 5;
-        var damage = DamageMap[currentMove];
         BulletText.InfluenceReputation(damage * HEALTH_TO_REPUTATION);
-        enemy.GotHit(hitstun, damage);
-        CanDoStartup = true;
+        if (IsOnFloor())
+        {
+            CanDoStartup = true;
+        }
 
         // play hit effect
         // apply hit stun
@@ -220,21 +261,49 @@ public partial class Player : CharacterBody2D
         {
             ProcessAttack(Height.LOW);
         }
-        else if (Input.IsActionJustPressed("block"))
+        else if (Input.IsActionJustPressed("block") && CanBlock)
         {
             Block();
+            resetTimer.Start(BlockCooldown);
         }
+
         UpdateDebugPanel();
         MoveAndSlide();
         if (!IsOnFloor() && (tween == null || !tween.IsRunning()))
         {
-            Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 10) };
+            Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 100) };
         }
     }
 
     void Block()
     {
-        if (state != State.IDLE || state == State.BLOCKING) { }
+        if (state != State.IDLE)
+            return;
+        CanBlock = false;
+        tween?.Stop();
+        tween = CreateTween();
+        tween.Call(() =>
+        {
+            Sprite.Frame = 0;
+            state = State.BLOCKING;
+        });
+        tween.TweenInterval(FramesToSeconds(15));
+        tween.Call(Reset);
+    }
+
+    void BlockWorked()
+    {
+        var enemy = GetParent().GetNode<Enemy>("Enemy");
+        enemy
+            .GetNode<CollisionShape2D>($"HitboxArea/{enemy.currentMove}")
+            .SetDeferred("disabled", true);
+        CanBlock = true;
+        BlockRect.Visible = true;
+        AudioManager.PlaySfx(SFX.MechShield);
+        AnimPlayer.Play("block");
+        Hitstop(0.05f, 200);
+        BlockRect.Visible = false;
+        CanDoStartup = true;
     }
 
     void ProcessAttack(Height level)
@@ -274,6 +343,7 @@ public partial class Player : CharacterBody2D
         {
             Sprite.Frame = 18;
             UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.M);
+            AudioManager.PlaySfx(SFX.MechMidSetup);
         });
 
         tween.VelocityMovement(
@@ -327,6 +397,7 @@ public partial class Player : CharacterBody2D
         {
             Sprite.Frame = 17;
             UpdateCollisionBox(CollisionBoxes.BoxType.HURTBOX, Move.L);
+            AudioManager.PlaySfx(SFX.MechJump);
         });
 
         tween.Call(() =>
@@ -349,7 +420,7 @@ public partial class Player : CharacterBody2D
         tween.Call(() =>
         {
             Sprite.Frame = 13;
-            CanFollowUp = false;
+            //CanFollowUp = false;
         });
         tween.TweenInterval(FramesToSeconds(24));
         tween.Call(Reset);
@@ -357,26 +428,27 @@ public partial class Player : CharacterBody2D
 
     void MidHighFollowUp()
     {
+        currentMove = Move.MH;
         Laser.Emitting = true;
         GetNode<GpuParticles2D>("PlayerMidLaser/GPUParticles2D").Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
-        // tween.Call(() => Sprite.Frame = 19);
-        // tween.TweenInterval(FramesToSeconds(10));
         tween.Call(() =>
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.MH);
             Sprite.Frame = 9;
+            AudioManager.PlaySfx(SFX.MechLaser);
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
         tween.Call(() => Sprite.Frame = 10);
-        tween.TweenInterval(FramesToSeconds(10));
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void MidLowFollowUp()
     {
+        currentMove = Move.ML;
         Gunshot.Emitting = true;
         tweening = true;
         CanFollowUp = false;
@@ -387,12 +459,13 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 11;
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
-
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void LowHighFollowUp()
     {
+        currentMove = Move.LH;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -400,40 +473,39 @@ public partial class Player : CharacterBody2D
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LH);
             Sprite.Frame = 8;
+            AudioManager.PlaySfx(SFX.MechPunch);
         });
         tween.VelocityMovement(
             this,
             new Vector2(Position.X, Position.Y + 200),
             FramesToSeconds(24)
         );
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void LowMidFollowUp()
     {
+        currentMove = Move.LM;
         JumpLaser.Emitting = true;
         GetNode<GpuParticles2D>("PlayerJumpLaser/GPUParticles2D").Emitting = true;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
+        tween.Call(() => Sprite.Frame = 6);
         tween.Call(() =>
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.LM);
-            Sprite.Frame = 6;
+            AudioManager.PlaySfx(SFX.MechLaser);
         });
         tween.VelocityMovement(this, new Vector2(Position.X - 20, Position.Y), FramesToSeconds(24));
-        //TODO maybe this instead?
-        // tween.TweenProperty(
-        //     this,
-        //     "velocity",
-        //     GetMovementVelocity(Position, new(Position.X + 20, Position.Y), FramesToSeconds(24)),
-        //     FramesToSeconds(24)
-        // );
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void HighMidFollowUp()
     {
+        currentMove = Move.HM;
         Rocket.Emitting = true;
         tweening = true;
         CanFollowUp = false;
@@ -442,13 +514,16 @@ public partial class Player : CharacterBody2D
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HM);
             Sprite.Frame = 1;
+            AudioManager.PlaySfx(SFX.MechRocket);
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
     void HighLowFollowUp()
     {
+        currentMove = Move.HL;
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -456,8 +531,10 @@ public partial class Player : CharacterBody2D
         {
             UpdateCollisionBox(CollisionBoxes.BoxType.HITBOX, Move.HL);
             Sprite.Frame = 2;
+            AudioManager.PlaySfx(SFX.MechSpinKick);
         });
         tween.VelocityMovement(this, new Vector2(Position.X + 20, Position.Y), FramesToSeconds(24));
+        tween.TweenInterval(FramesToSeconds(15));
         tween.Call(Reset);
     }
 
@@ -471,9 +548,9 @@ public partial class Player : CharacterBody2D
         if (IsOnFloor())
         {
             Velocity = Vector2.Zero;
+            CanDoStartup = true;
         }
         wasBlocked = false;
-        CanDoStartup = false;
     }
 
     void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)

@@ -11,18 +11,20 @@ config_version=5
 [application]
 
 config/name="robot-coop"
-run/main_scene="uid://bum338jug5gjw"
+run/main_scene="uid://cmwoleb37aggd"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 run/max_fps=60
 config/icon="res://icon.svg"
+
+[autoload]
+
+AudioManager="*res://src/singletons/AudioManager.cs"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
 window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
 
 [dotnet]
 
@@ -81,6 +83,7 @@ block={
 pause={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":80,"key_label":0,"unicode":112,"location":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":6,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
 win_shortcut={

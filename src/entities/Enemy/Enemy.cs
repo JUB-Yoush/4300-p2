@@ -29,35 +29,41 @@ public partial class Enemy : CharacterBody2D
 
     public Height BlockHeight = Height.HIGH;
     public Height AttackHeight = Height.NONE;
-    public float AttackCooldown = 5f;
+    public int[] AttackSpeedRange = [1, 5];
     public State CurrentState = State.BLOCKING;
     Timer attackTimer = null!;
     Tween tween = null!;
+
+    AudioStream CurrentAttackSFX = null!;
 
     Sprite2D Sprite = null!;
 
     Area2D HitboxArea = null!;
     Area2D HurtboxArea = null!;
 
-    int Hp = 100;
+    public int Hp = 100;
 
     Action[] Attacks = [];
 
-    public Dictionary<Move, int> DamageMap = new Dictionary<Move, int>
-    {
-        { Move.L, 5 },
-        { Move.M, 5 },
-        { Move.H, 5 },
-    };
+    AnimationPlayer AnimPlayer = null!;
 
+    public Dictionary<Move, AttackData> AttackDataMap = new()
+    {
+        { Move.L, new(5, 100, 15) },
+        { Move.M, new(5, 100, 15) },
+        { Move.H, new(5, 100, 15) },
+    };
     public Move currentMove;
+    GameCamera Cam = null!;
 
     public override void _Ready()
     {
+        Cam = GetParent().GetNode<GameCamera>("GameCamera");
+        AnimPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         attackTimer = new();
         AddChild(attackTimer);
         attackTimer.OneShot = true;
-        attackTimer.Start(1);
+        attackTimer.Start(GetAttackSpeed());
         attackTimer.Timeout += Attack;
 
         Attacks = [LowAttack, MidAttack, HighAttack];
@@ -75,8 +81,14 @@ public partial class Enemy : CharacterBody2D
         ChangeBlockHeight();
     }
 
+    float GetAttackSpeed() => new Random().Next(AttackSpeedRange[0], AttackSpeedRange[1] + 1);
+
     void Attack()
     {
+        if (CurrentState == State.ATTACKING)
+        {
+            return;
+        }
         CurrentState = State.ATTACKING;
         AttackHeight = BlockHeight;
         GD.Print($"Attacking {AttackHeight}");
@@ -86,8 +98,9 @@ public partial class Enemy : CharacterBody2D
     void ChangeToBlocking()
     {
         CurrentState = State.BLOCKING;
+        ClearSpikes();
         ChangeBlockHeight();
-        attackTimer.Start(3);
+        attackTimer.Start(GetAttackSpeed());
     }
 
     void LowAttack()
@@ -95,24 +108,25 @@ public partial class Enemy : CharacterBody2D
         tween = CreateTween();
         tween.SetTrans(Tween.TransitionType.Quad);
         tween.Call(() => Sprite.Frame = 0);
-        tween.TweenProperty(
-            this,
-            "position",
-            new Vector2(Position.X + 10, Position.Y),
-            FramesToSeconds(10)
-        );
-        tween.TweenProperty(
-            this,
-            "position",
-            new Vector2(Position.X - 10, Position.Y),
-            FramesToSeconds(10)
-        );
-        tween.TweenProperty(
-            this,
-            "position",
-            new Vector2(Position.X, Position.Y + 10),
-            FramesToSeconds(10)
-        );
+        // tween.TweenProperty(
+        //     this,
+        //     "position",
+        //     new Vector2(Position.X + 10, Position.Y),
+        //     FramesToSeconds(10)
+        // );
+        // tween.TweenProperty(
+        //     this,
+        //     "position",
+        //     new Vector2(Position.X - 10, Position.Y),
+        //     FramesToSeconds(10)
+        // );
+        // tween.TweenProperty(
+        //     this,
+        //     "position",
+        //     new Vector2(Position.X, Position.Y + 10),
+        //     FramesToSeconds(10)
+        // );
+        SetAttackSFX(SFX.KaijuLow);
         tween.TweenInterval(FramesToSeconds(10));
 
         tween.TweenInterval(FramesToSeconds(20));
@@ -147,15 +161,16 @@ public partial class Enemy : CharacterBody2D
     void MidAttack()
     {
         tween = CreateTween();
+        SetAttackSFX(SFX.KaijuMid);
         tween.SetTrans(Tween.TransitionType.Quad);
         tween.Call(() => Sprite.Frame = 3);
-        tween.TweenInterval(FramesToSeconds(20));
+        tween.TweenInterval(FramesToSeconds(30));
         tween.Call(() => Sprite.Frame = 4);
         tween.Call(() =>
         {
             UpdateCollisionBox(BoxType.HITBOX, Move.M);
         });
-        tween.TweenProperty(Sprite, "scale", new Vector2(1.5f, .75f), FramesToSeconds(5));
+        tween.TweenProperty(Sprite, "scale", new Vector2(1.8f, .75f), FramesToSeconds(5));
         tween
             .Parallel()
             .TweenProperty(
@@ -170,22 +185,24 @@ public partial class Enemy : CharacterBody2D
             ResetCollisionBox(BoxType.HITBOX);
             ChangeToBlocking();
         });
-        tween.Call(() =>
+    }
+
+    void ClearSpikes()
+    {
+        var Spikes = GetNode<Node2D>("Spikes");
+        for (int i = 0; i < Spikes.GetChildCount(); i++)
         {
-            var Spikes = GetNode<Node2D>("Spikes");
-            for (int i = 0; i < Spikes.GetChildCount(); i++)
-            {
-                Spikes.GetChild(i).QueueFree();
-            }
-        });
+            Spikes.GetChild(i).QueueFree();
+        }
     }
 
     void HighAttack()
     {
         tween = CreateTween();
+        SetAttackSFX(SFX.KaijuHigh);
         tween.SetTrans(Tween.TransitionType.Sine);
         tween.Call(() => Sprite.Frame = 16);
-        tween.TweenProperty(Sprite, "scale", new Vector2(.75f, 1f), FramesToSeconds(60));
+        tween.TweenProperty(Sprite, "scale", new Vector2(.75f, 1f), FramesToSeconds(30));
         tween.TweenProperty(Sprite, "scale", new Vector2(.75f, .75f), FramesToSeconds(5));
         tween.Call(() => Sprite.Frame = 17);
         tween.Call(() =>
@@ -227,18 +244,18 @@ public partial class Enemy : CharacterBody2D
         };
 
         var newBlockHeight = (Height)new Random().Next(0, 3);
-        while (newBlockHeight == BlockHeight)
-        {
-            newBlockHeight = (Height)new Random().Next(0, 3);
-        }
-        BlockHeight = Height.HIGH;
-        //BlockHeight = newBlockHeight;
+        // while (newBlockHeight == BlockHeight)
+        // {
+        //     newBlockHeight = (Height)new Random().Next(0, 3);
+        // }
+        BlockHeight = newBlockHeight;
+        //BlockHeight = Height.LOW;
         Sprite.Frame = blockFrameMap[BlockHeight];
     }
 
-    public void GotHit(int hitstun, int damage)
+    public void GotHit(int hitstun, int damage, int knockback)
     {
-        //Position = Position with { X = Position.X + 20 };
+        GD.Print(hitstun, damage, knockback);
         Sprite.Scale = new(.75f, .75f);
         tween?.Stop();
         tween = CreateTween();
@@ -246,9 +263,18 @@ public partial class Enemy : CharacterBody2D
         {
             CurrentState = State.HIT;
             Sprite.Frame = 11;
-            Hp -= damage;
+            Hp = Math.Max(0, Hp - damage);
+            AudioManager.StopSfx(CurrentAttackSFX);
+            AudioManager.PlaySfx(SFX.KaijuDamage);
+            Cam.SetScreenShake(5, 3f);
+            Hitstop(0.05f, 100);
+            AnimPlayer.Play("hitflash");
         });
-        tween.VelocityMovement(this, new(Position.X + 50, Position.Y), FramesToSeconds(hitstun));
+        tween.VelocityMovement(
+            this,
+            new(Position.X + knockback, Position.Y),
+            FramesToSeconds(hitstun)
+        );
         tween.Call(() =>
         {
             ResetCollisionBox(BoxType.HITBOX);
@@ -261,13 +287,12 @@ public partial class Enemy : CharacterBody2D
     {
         //do an attack
         tween?.Stop();
-        Attack();
-
-        //var tween = CreateTween();
-        // tween.VelocityMovement(this, new(Position.X + 10, Position.Y), FramesToSeconds(8), false);
-        // tween.Call(() => Sprite.Frame = blockFrameMap[BlockHeight]);
-        // tween.TweenInterval(FramesToSeconds(30));
-        // tween.Call(() => Sprite.Frame = 12);
+        AnimPlayer.Play("block");
+        Hitstop(0.05f, 100);
+        if (CurrentState != State.ATTACKING)
+        {
+            Attack();
+        }
     }
 
     void UpdateCollisionBox(BoxType boxtype, Move move)
@@ -289,5 +314,11 @@ public partial class Enemy : CharacterBody2D
             .OfType<CollisionShape2D>()
             .ToList()
             .ForEach(child => child.Disabled = true);
+    }
+
+    void SetAttackSFX(AudioStream sfx)
+    {
+        CurrentAttackSFX = sfx;
+        AudioManager.PlaySfx(sfx);
     }
 }
