@@ -1,4 +1,5 @@
 using System;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices.Marshalling;
 using System.Threading.Tasks;
 using Godot;
@@ -100,5 +101,12 @@ public static class Helpers
         public int damage = damage;
         public int knockback = knockback;
         public int hitstun = hitstun;
+    }
+
+    public static async void Hitstop(float scale, int milliseconds)
+    {
+        Engine.TimeScale = scale;
+        await Task.Delay((int)(milliseconds));
+        Engine.TimeScale = 1;
     }
 }

@@ -89,8 +89,15 @@ public partial class Player : CharacterBody2D
     BulletTextManager BulletText = null!;
     private const int HEALTH_TO_REPUTATION = 50;
 
+    AnimationPlayer AnimPlayer = null!;
+    ColorRect BlockRect = null!;
+    GameCamera Cam = null!;
+
     public override void _Ready()
     {
+        Cam = GetParent().GetNode<GameCamera>("GameCamera");
+        BlockRect = GetParent().GetNode<ColorRect>("UI/BlockRect");
+        AnimPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         Sprite = GetNode<Sprite2D>("Sprite2D");
         Laser = GetNode<GpuParticles2D>("PlayerMidLaser");
         JumpLaser = GetNode<GpuParticles2D>("PlayerJumpLaser");
@@ -152,12 +159,15 @@ public partial class Player : CharacterBody2D
         {
             state = State.HIT;
             Sprite.Frame = 3;
-            Hp -= enemy.AttackDataMap[enemy.currentMove].damage;
+            Hp = Math.Max(0, Hp - enemy.AttackDataMap[enemy.currentMove].damage);
             BulletText.InfluenceReputation(
                 -enemy.AttackDataMap[enemy.currentMove].damage * HEALTH_TO_REPUTATION
             );
             CanDoStartup = false;
             CanFollowUp = false;
+            AnimPlayer.Play("hitflash");
+            Cam.SetScreenShake(8, 3f);
+            Hitstop(0.05f, 100);
         });
         tween.VelocityMovement(
             this,
@@ -287,6 +297,10 @@ public partial class Player : CharacterBody2D
             .GetNode<CollisionShape2D>($"HitboxArea/{enemy.currentMove}")
             .SetDeferred("disabled", true);
         CanBlock = true;
+        BlockRect.Visible = true;
+        AnimPlayer.Play("block");
+        Hitstop(0.05f, 200);
+        BlockRect.Visible = false;
         CanDoStartup = true;
     }
 
@@ -402,9 +416,9 @@ public partial class Player : CharacterBody2D
         tween.Call(() =>
         {
             Sprite.Frame = 13;
-            CanFollowUp = false;
+            //CanFollowUp = false;
         });
-        tween.TweenInterval(FramesToSeconds(60));
+        tween.TweenInterval(FramesToSeconds(24));
         tween.Call(Reset);
     }
 

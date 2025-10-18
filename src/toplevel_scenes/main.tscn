@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=14 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="PackedScene" uid="uid://dw6btvd76bxdj" path="res://src/menus/pause/pause_menu.tscn" id="1_5o53v"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://gw8dq4rhwsf2" path="res://src/entities/Camera/GameCamera.cs" id="7_i5ocd"]
 [ext_resource type="Texture2D" uid="uid://cj1sd2ff3dgpi" path="res://assets/2d/bg/Mech_Bg.png" id="9_oxt34"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxt34"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
 size = Vector2(106, 1240)
 
@@ -20,7 +22,8 @@ size = Vector2(118.006, 3523)
 size = Vector2(27, 1240)
 
 [node name="main" type="Node"]
-metadata/_edit_vertical_guides_ = [-41.0, 3423.0, 2500.0]
+
+[node name="BulletTextManager" parent="." instance=ExtResource("5_5o53v")]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -143,6 +146,13 @@ visible = false
 [node name="win_screen" parent="UI" instance=ExtResource("3_tjs3j")]
 visible = false
 
+[node name="BlockRect" type="ColorRect" parent="UI"]
+visible = false
+material = SubResource("ShaderMaterial_oxt34")
+offset_right = 1974.0
+offset_bottom = 1168.0
+color = Color(0, 0, 0, 0.282353)
+
 [node name="Enemy" parent="." instance=ExtResource("2_kvr80")]
 position = Vector2(2389, 687)
 
@@ -188,10 +198,8 @@ position = Vector2(1977, 487)
 shape = SubResource("RectangleShape2D_5o53v")
 disabled = true
 
-[node name="BulletTextManager" parent="." instance=ExtResource("5_5o53v")]
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = -1
+z_index = -100
 position = Vector2(1779, 576)
 scale = Vector2(1.88, 1)
 texture = ExtResource("9_oxt34")

@@ -17,6 +17,9 @@ public partial class GameCamera : Camera2D
     CollisionShape2D LeftWall = null!;
     CollisionShape2D RightWall = null!;
 
+    float ShakeStrength = 0;
+    float ShakeDecay = 0;
+
     /*
      * attach static bodies to the bounds of the camera
      * calculate the distance between the player and enemy
@@ -56,11 +59,30 @@ public partial class GameCamera : Camera2D
         {
             X = Math.Min(GlobalPosition.X + Resolution.X / 2, CameraLimits[1]),
         };
+
+        ShakeStrength = (float)Mathf.Lerp(ShakeStrength, 0, ShakeDecay * delta);
+        Offset = GetShakeOffset();
     }
 
     void SetWalls(bool state)
     {
         LeftWall.Disabled = !state;
         RightWall.Disabled = !state;
+    }
+
+    public void SetScreenShake(float intensity, float decay_rate)
+    {
+        ShakeStrength = intensity;
+        ShakeDecay = decay_rate;
+    }
+
+    Vector2 GetShakeOffset()
+    {
+        var rng = new Random();
+        Offset = new Vector2(
+            rng.Next((int)-ShakeStrength, (int)ShakeStrength),
+            rng.Next((int)-ShakeStrength, (int)ShakeStrength)
+        );
+        return Offset;
     }
 }
