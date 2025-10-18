@@ -29,7 +29,7 @@ public partial class Enemy : CharacterBody2D
 
     public Height BlockHeight = Height.HIGH;
     public Height AttackHeight = Height.NONE;
-    public int[] AttackSpeedRange = [1, 5];
+    public int[] AttackSpeedRange = [1, 4];
     public State CurrentState = State.BLOCKING;
     Timer attackTimer = null!;
     Tween tween = null!;
