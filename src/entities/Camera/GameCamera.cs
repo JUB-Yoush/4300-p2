@@ -22,7 +22,7 @@ public partial class GameCamera : Camera2D
     float ShakeDecay = 0;
 
      Vector2 CameraZoom = new Vector2(2f, 2f);
-    const float CameraZoomDuration = 3f;
+    const float CameraZoomDuration = 2f;
     Tween? cameraTween = null;
     
 

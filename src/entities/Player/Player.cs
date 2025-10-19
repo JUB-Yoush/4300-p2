@@ -606,7 +606,7 @@ public partial class Player : CharacterBody2D
     public async Task WinGame()
     {
         isGameOver = true;
-        GD.Print("we won!");
+      
         Cam.ZoomOnEnemy();
         WinGameOver();
 
@@ -625,7 +625,7 @@ public partial class Player : CharacterBody2D
     public async void WinGameOver()
     {
         GetTree().Paused = true;
-        await ToSignal(GetTree().CreateTimer(3f), Timer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(2f), Timer.SignalName.Timeout);
 
         GetTree().ChangeSceneToFile("res://src/menus/end/end_screen.tscn");
     }
@@ -633,7 +633,7 @@ public partial class Player : CharacterBody2D
     public async void LoseGameOver()
     {
         GetTree().Paused = true;
-        await ToSignal(GetTree().CreateTimer(3f), Timer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(2f), Timer.SignalName.Timeout);
         GetTree().ChangeSceneToFile("res://src/menus/lose/lose_screen.tscn");
       
 

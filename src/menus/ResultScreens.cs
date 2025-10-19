@@ -14,8 +14,8 @@ public partial class ResultScreens : Control
 		{
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 			GetTree().Paused = false;
-			GetTree().ReloadCurrentScene();
-		};
+            GetTree().ChangeSceneToFile("res://src/toplevel_scenes/main.tscn");
+        };
 		GetNode<TextureButton>("Result/Home").Pressed += () =>
 		{
 			GetTree().Paused = false;
