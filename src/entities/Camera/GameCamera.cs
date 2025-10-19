@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Godot;
 
 public partial class GameCamera : Camera2D
@@ -20,6 +21,11 @@ public partial class GameCamera : Camera2D
     float ShakeStrength = 0;
     float ShakeDecay = 0;
 
+     Vector2 CameraZoom = new Vector2(2f, 2f);
+    const float CameraZoomDuration = 3f;
+    Tween? cameraTween = null;
+    
+
     /*
      * attach static bodies to the bounds of the camera
      * calculate the distance between the player and enemy
@@ -28,12 +34,14 @@ public partial class GameCamera : Camera2D
 
     public override void _Ready()
     {
+        ProcessMode = ProcessModeEnum.Always; //so when the game is over, the camera will still move
         LimitLeft = CameraLimits[0];
         LimitRight = CameraLimits[1];
         player = GetParent().GetNode<Player>("Player");
         enemy = GetParent().GetNode<Enemy>("Enemy");
         LeftWall = GetNode<CollisionShape2D>("Border/LeftWall");
         RightWall = GetNode<CollisionShape2D>("Border/RightWall");
+   
     }
 
     public override void _Process(double delta)
@@ -85,4 +93,36 @@ public partial class GameCamera : Camera2D
         );
         return Offset;
     }
+
+    public void ZoomOnPlayer()
+    {
+
+        cameraTween = CreateTween();
+
+        cameraTween.SetParallel();
+
+
+        cameraTween.TweenProperty(this, "position", player.Position, CameraZoomDuration);
+        cameraTween.TweenProperty(this, "zoom", CameraZoom, CameraZoomDuration);
+
+       
+      
+
+    }
+
+    public void ZoomOnEnemy()
+    {
+        cameraTween = CreateTween();
+    
+        cameraTween.SetParallel();
+
+        cameraTween.TweenProperty(this, "position", enemy.Position, CameraZoomDuration);
+        cameraTween.TweenProperty(this, "zoom", CameraZoom, CameraZoomDuration);
+
+    
+
+
+    }
+
+
 }

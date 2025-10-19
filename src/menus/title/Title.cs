@@ -49,10 +49,14 @@ public partial class Title : Control
 		playBtn.Pressed += OnPlayPressed;
 		creditsBtn.Pressed += OnCreditsPressed;
 		exitBtn.Pressed += OnExitPressed;
+
+		AudioManager.PlayMusic(BGM.MenuMusic);
 	}
 
 	private void OnPlayPressed()
 	{
+		AudioManager.StopAll();
+		AudioManager.PlayMusic(BGM.FightMusic);
 		GetTree().ChangeSceneToFile("res://src/toplevel_scenes/main.tscn");
 	}
 

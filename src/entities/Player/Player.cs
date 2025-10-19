@@ -53,6 +53,8 @@ public partial class Player : CharacterBody2D
         NONE,
     }
 
+    bool isGameOver;
+   
     Sprite2D Sprite = null!;
     Tween? tween = null;
 
@@ -92,6 +94,8 @@ public partial class Player : CharacterBody2D
     AnimationPlayer AnimPlayer = null!;
     ColorRect BlockRect = null!;
     GameCamera Cam = null!;
+  
+    public static bool gameOver;
 
     public override void _Ready()
     {
@@ -106,6 +110,9 @@ public partial class Player : CharacterBody2D
         RocketExplosion = GetNode<GpuParticles2D>("PlayerRocket/GPUParticles2D");
         BulletText = GetParent().GetNode<BulletTextManager>("BulletTextManager");
 
+        isGameOver = false;
+        
+
         // don't ask me why i have to instanitate it like this because i couldn't tell you.
         Action[,] FollowUps1 =
         {
@@ -115,6 +122,8 @@ public partial class Player : CharacterBody2D
         };
         FollowUps = FollowUps1;
         SetUps = [LowSetUp, MidSetUp, HighSetUp];
+
+        
 
         state = State.IDLE;
         setupHeight = Height.NONE;
@@ -169,6 +178,8 @@ public partial class Player : CharacterBody2D
             AudioManager.PlaySfx(SFX.MechDamage, true);
             Cam.SetScreenShake(8, 3f);
             Hitstop(0.05f, 100);
+
+         
         });
         tween.VelocityMovement(
             this,
@@ -176,6 +187,10 @@ public partial class Player : CharacterBody2D
             FramesToSeconds(move.hitstun)
         );
         tween.Call(Reset);
+        if (Hp <= 0)
+        {
+            LoseGame();
+        }
     }
 
     void HitEnemy(Area2D area)
@@ -204,6 +219,8 @@ public partial class Player : CharacterBody2D
         var knockback = AttackDataMap[currentMove].knockback;
         enemy.GotHit(hitstun, damage, knockback);
 
+      
+
         if (currentMove == Move.HM)
         {
             RocketExplosion.GlobalPosition = new Vector2(
@@ -218,6 +235,10 @@ public partial class Player : CharacterBody2D
             CanDoStartup = true;
         }
 
+        if (enemy.Hp <= 0)
+        {
+           WinGame();
+        }
         // play hit effect
         // apply hit stun
         // switch to hit animation on enemy
@@ -248,31 +269,37 @@ public partial class Player : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        //GD.Print(CanFollowUp, tweening);
-        if (Input.IsActionJustPressed("high_attack"))
+        if(!isGameOver)
         {
-            ProcessAttack(Height.HIGH);
-        }
-        else if (Input.IsActionJustPressed("medium_attack"))
-        {
-            ProcessAttack(Height.MID);
-        }
-        else if (Input.IsActionJustPressed("low_attack"))
-        {
-            ProcessAttack(Height.LOW);
-        }
-        else if (Input.IsActionJustPressed("block") && CanBlock)
-        {
-            Block();
-            resetTimer.Start(BlockCooldown);
-        }
+            //GD.Print(CanFollowUp, tweening);
+            if (Input.IsActionJustPressed("high_attack"))
+            {
+                ProcessAttack(Height.HIGH);
+            }
+            else if (Input.IsActionJustPressed("medium_attack"))
+            {
+                ProcessAttack(Height.MID);
+            }
+            else if (Input.IsActionJustPressed("low_attack"))
+            {
+                ProcessAttack(Height.LOW);
+            }
+            else if (Input.IsActionJustPressed("block") && CanBlock)
+            {
+                Block();
+                resetTimer.Start(BlockCooldown);
+            }
 
-        UpdateDebugPanel();
-        MoveAndSlide();
-        if (!IsOnFloor() && (tween == null || !tween.IsRunning()))
-        {
-            Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 100) };
+            UpdateDebugPanel();
+            MoveAndSlide();
+            if (!IsOnFloor() && (tween == null || !tween.IsRunning()))
+            {
+                Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 100) };
+            }
         }
+          
+        
+       
     }
 
     void Block()
@@ -574,6 +601,42 @@ public partial class Player : CharacterBody2D
             .OfType<CollisionShape2D>()
             .ToList()
             .ForEach(child => child.Disabled = true);
+    }
+
+    public async Task WinGame()
+    {
+        isGameOver = true;
+        GD.Print("we won!");
+        Cam.ZoomOnEnemy();
+        WinGameOver();
+
+    }
+
+    public void LoseGame()
+    {
+        isGameOver = true;
+        Cam.ZoomOnPlayer();
+       
+        LoseGameOver();
+
+
+    }
+
+    public async void WinGameOver()
+    {
+        GetTree().Paused = true;
+        await ToSignal(GetTree().CreateTimer(3f), Timer.SignalName.Timeout);
+
+        GetTree().ChangeSceneToFile("res://src/menus/end/end_screen.tscn");
+    }
+
+    public async void LoseGameOver()
+    {
+        GetTree().Paused = true;
+        await ToSignal(GetTree().CreateTimer(3f), Timer.SignalName.Timeout);
+        GetTree().ChangeSceneToFile("res://src/menus/lose/lose_screen.tscn");
+      
+
     }
 }
 

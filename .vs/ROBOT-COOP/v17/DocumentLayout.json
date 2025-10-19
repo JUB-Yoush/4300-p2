@@ -1,0 +1,143 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\GoDot\\4300-p2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|d:\\godot\\4300-p2\\src\\menus\\title\\title.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|solutionrelative:src\\menus\\title\\title.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|d:\\godot\\4300-p2\\src\\singletons\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|solutionrelative:src\\singletons\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|d:\\godot\\4300-p2\\src\\menus\\resultscreens.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|solutionrelative:src\\menus\\resultscreens.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|d:\\godot\\4300-p2\\src\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|solutionrelative:src\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|d:\\godot\\4300-p2\\src\\entities\\camera\\gamecamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|solutionrelative:src\\entities\\camera\\gamecamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|d:\\godot\\4300-p2\\src\\menus\\pause\\pausemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|solutionrelative:src\\menus\\pause\\pausemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|d:\\godot\\4300-p2\\src\\ui\\healthbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ADAF73F9-58C3-4F46-8226-BB7497A8607B}|robot-coop.csproj|solutionrelative:src\\ui\\healthbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AudioManager.cs",
+              "DocumentMoniker": "D:\\GoDot\\4300-p2\\src\\singletons\\AudioManager.cs",
+              "RelativeDocumentMoniker": "src\\singletons\\AudioManager.cs",
+              "ToolTip": "D:\\GoDot\\4300-p2\\src\\singletons\\AudioManager.cs",
+              "RelativeToolTip": "src\\singletons\\AudioManager.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAuwAoAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T04:03:07.133Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Helper.cs",
+              "DocumentMoniker": "D:\\GoDot\\4300-p2\\src\\Helper.cs",
+              "RelativeDocumentMoniker": "src\\Helper.cs",
+              "ToolTip": "D:\\GoDot\\4300-p2\\src\\Helper.cs",
+              "RelativeToolTip": "src\\Helper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T03:57:35.844Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Title.cs",
+              "DocumentMoniker": "D:\\GoDot\\4300-p2\\src\\menus\\title\\Title.cs",
+              "RelativeDocumentMoniker": "src\\menus\\title\\Title.cs",
+              "ToolTip": "D:\\GoDot\\4300-p2\\src\\menus\\title\\Title.cs",
+              "RelativeToolTip": "src\\menus\\title\\Title.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAmwDoAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T03:20:34.066Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PauseMenu.cs",
+              "DocumentMoniker": "D:\\GoDot\\4300-p2\\src\\menus\\pause\\PauseMenu.cs",
+              "RelativeDocumentMoniker": "src\\menus\\pause\\PauseMenu.cs",
+              "ToolTip": "D:\\GoDot\\4300-p2\\src\\menus\\pause\\PauseMenu.cs",
+              "RelativeToolTip": "src\\menus\\pause\\PauseMenu.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACYAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T02:13:32.83Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Healthbar.cs",
+              "DocumentMoniker": "D:\\GoDot\\4300-p2\\src\\UI\\Healthbar.cs",
+              "RelativeDocumentMoniker": "src\\UI\\Healthbar.cs",
+              "ToolTip": "D:\\GoDot\\4300-p2\\src\\UI\\Healthbar.cs",
+              "RelativeToolTip": "src\\UI\\Healthbar.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAcwBQAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T01:55:17.576Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ResultScreens.cs",
+              "DocumentMoniker": "D:\\GoDot\\4300-p2\\src\\menus\\ResultScreens.cs",
+              "RelativeDocumentMoniker": "src\\menus\\ResultScreens.cs",
+              "ToolTip": "D:\\GoDot\\4300-p2\\src\\menus\\ResultScreens.cs",
+              "RelativeToolTip": "src\\menus\\ResultScreens.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T01:54:23.605Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GameCamera.cs",
+              "DocumentMoniker": "D:\\GoDot\\4300-p2\\src\\entities\\Camera\\GameCamera.cs",
+              "RelativeDocumentMoniker": "src\\entities\\Camera\\GameCamera.cs",
+              "ToolTip": "D:\\GoDot\\4300-p2\\src\\entities\\Camera\\GameCamera.cs",
+              "RelativeToolTip": "src\\entities\\Camera\\GameCamera.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAA7wCQAAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-19T01:53:41.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

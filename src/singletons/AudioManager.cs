@@ -4,7 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public static class BGM { }
+public static class BGM {
+    public static AudioStream MenuMusic = GD.Load<AudioStream>(
+       "res://assets/audio/Music/Waiting For Stream To Start.mp3");
+    public static AudioStream FightMusic = GD.Load<AudioStream>(
+        "res://assets/audio/Music/Fighting Monsters.mp3");
+}
 
 public static class SFX
 {
@@ -48,6 +53,8 @@ public static class SFX
     public static AudioStream MechRocket = GD.Load<AudioStream>(
         "res://assets/audio/Weapon Noises/PlayerRocket_Final.mp3"
     );
+
+   
 }
 
 public partial class AudioManager : Node
@@ -80,6 +87,7 @@ public partial class AudioManager : Node
         }
         Ref.BgmPlayer.Stream = music;
         Ref.BgmPlayer.Play();
+       
     }
 
     public static void PlaySfx(AudioStream sfx, bool singleStreamOnly = false)

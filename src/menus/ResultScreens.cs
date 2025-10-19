@@ -7,7 +7,8 @@ public partial class ResultScreens : Control
 	//https://commons.wikimedia.org/wiki/File:Television_static.gif
 	public override void _Ready()
 	{
-		Input.MouseMode = Input.MouseModeEnum.Visible;
+        GetTree().Paused = false;
+        Input.MouseMode = Input.MouseModeEnum.Visible;
 		GetNode<TextureButton>("Result/Home").GrabFocus();
 		GetNode<TextureButton>("Result/Reset").Pressed += () =>
 		{
