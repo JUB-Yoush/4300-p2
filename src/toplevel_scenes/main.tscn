@@ -1,12 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=17 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="PackedScene" uid="uid://dw6btvd76bxdj" path="res://src/menus/pause/pause_menu.tscn" id="1_5o53v"]
-[ext_resource type="PackedScene" uid="uid://c6go1x50mf4hf" path="res://src/UI/hud.tscn" id="2_i584b"]
+[ext_resource type="Texture2D" uid="uid://b7eaj18i7kme0" path="res://assets/ui/Who is Who.png" id="2_i3xn1"]
+[ext_resource type="PackedScene" uid="uid://c6go1x50mf4hf" path="res://src/ui/hud.tscn" id="2_i584b"]
 [ext_resource type="PackedScene" uid="uid://b2ugdxlnxenjb" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
+[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="3_fleds"]
+[ext_resource type="Texture2D" uid="uid://tqj5fnqoyg14" path="res://assets/ui/Moves.png" id="3_odjcq"]
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
-[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/UI/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
+[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/ui/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
 [ext_resource type="Script" uid="uid://gw8dq4rhwsf2" path="res://src/entities/Camera/GameCamera.cs" id="7_i5ocd"]
 [ext_resource type="Texture2D" uid="uid://cj1sd2ff3dgpi" path="res://assets/2d/bg/Mech_Bg.png" id="9_oxt34"]
 
@@ -135,6 +138,82 @@ offset_left = 100.0
 offset_top = 170.0
 offset_right = 140.0
 offset_bottom = 193.0
+
+[node name="InfoStuff" type="Panel" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WhoBeWho" type="TextureRect" parent="UI/InfoStuff"]
+layout_mode = 0
+offset_left = -13.0
+offset_top = 300.0
+offset_right = 134.0
+offset_bottom = 939.0
+texture = ExtResource("2_i3xn1")
+
+[node name="P1" type="Label" parent="UI/InfoStuff/WhoBeWho"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 20.0
+offset_right = 101.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.976471, 0.141176, 0.545098, 1)
+theme_override_fonts/font = ExtResource("3_fleds")
+theme_override_font_sizes/font_size = 48
+text = "P1"
+
+[node name="P2" type="Label" parent="UI/InfoStuff/WhoBeWho"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 200.0
+offset_right = 110.0
+offset_bottom = 262.0
+theme_override_colors/font_color = Color(0.956863, 0.12549, 1, 1)
+theme_override_fonts/font = ExtResource("3_fleds")
+theme_override_font_sizes/font_size = 48
+text = "P2"
+
+[node name="P3" type="Label" parent="UI/InfoStuff/WhoBeWho"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 380.0
+offset_right = 110.0
+offset_bottom = 442.0
+theme_override_colors/font_color = Color(0.8, 0, 1, 1)
+theme_override_fonts/font = ExtResource("3_fleds")
+theme_override_font_sizes/font_size = 48
+text = "P3"
+
+[node name="Moves" type="TextureRect" parent="UI/InfoStuff"]
+layout_mode = 0
+offset_left = 740.0
+offset_top = 973.0
+offset_right = 1177.0
+offset_bottom = 1087.0
+texture = ExtResource("3_odjcq")
+
+[node name="Block" type="Label" parent="UI/InfoStuff/Moves"]
+layout_mode = 0
+offset_left = 255.0
+offset_top = 60.0
+offset_right = 380.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(0.509804, 0.184314, 0.537255, 1)
+theme_override_fonts/font = ExtResource("3_fleds")
+theme_override_font_sizes/font_size = 40
+text = "Block"
+
+[node name="ATTACKorSETUP" type="Label" parent="UI/InfoStuff/Moves"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 60.0
+offset_top = 60.0
+offset_right = 206.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(0.509804, 0.184314, 0.537255, 1)
+theme_override_fonts/font = ExtResource("3_fleds")
+theme_override_font_sizes/font_size = 40
+text = "Action"
 
 [node name="Hud" parent="UI" instance=ExtResource("2_i584b")]
 
