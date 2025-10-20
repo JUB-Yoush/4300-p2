@@ -317,10 +317,15 @@ public partial class Player : CharacterBody2D
 
     void BlockWorked(Area2D area)
     {
+        area.GetChildren()
+            .OfType<CollisionShape2D>()
+            .ToList()
+            .ForEach(child => child.SetDeferred("disabled", true));
+
         var enemy = GetParent().GetNode<Enemy>("Enemy");
-        enemy
-            .GetNode<CollisionShape2D>($"HitboxArea/{enemy.currentMove}")
-            .SetDeferred("disabled", true);
+        // enemy
+        //     .GetNode<CollisionShape2D>($"HitboxArea/{enemy.currentMove}")
+        //     .SetDeferred("disabled", true);
         CanBlock = true;
         BlockRect.Visible = true;
         AudioManager.PlaySfx(SFX.MechShield);
