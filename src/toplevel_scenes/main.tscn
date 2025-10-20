@@ -27,6 +27,8 @@ size = Vector2(27, 1240)
 [node name="main" type="Node"]
 
 [node name="BulletTextManager" parent="." instance=ExtResource("5_5o53v")]
+positiveChats = PackedStringArray("YEAH!!!!", "LETS GOOOO!!!!", "WE\'RE SO BACK!!!", "THEY\'RE THE GOATS!!!!", "THE GREATEST TO EVER DO IT!!!!!", "I NEVER STOPPED BELIEVING!!", "YYUUUP!!!!", "🫃", "OWN THAT FRAUD!!", "🤯", "🔥", "SHEESH 🥶", "LETS GOOO!!!!", "💥", "DOGWALKED!!!!!", "NUCLEAR ROBOT VS COUGHING KAIJU", "🔥🔥", "🔥🔥🔥", "💥💥💥", "💥💥", "🤯🤯", "I BELIEVE!!", "SEND THEM TO LOSERS", "THE MIXXXX", "SEND EM BACK TO THE OCEAN", "WHERE\'S THE REF? THEY ALREADY DEAD", "DOWNLOAD COMPLETE", "SPEEDRUNNING KILL_KAIJU%", "HOLYYYYYYYY")
+negativeChats = PackedStringArray("BOOOO", "BLOCK THAT!!!!!", "ITS SO OVER!!!!", "THERES NO SHOT!!", "MY GOATS ARE WASHED", "THIS IS OUR LAST LINE OF DEFENSE 😭", "😭", "💀", "🥀", "WERE THEY EVEN TRAINED?!?!", "HOW DO YOU LET THAT HAPPEN!!", "💔", "#FRAUDWATCH", "😭😭", "😭😭😭", "💔💔💔", "💔💔", "💀💀", "2 DECADES OF R&D BTW", "5 TRILLION TAX DOLLARS FOR THIS...", "FIGHT BACK!!!", "LOCK IN!!", "!bracket", "THEY\'RE JUST OUT HERE PRESSIN BUTTONS", "I COULD\'VE BLOCKED THAT", "MY GRANDMA COULD PILOT BETTER", "SKILL ISSUE", "CONSIDER PARRYING")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
