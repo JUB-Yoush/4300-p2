@@ -24,23 +24,6 @@ public partial class CharacterBody2d : CharacterBody2D
 
     public override void _Process(double delta)
     {
-        var position = Position;
-        if (!canMove)
-        {
-            movementTween!.Stop();
-            Position = position;
-        }
-        if (
-            Input.IsActionJustPressed("block")
-            && (movementTween == null || !movementTween.IsRunning())
-        )
-        {
-            var tween = CreateTween();
-            tween.VelocityMovement(this, new(Position.X + 500, Position.Y), 3);
-            if (!canMove)
-            {
-                movementTween!.Stop();
-            }
-        }
+        GD.Print(Input.GetConnectedJoypads());
     }
 }

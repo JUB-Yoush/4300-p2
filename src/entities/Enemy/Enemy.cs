@@ -108,24 +108,6 @@ public partial class Enemy : CharacterBody2D
         tween = CreateTween();
         tween.SetTrans(Tween.TransitionType.Quad);
         tween.Call(() => Sprite.Frame = 0);
-        // tween.TweenProperty(
-        //     this,
-        //     "position",
-        //     new Vector2(Position.X + 10, Position.Y),
-        //     FramesToSeconds(10)
-        // );
-        // tween.TweenProperty(
-        //     this,
-        //     "position",
-        //     new Vector2(Position.X - 10, Position.Y),
-        //     FramesToSeconds(10)
-        // );
-        // tween.TweenProperty(
-        //     this,
-        //     "position",
-        //     new Vector2(Position.X, Position.Y + 10),
-        //     FramesToSeconds(10)
-        // );
         SetAttackSFX(SFX.KaijuLow);
         tween.TweenInterval(FramesToSeconds(10));
 
@@ -246,12 +228,12 @@ public partial class Enemy : CharacterBody2D
         };
 
         var newBlockHeight = (Height)new Random().Next(0, 3);
-        // while (newBlockHeight == BlockHeight)
-        // {
-        //     newBlockHeight = (Height)new Random().Next(0, 3);
-        // }
-        //BlockHeight = newBlockHeight;
-        BlockHeight = Height.LOW;
+        while (newBlockHeight == BlockHeight)
+        {
+            newBlockHeight = (Height)new Random().Next(0, 3);
+        }
+        BlockHeight = newBlockHeight;
+        //BlockHeight = Height.LOW;
         Sprite.Frame = blockFrameMap[BlockHeight];
     }
 

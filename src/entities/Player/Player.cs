@@ -273,19 +273,19 @@ public partial class Player : CharacterBody2D
         }
 
         //GD.Print(CanFollowUp, tweening);
-        if (Input.IsActionJustPressed("high_attack"))
+        if (InputManager.Map[InputManager.Inputs.HIGH])
         {
             ProcessAttack(Height.HIGH);
         }
-        else if (Input.IsActionJustPressed("medium_attack"))
+        else if (InputManager.Map[InputManager.Inputs.MID])
         {
             ProcessAttack(Height.MID);
         }
-        else if (Input.IsActionJustPressed("low_attack"))
+        else if (InputManager.Map[InputManager.Inputs.LOW])
         {
             ProcessAttack(Height.LOW);
         }
-        else if (Input.IsActionJustPressed("block") && CanBlock)
+        else if (InputManager.Map[InputManager.Inputs.BLOCK])
         {
             Block();
             resetTimer.Start(BlockCooldown);
@@ -301,7 +301,7 @@ public partial class Player : CharacterBody2D
 
     void Block()
     {
-        if (state != State.IDLE && state != State.BLOCKING)
+        if (state != State.IDLE && state != State.BLOCKING && CanBlock)
             return;
         CanBlock = false;
         tween?.Stop();
