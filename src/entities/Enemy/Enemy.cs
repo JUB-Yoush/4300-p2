@@ -38,7 +38,7 @@ public partial class Enemy : CharacterBody2D
 
     Sprite2D Sprite = null!;
 
-    Area2D HitboxArea = null!;
+    public Area2D HitboxArea = null!;
     Area2D HurtboxArea = null!;
 
     public int Hp = 100;
@@ -50,8 +50,8 @@ public partial class Enemy : CharacterBody2D
     public Dictionary<Move, AttackData> AttackDataMap = new()
     {
         { Move.L, new(5, 100, 15) },
-        { Move.M, new(5, 100, 15) },
-        { Move.H, new(5, 100, 15) },
+        { Move.M, new(10, 200, 15) },
+        { Move.H, new(8, 100, 15) },
     };
     public Move currentMove;
     GameCamera Cam = null!;
@@ -133,7 +133,7 @@ public partial class Enemy : CharacterBody2D
         tween.Call(() => Sprite.Frame = 1);
         tween.Call(() =>
         {
-            UpdateCollisionBox(BoxType.HITBOX, Move.L);
+            //UpdateCollisionBox(BoxType.HITBOX, Move.L);
             SpawnSpike(new(GlobalPosition.X - 600, GlobalPosition.Y + 300));
         });
         tween.TweenInterval(FramesToSeconds(5));
@@ -142,6 +142,8 @@ public partial class Enemy : CharacterBody2D
         tween.Call(() => SpawnSpike(new(GlobalPosition.X - 1200, GlobalPosition.Y + 300)));
         tween.TweenInterval(FramesToSeconds(5));
         tween.Call(() => SpawnSpike(new(GlobalPosition.X - 1500, GlobalPosition.Y + 300)));
+        tween.TweenInterval(FramesToSeconds(5));
+        tween.Call(() => SpawnSpike(new(GlobalPosition.X - 1800, GlobalPosition.Y + 300)));
         tween.TweenInterval(FramesToSeconds(30));
         tween.Call(() =>
         {
@@ -231,7 +233,6 @@ public partial class Enemy : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        GD.Print(attackTimer.TimeLeft);
         MoveAndSlide();
     }
 

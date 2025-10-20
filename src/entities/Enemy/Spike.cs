@@ -11,6 +11,7 @@ public partial class Spike : Area2D
 
     Sprite2D Sprite = null!;
     CollisionShape2D hbox = null!;
+    Enemy enemy = null!;
 
     public override void _Ready()
     {

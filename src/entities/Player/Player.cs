@@ -146,7 +146,7 @@ public partial class Player : CharacterBody2D
         AddChild(resetTimer);
     }
 
-    void HitByEnemy(Area2D area)
+    public void HitByEnemy(Area2D area)
     {
         if (state == State.HIT)
         {
@@ -156,10 +156,11 @@ public partial class Player : CharacterBody2D
         if (state == State.BLOCKING)
         {
             GD.Print("blocked!!!");
-            BlockWorked();
+            BlockWorked(area);
             return;
         }
-        var enemy = area.GetParent<Enemy>();
+
+        var enemy = GetParent().GetNode<Enemy>("Enemy");
         var move = enemy.AttackDataMap[enemy.currentMove];
         tween?.Stop();
         if (IsOnFloor()) { }
@@ -300,7 +301,7 @@ public partial class Player : CharacterBody2D
 
     void Block()
     {
-        if (state != State.IDLE)
+        if (state != State.IDLE && state != State.BLOCKING)
             return;
         CanBlock = false;
         tween?.Stop();
@@ -314,7 +315,7 @@ public partial class Player : CharacterBody2D
         tween.Call(Reset);
     }
 
-    void BlockWorked()
+    void BlockWorked(Area2D area)
     {
         var enemy = GetParent().GetNode<Enemy>("Enemy");
         enemy
