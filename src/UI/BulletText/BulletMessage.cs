@@ -1,7 +1,7 @@
-using Godot;
 using System;
+using Godot;
 
-public partial class BulletMessage : RichTextLabel
+public partial class BulletMessage : Label
 {
     private const float KILL_TIME = 20;
     public float scrollSpeed = 200;

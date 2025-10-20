@@ -3,9 +3,9 @@
 [ext_resource type="Shader" uid="uid://yjgwa8lgpu45" path="res://assets/shaders/hit_flash.gdshader" id="2_hq84m"]
 [ext_resource type="Script" uid="uid://dtqb44nqyol50" path="res://src/entities/Player/Player.cs" id="2_loq5s"]
 [ext_resource type="Texture2D" uid="uid://b6wpnpbm7g0qy" path="res://assets/2d/sprites/mecha_spritesheet.png" id="2_pjr3c"]
-[ext_resource type="PackedScene" uid="uid://dysi5joh0n6eg" path="res://assets/particles/player_laser.tscn" id="3_5ky3l"]
-[ext_resource type="PackedScene" uid="uid://ge73p0iikfme" path="res://assets/particles/gun_particle.tscn" id="4_bimrn"]
-[ext_resource type="PackedScene" uid="uid://ctxt2cxk01d05" path="res://assets/particles/smoke_particles.tscn" id="5_bimrn"]
+[ext_resource type="PackedScene" uid="uid://dysi5joh0n6eg" path="res://Assets/particles/player_laser.tscn" id="3_5ky3l"]
+[ext_resource type="PackedScene" uid="uid://ge73p0iikfme" path="res://Assets/particles/gun_particle.tscn" id="4_bimrn"]
+[ext_resource type="PackedScene" uid="uid://ctxt2cxk01d05" path="res://Assets/particles/smoke_particles.tscn" id="5_bimrn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bimrn"]
 shader = ExtResource("2_hq84m")
@@ -13,28 +13,28 @@ shader_parameter/active = false
 shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjnl3"]
-size = Vector2(1311.38, 180.375)
+size = Vector2(1716.38, 155.999)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_loq5s"]
 size = Vector2(363.875, 353.344)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gk04w"]
-size = Vector2(683, 131)
+size = Vector2(764, 131)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4j63m"]
-size = Vector2(2793, 99.4999)
+size = Vector2(1638, 99.4999)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bimrn"]
 size = Vector2(535, 189)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ky3l"]
-size = Vector2(911.469, 201.672)
+size = Vector2(1517.73, 201.672)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w6i4f"]
 size = Vector2(316, 523.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppn71"]
-size = Vector2(156.75, 522.438)
+size = Vector2(109.375, 522.438)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tj66a"]
 size = Vector2(257, 346.965)
@@ -196,7 +196,7 @@ vframes = 5
 collision_mask = 8
 
 [node name="LM" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(619.31, -209.188)
+position = Vector2(821.81, -197)
 shape = SubResource("RectangleShape2D_jjnl3")
 disabled = true
 
@@ -206,12 +206,12 @@ shape = SubResource("RectangleShape2D_loq5s")
 disabled = true
 
 [node name="ML" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(579.5, -29.395)
+position = Vector2(539, -29.395)
 shape = SubResource("RectangleShape2D_gk04w")
 disabled = true
 
 [node name="MH" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(1434.5, -130.145)
+position = Vector2(857, -130.145)
 shape = SubResource("RectangleShape2D_4j63m")
 disabled = true
 
@@ -221,7 +221,7 @@ shape = SubResource("RectangleShape2D_bimrn")
 disabled = true
 
 [node name="HM" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(616, 2)
+position = Vector2(919.133, 2)
 shape = SubResource("RectangleShape2D_5ky3l")
 disabled = true
 
@@ -235,7 +235,7 @@ shape = SubResource("RectangleShape2D_w6i4f")
 disabled = true
 
 [node name="M" type="CollisionShape2D" parent="HurtboxArea"]
-position = Vector2(-149, 88.7812)
+position = Vector2(-172.688, 88.7812)
 shape = SubResource("RectangleShape2D_ppn71")
 disabled = true
 

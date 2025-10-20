@@ -2,9 +2,12 @@
 
 [ext_resource type="Script" uid="uid://ddl6f0stphq1s" path="res://src/UI/BulletText/BulletMessage.cs" id="1_qnh0i"]
 
-[node name="BulletMessage" type="RichTextLabel"]
+[node name="BulletMessage" type="Label"]
 z_index = -3
 offset_right = 1156.0
 offset_bottom = 40.0
-text = "hi"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "lmao"
 script = ExtResource("1_qnh0i")

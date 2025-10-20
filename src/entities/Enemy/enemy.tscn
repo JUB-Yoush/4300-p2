@@ -11,13 +11,13 @@ shader_parameter/active = false
 shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwlv3"]
-size = Vector2(1320, 305.375)
+size = Vector2(1803, 305.375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sct5a"]
-size = Vector2(1322.75, 422)
+size = Vector2(1401.75, 422)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aw8am"]
-size = Vector2(1309, 329)
+size = Vector2(1787.5, 329)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvr80"]
 size = Vector2(218, 759)
@@ -152,17 +152,17 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="L" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-560, 278)
+position = Vector2(-625.5, 278)
 shape = SubResource("RectangleShape2D_nwlv3")
 disabled = true
 
 [node name="M" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-557.625, 72.125)
+position = Vector2(-597.125, 72.125)
 shape = SubResource("RectangleShape2D_sct5a")
 disabled = true
 
 [node name="H" type="CollisionShape2D" parent="HitboxArea"]
-position = Vector2(-564.5, -120)
+position = Vector2(-627.25, -120)
 shape = SubResource("RectangleShape2D_aw8am")
 disabled = true
 

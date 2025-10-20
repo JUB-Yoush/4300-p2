@@ -21,10 +21,9 @@ public partial class GameCamera : Camera2D
     float ShakeStrength = 0;
     float ShakeDecay = 0;
 
-     Vector2 CameraZoom = new Vector2(2f, 2f);
-    const float CameraZoomDuration = 2f;
+    Vector2 CameraZoom = new Vector2(2f, 2f);
+    const float CAMERA_ZOOM_DURATION = 2f;
     Tween? cameraTween = null;
-    
 
     /*
      * attach static bodies to the bounds of the camera
@@ -41,7 +40,6 @@ public partial class GameCamera : Camera2D
         enemy = GetParent().GetNode<Enemy>("Enemy");
         LeftWall = GetNode<CollisionShape2D>("Border/LeftWall");
         RightWall = GetNode<CollisionShape2D>("Border/RightWall");
-   
     }
 
     public override void _Process(double delta)
@@ -94,35 +92,11 @@ public partial class GameCamera : Camera2D
         return Offset;
     }
 
-    public void ZoomOnPlayer()
-    {
-
-        cameraTween = CreateTween();
-
-        cameraTween.SetParallel();
-
-
-        cameraTween.TweenProperty(this, "position", player.Position, CameraZoomDuration);
-        cameraTween.TweenProperty(this, "zoom", CameraZoom, CameraZoomDuration);
-
-       
-      
-
-    }
-
-    public void ZoomOnEnemy()
+    public void ZoomIn(Vector2 location)
     {
         cameraTween = CreateTween();
-    
         cameraTween.SetParallel();
-
-        cameraTween.TweenProperty(this, "position", enemy.Position, CameraZoomDuration);
-        cameraTween.TweenProperty(this, "zoom", CameraZoom, CameraZoomDuration);
-
-    
-
-
+        cameraTween.TweenProperty(this, "position", location, CAMERA_ZOOM_DURATION);
+        cameraTween.TweenProperty(this, "zoom", CameraZoom, CAMERA_ZOOM_DURATION);
     }
-
-
 }
