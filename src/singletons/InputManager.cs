@@ -28,12 +28,6 @@ public partial class InputManager : Node
         { Inputs.HIGH, false },
         { Inputs.BLOCK, false },
     };
-    static InputManager Ref = null!;
-
-    public override void _Ready()
-    {
-        Ref = this;
-    }
 
     public override void _Process(double delta)
     {
