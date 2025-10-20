@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://tqj5fnqoyg14" path="res://assets/ui/Moves.png" id="3_odjcq"]
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
-[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/ui/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
+[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/UI/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
 [ext_resource type="Script" uid="uid://gw8dq4rhwsf2" path="res://src/entities/Camera/GameCamera.cs" id="7_i5ocd"]
 [ext_resource type="Texture2D" uid="uid://cj1sd2ff3dgpi" path="res://assets/2d/bg/Mech_Bg.png" id="9_oxt34"]
 
@@ -27,6 +27,8 @@ size = Vector2(27, 1240)
 [node name="main" type="Node"]
 
 [node name="BulletTextManager" parent="." instance=ExtResource("5_5o53v")]
+positiveChats = PackedStringArray("YEAH!!!!", "LETS GOOOO!!!!", "WE\'RE SO BACK!!!", "THEY\'RE THE GOATS!!!!", "THE GREATEST TO EVER DO IT!!!!!", "I NEVER STOPPED BELIEVING!!", "YYUUUP!!!!", "🫃", "OWN THAT FRAUD!!", "🤯", "🔥", "SHEESH 🥶", "LETS GOOO!!!!", "💥", "DOGWALKED!!!!!", "NUCLEAR ROBOT VS COUGHING KAIJU", "🔥🔥", "🔥🔥🔥", "💥💥💥", "💥💥", "🤯🤯", "I BELIEVE!!", "SEND THEM TO LOSERS", "THE MIXXXX", "SEND EM BACK TO THE OCEAN", "WHERE\'S THE REF? THEY ALREADY DEAD", "DOWNLOAD COMPLETE", "SPEEDRUNNING KILL_KAIJU%", "HOLYYYYYYYY")
+negativeChats = PackedStringArray("BOOOO", "BLOCK THAT!!!!!", "ITS SO OVER!!!!", "THERES NO SHOT!!", "MY GOATS ARE WASHED", "THIS IS OUR LAST LINE OF DEFENSE 😭", "😭", "💀", "🥀", "WERE THEY EVEN TRAINED?!?!", "HOW DO YOU LET THAT HAPPEN!!", "💔", "#FRAUDWATCH", "😭😭", "😭😭😭", "💔💔💔", "💔💔", "💀💀", "2 DECADES OF R&D BTW", "5 TRILLION TAX DOLLARS FOR THIS...", "FIGHT BACK!!!", "LOCK IN!!", "!bracket", "THEY\'RE JUST OUT HERE PRESSIN BUTTONS", "I COULD\'VE BLOCKED THAT", "MY GRANDMA COULD PILOT BETTER", "SKILL ISSUE", "CONSIDER PARRYING")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -234,6 +236,12 @@ color = Color(0, 0, 0, 0.282353)
 
 [node name="Enemy" parent="." instance=ExtResource("2_kvr80")]
 position = Vector2(2389, 687)
+
+[node name="L" parent="Enemy/HitboxArea" index="0"]
+position = Vector2(-736, 278)
+
+[node name="H" parent="Enemy/HitboxArea" index="2"]
+position = Vector2(-741, -120)
 
 [node name="Player" parent="." instance=ExtResource("1_3u0g6")]
 position = Vector2(1197, 692)
