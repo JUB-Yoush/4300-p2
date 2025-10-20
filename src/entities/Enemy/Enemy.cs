@@ -63,7 +63,7 @@ public partial class Enemy : CharacterBody2D
         attackTimer = new();
         AddChild(attackTimer);
         attackTimer.OneShot = true;
-        attackTimer.Start(GetAttackSpeed());
+        attackTimer.Start(2);
         attackTimer.Timeout += Attack;
 
         Attacks = [LowAttack, MidAttack, HighAttack];
@@ -231,10 +231,7 @@ public partial class Enemy : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.IsActionJustPressed("kill"))
-        {
-            GetParent().GetNode<Player>("Player").GameOver(false);
-        }
+        GD.Print(attackTimer.TimeLeft);
         MoveAndSlide();
     }
 
@@ -252,8 +249,8 @@ public partial class Enemy : CharacterBody2D
         // {
         //     newBlockHeight = (Height)new Random().Next(0, 3);
         // }
-        BlockHeight = newBlockHeight;
-        //BlockHeight = Height.MID;
+        //BlockHeight = newBlockHeight;
+        BlockHeight = Height.LOW;
         Sprite.Frame = blockFrameMap[BlockHeight];
     }
 
@@ -290,11 +287,12 @@ public partial class Enemy : CharacterBody2D
     public void Blocked()
     {
         //do an attack
-        tween?.Stop();
+        GD.Print($"tween null checking: {tween == null}, state: {CurrentState}");
         AnimPlayer.Play("block");
         Hitstop(0.05f, 100);
         if (CurrentState != State.ATTACKING)
         {
+            tween?.Stop();
             Attack();
         }
     }
