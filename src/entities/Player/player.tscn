@@ -1,11 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://bn1sondwl58ft"]
+[gd_scene load_steps=29 format=3 uid="uid://bn1sondwl58ft"]
 
-[ext_resource type="Shader" uid="uid://yjgwa8lgpu45" path="res://assets/shaders/hit_flash.gdshader" id="2_hq84m"]
+[ext_resource type="Shader" uid="uid://yjgwa8lgpu45" path="res://Assets/shaders/hit_flash.gdshader" id="2_hq84m"]
 [ext_resource type="Script" uid="uid://dtqb44nqyol50" path="res://src/entities/Player/Player.cs" id="2_loq5s"]
-[ext_resource type="Texture2D" uid="uid://b6wpnpbm7g0qy" path="res://assets/2d/sprites/mecha_spritesheet.png" id="2_pjr3c"]
+[ext_resource type="Texture2D" uid="uid://b6wpnpbm7g0qy" path="res://Assets/2d/sprites/mecha_spritesheet.png" id="2_pjr3c"]
 [ext_resource type="PackedScene" uid="uid://dysi5joh0n6eg" path="res://Assets/particles/player_laser.tscn" id="3_5ky3l"]
 [ext_resource type="PackedScene" uid="uid://ge73p0iikfme" path="res://Assets/particles/gun_particle.tscn" id="4_bimrn"]
-[ext_resource type="PackedScene" uid="uid://ctxt2cxk01d05" path="res://Assets/particles/smoke_particles.tscn" id="5_bimrn"]
+[ext_resource type="PackedScene" uid="uid://ctxt2cxk01d05" path="res://Assets/particles/rocket_particles.tscn" id="5_bimrn"]
+[ext_resource type="PackedScene" uid="uid://dccdlhsduw2ta" path="res://Assets/particles/player_block.tscn" id="7_tj66a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bimrn"]
 shader = ExtResource("2_hq84m")
@@ -55,10 +56,10 @@ point_count = 3
 [sub_resource type="CurveTexture" id="CurveTexture_p4e46"]
 curve = SubResource("Curve_trsfj")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5ky3l"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hq84m"]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(600, 0, 0)
-emission_shape_scale = Vector3(600, 1, 1)
+emission_shape_offset = Vector3(800, 0, 0)
+emission_shape_scale = Vector3(800, 1, 1)
 emission_shape = 3
 emission_box_extents = Vector3(1, 0, 1)
 spread = 0.0
@@ -191,6 +192,7 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_pjr3c")
 hframes = 4
 vframes = 5
+frame = 3
 
 [node name="HitboxArea" type="Area2D" parent="."]
 collision_mask = 8
@@ -267,7 +269,7 @@ position = Vector2(106, -122)
 
 [node name="PlayerJumpLaser" parent="." instance=ExtResource("3_5ky3l")]
 position = Vector2(36, -239)
-process_material = SubResource("ParticleProcessMaterial_5ky3l")
+process_material = SubResource("ParticleProcessMaterial_hq84m")
 
 [node name="PlayerGunshot" parent="." instance=ExtResource("4_bimrn")]
 position = Vector2(345, -14)
@@ -279,3 +281,6 @@ position = Vector2(295, 26)
 libraries = {
 &"": SubResource("AnimationLibrary_ppn71")
 }
+
+[node name="PlayerBlock" parent="." instance=ExtResource("7_tj66a")]
+position = Vector2(-17, 52)

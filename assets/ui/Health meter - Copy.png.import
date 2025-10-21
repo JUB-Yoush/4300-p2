@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2cvwmssugbtv"
-path="res://.godot/imported/Health meter - Copy.png-4c31efc702bc4f01ac44d8612cfe9a6d.ctex"
+path="res://.godot/imported/Health meter - Copy.png-be2fa1915ffd89616b8c83fbf511ba73.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Health meter - Copy.png"
-dest_files=["res://.godot/imported/Health meter - Copy.png-4c31efc702bc4f01ac44d8612cfe9a6d.ctex"]
+source_file="res://Assets/ui/Health meter - Copy.png"
+dest_files=["res://.godot/imported/Health meter - Copy.png-be2fa1915ffd89616b8c83fbf511ba73.ctex"]
 
 [params]
 

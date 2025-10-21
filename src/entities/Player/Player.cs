@@ -27,12 +27,12 @@ public partial class Player : CharacterBody2D
 
     public Dictionary<Move, AttackData> AttackDataMap = new()
     {
-        { Move.LM, new(5, 100, 15) },
-        { Move.LH, new(10, 200, 30) },
-        { Move.ML, new(10, 200, 30) },
-        { Move.MH, new(5, 100, 15) },
-        { Move.HL, new(10, 200, 30) },
-        { Move.HM, new(5, 100, 15) },
+        { Move.LM, new(7, 100, 15) },
+        { Move.LH, new(15, 200, 30) },
+        { Move.ML, new(15, 200, 30) },
+        { Move.MH, new(7, 100, 15) },
+        { Move.HL, new(15, 200, 30) },
+        { Move.HM, new(7, 100, 15) },
     };
 
     Move currentMove = Move.IDLE;
@@ -87,7 +87,8 @@ public partial class Player : CharacterBody2D
     GpuParticles2D Laser = null!,
         JumpLaser = null!,
         Rocket = null!,
-        RocketExplosion = null!;
+        RocketExplosion = null!,
+        BlockParticles = null!;
     CpuParticles2D Gunshot = null!;
     BulletTextManager BulletText = null!;
     private const int HEALTH_TO_REPUTATION = 50;
@@ -109,6 +110,7 @@ public partial class Player : CharacterBody2D
         Gunshot = GetNode<CpuParticles2D>("PlayerGunshot");
         Rocket = GetNode<GpuParticles2D>("PlayerRocket");
         RocketExplosion = GetNode<GpuParticles2D>("PlayerRocket/GPUParticles2D");
+        BlockParticles = GetNode<GpuParticles2D>("PlayerBlock");
         BulletText = GetParent().GetNode<BulletTextManager>("BulletTextManager");
 
         isGameOver = false;
@@ -225,7 +227,7 @@ public partial class Player : CharacterBody2D
                 enemy.GlobalPosition.X,
                 RocketExplosion.GlobalPosition.Y
             );
-            RocketExplosion.Emitting = true;
+            RocketExplosion.Restart();
         }
         BulletText.InfluenceReputation(damage * HEALTH_TO_REPUTATION);
         if (IsOnFloor())
@@ -297,6 +299,9 @@ public partial class Player : CharacterBody2D
         {
             Velocity = Velocity with { Y = Math.Min(3000, Velocity.Y + 100) };
         }
+
+        if (state != State.BLOCKING)
+            BlockParticles.Emitting = false;
     }
 
     void Block()
@@ -308,6 +313,7 @@ public partial class Player : CharacterBody2D
         tween = CreateTween();
         tween.Call(() =>
         {
+            BlockParticles.Emitting = true;
             Sprite.Frame = 0;
             state = State.BLOCKING;
         });
@@ -460,8 +466,8 @@ public partial class Player : CharacterBody2D
     void MidHighFollowUp()
     {
         currentMove = Move.MH;
-        Laser.Emitting = true;
-        GetNode<GpuParticles2D>("PlayerMidLaser/GPUParticles2D").Emitting = true;
+        Laser.Restart();
+        GetNode<GpuParticles2D>("PlayerMidLaser/GPUParticles2D").Restart();
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -480,7 +486,7 @@ public partial class Player : CharacterBody2D
     void MidLowFollowUp()
     {
         currentMove = Move.ML;
-        Gunshot.Emitting = true;
+        Gunshot.Restart();
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -518,8 +524,8 @@ public partial class Player : CharacterBody2D
     void LowMidFollowUp()
     {
         currentMove = Move.LM;
-        JumpLaser.Emitting = true;
-        GetNode<GpuParticles2D>("PlayerJumpLaser/GPUParticles2D").Emitting = true;
+        JumpLaser.Restart();
+        GetNode<GpuParticles2D>("PlayerJumpLaser/GPUParticles2D").Restart();
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();
@@ -537,7 +543,7 @@ public partial class Player : CharacterBody2D
     void HighMidFollowUp()
     {
         currentMove = Move.HM;
-        Rocket.Emitting = true;
+        Rocket.Restart();
         tweening = true;
         CanFollowUp = false;
         tween = CreateTween();

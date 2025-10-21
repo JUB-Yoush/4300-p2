@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://dw6btvd76bxdj"]
+[gd_scene load_steps=12 format=3 uid="uid://dw6btvd76bxdj"]
 
 [ext_resource type="Script" uid="uid://bk5kab6a77sev" path="res://src/menus/pause/PauseMenu.cs" id="1_aqhcl"]
-[ext_resource type="Texture2D" uid="uid://dvljuvq35xdre" path="res://assets/ui/paused_UI/Pause Background (1).png" id="2_24rtq"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="2_nulr0"]
-[ext_resource type="Texture2D" uid="uid://fvwq1h857fet" path="res://assets/ui/paused_UI/Control Panel.svg" id="3_v5a41"]
-[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="4_j4mso"]
-[ext_resource type="Texture2D" uid="uid://d1h0w7ikaf3ge" path="res://assets/ui/paused_UI/Skip Ads Idle.svg" id="5_v5a41"]
-[ext_resource type="Texture2D" uid="uid://1r51h3or6mor" path="res://assets/ui/paused_UI/Leave Stream Idle.svg" id="7_kp3y8"]
-[ext_resource type="Texture2D" uid="uid://ccwygt7w3dx57" path="res://assets/ui/SkipX.svg" id="7_v5a41"]
-[ext_resource type="Texture2D" uid="uid://b74cnrrgoki7y" path="res://assets/ui/LeaveX.svg" id="9_8nsmu"]
+[ext_resource type="Texture2D" uid="uid://dvljuvq35xdre" path="res://Assets/ui/paused_UI/Pause Background (1).png" id="2_24rtq"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://Assets/text_themes/menus_basic.tres" id="2_nulr0"]
+[ext_resource type="Texture2D" uid="uid://fvwq1h857fet" path="res://Assets/ui/paused_UI/Control Panel.svg" id="3_v5a41"]
+[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://Assets/ui/fonts/Audiowide-Regular.ttf" id="4_j4mso"]
+[ext_resource type="Texture2D" uid="uid://d1h0w7ikaf3ge" path="res://Assets/ui/paused_UI/Skip Ads Idle.svg" id="5_v5a41"]
+[ext_resource type="Texture2D" uid="uid://1r51h3or6mor" path="res://Assets/ui/paused_UI/Leave Stream Idle.svg" id="7_kp3y8"]
+[ext_resource type="Texture2D" uid="uid://ccwygt7w3dx57" path="res://Assets/ui/SkipX.svg" id="7_v5a41"]
+[ext_resource type="Texture2D" uid="uid://dbtfxhpftitfv" path="res://Assets/ui/ButtonX.svg" id="8_8nsmu"]
+[ext_resource type="Texture2D" uid="uid://b74cnrrgoki7y" path="res://Assets/ui/LeaveX.svg" id="9_8nsmu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)
@@ -58,24 +59,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_v5a41")
 stretch_mode = 3
-
-[node name="brbtxt" type="Label" parent="Paused"]
-visible = false
-z_index = 1
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -256.5
-offset_top = 166.0
-offset_right = 258.5
-offset_bottom = 276.0
-grow_horizontal = 2
-theme = ExtResource("2_nulr0")
-theme_override_font_sizes/font_size = 50
-text = "- We'll Be Right Back -"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="PAUSED" type="Label" parent="Paused"]
 z_index = 1
@@ -208,6 +191,7 @@ focus_neighbor_top = NodePath("../Home")
 focus_neighbor_bottom = NodePath("../Home")
 texture_normal = ExtResource("5_v5a41")
 texture_hover = ExtResource("7_v5a41")
+texture_focused = ExtResource("8_8nsmu")
 stretch_mode = 3
 
 [node name="Resumetxt" type="Label" parent="Paused/Resume"]
@@ -246,6 +230,7 @@ focus_neighbor_top = NodePath("../Resume")
 focus_neighbor_bottom = NodePath("../Resume")
 texture_normal = ExtResource("7_kp3y8")
 texture_hover = ExtResource("9_8nsmu")
+texture_focused = ExtResource("8_8nsmu")
 stretch_mode = 3
 
 [node name="Hometxt" type="Label" parent="Paused/Home"]

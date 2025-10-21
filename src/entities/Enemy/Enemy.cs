@@ -49,9 +49,9 @@ public partial class Enemy : CharacterBody2D
 
     public Dictionary<Move, AttackData> AttackDataMap = new()
     {
-        { Move.L, new(5, 100, 15) },
-        { Move.M, new(10, 200, 15) },
-        { Move.H, new(8, 100, 15) },
+        { Move.L, new(2, 100, 15) },
+        { Move.M, new(4, 200, 15) },
+        { Move.H, new(3, 150, 15) },
     };
     public Move currentMove;
     GameCamera Cam = null!;
@@ -192,9 +192,9 @@ public partial class Enemy : CharacterBody2D
         tween.Call(() =>
         {
             UpdateCollisionBox(BoxType.HITBOX, Move.H);
-            GetNode<GpuParticles2D>("EnemyLaser").Emitting = true;
-            GetNode<GpuParticles2D>("EnemyLaser/GPUParticles2D").Emitting = true;
-            GetNode<GpuParticles2D>("EnemyLaser/GPUParticles2D2").Emitting = true;
+            GetNode<GpuParticles2D>("EnemyLaser").Restart();
+            GetNode<GpuParticles2D>("EnemyLaser/GPUParticles2D").Restart();
+            GetNode<GpuParticles2D>("EnemyLaser/GPUParticles2D2").Restart();
         });
         tween.TweenProperty(Sprite, "scale", new Vector2(1f, .75f), FramesToSeconds(30));
         tween.Call(() =>
