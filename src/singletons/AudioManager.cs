@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public static class BGM {
+public static class BGM
+{
     public static AudioStream MenuMusic = GD.Load<AudioStream>(
-       "res://assets/audio/Music/Waiting For Stream To Start.mp3");
+        "res://assets/audio/Music/Waiting For Stream To Start.mp3"
+    );
     public static AudioStream FightMusic = GD.Load<AudioStream>(
-        "res://assets/audio/Music/Fighting Monsters.mp3");
+        "res://assets/audio/Music/Fighting Monsters.mp3"
+    );
 }
 
 public static class SFX
@@ -17,13 +20,13 @@ public static class SFX
         "res://assets/audio/Kaiju Sounds/k_damage.mp3"
     );
     public static AudioStream KaijuLow = GD.Load<AudioStream>(
-        "res://assets/audio/Kaiju Sounds/k_low.mp3"
+        "res://assets/audio/Kaiju Sounds/Kaiju_Low.mp3"
     );
     public static AudioStream KaijuMid = GD.Load<AudioStream>(
-        "res://assets/audio/Kaiju Sounds/k_mid.mp3"
+        "res://assets/audio/Kaiju Sounds/Kaiju_Mid.mp3"
     );
     public static AudioStream KaijuHigh = GD.Load<AudioStream>(
-        "res://assets/audio/Kaiju Sounds/k_high.mp3"
+        "res://assets/audio/Kaiju Sounds/Kaiju_High.mp3"
     );
 
     public static AudioStream MechJump = GD.Load<AudioStream>(
@@ -53,8 +56,6 @@ public static class SFX
     public static AudioStream MechRocket = GD.Load<AudioStream>(
         "res://assets/audio/Weapon Noises/PlayerRocket_Final.mp3"
     );
-
-   
 }
 
 public partial class AudioManager : Node
@@ -87,7 +88,6 @@ public partial class AudioManager : Node
         }
         Ref.BgmPlayer.Stream = music;
         Ref.BgmPlayer.Play();
-       
     }
 
     public static void PlaySfx(AudioStream sfx, bool singleStreamOnly = false)
