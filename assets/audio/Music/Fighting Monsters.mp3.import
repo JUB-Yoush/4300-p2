@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/Fighting Monsters.mp3-a524dc2df14e3f6b539b38f
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0.0
 bpm=0.0
 beat_count=0
