@@ -71,7 +71,7 @@ public static class SFX
 public partial class AudioManager : Node
 {
     const int SFX_PLAYER_COUNT = 5;
-    public int bus = AudioServer.GetBusIndex("Master");
+    int bus = AudioServer.GetBusIndex("Master");
     AudioStreamPlayer BgmPlayer = new();
     List<AudioStreamPlayer> SfxPlayers = [];
 
