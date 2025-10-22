@@ -12,6 +12,9 @@ public static class BGM
     public static AudioStream FightMusic = GD.Load<AudioStream>(
         "res://assets/audio/Music/Fighting Monsters.mp3"
     );
+    public static AudioStream Static = GD.Load<AudioStream>(
+        "res://assets/audio/UI/Static_Final.mp3"
+    );
 }
 
 public static class SFX
@@ -56,12 +59,19 @@ public static class SFX
     public static AudioStream MechRocket = GD.Load<AudioStream>(
         "res://assets/audio/Weapon Noises/PlayerRocket_Final.mp3"
     );
+
+    public static AudioStream UIClick = GD.Load<AudioStream>(
+        "res://assets/audio/UI/UI_Click_Final.mp3"
+    );
+    public static AudioStream UIHover = GD.Load<AudioStream>(
+        "res://assets/audio/UI/UI_Select_Final.mp3"
+    );
 }
 
 public partial class AudioManager : Node
 {
     const int SFX_PLAYER_COUNT = 5;
-    int bus = AudioServer.GetBusIndex("Master");
+    public int bus = AudioServer.GetBusIndex("Master");
     AudioStreamPlayer BgmPlayer = new();
     List<AudioStreamPlayer> SfxPlayers = [];
 

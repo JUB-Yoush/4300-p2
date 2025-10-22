@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://cbt44onlofpoc"
-path="res://.godot/imported/Mech_SpinKick_FINAL.mp3-cbdfeffa933cd1d818f6b405799e42d8.mp3str"
+path="res://.godot/imported/Mech_SpinKick_FINAL.mp3-7f48a838794024442603ad00ca3747a5.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/Mech Sounds/Mech_SpinKick_FINAL.mp3"
-dest_files=["res://.godot/imported/Mech_SpinKick_FINAL.mp3-cbdfeffa933cd1d818f6b405799e42d8.mp3str"]
+source_file="res://Assets/audio/Mech Sounds/Mech_SpinKick_FINAL.mp3"
+dest_files=["res://.godot/imported/Mech_SpinKick_FINAL.mp3-7f48a838794024442603ad00ca3747a5.mp3str"]
 
 [params]
 

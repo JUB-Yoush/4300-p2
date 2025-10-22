@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://b6dpw5ba2al8"
-path="res://.godot/imported/PlayerRocket_Final.mp3-3d2cca5bc642eb2c5028c37c85102da5.mp3str"
+path="res://.godot/imported/PlayerRocket_Final.mp3-7f4f7865230e5e9af539270a68c981da.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/Weapon Noises/PlayerRocket_Final.mp3"
-dest_files=["res://.godot/imported/PlayerRocket_Final.mp3-3d2cca5bc642eb2c5028c37c85102da5.mp3str"]
+source_file="res://Assets/audio/Weapon Noises/PlayerRocket_Final.mp3"
+dest_files=["res://.godot/imported/PlayerRocket_Final.mp3-7f4f7865230e5e9af539270a68c981da.mp3str"]
 
 [params]
 
