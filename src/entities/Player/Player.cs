@@ -317,7 +317,7 @@ public partial class Player : CharacterBody2D
             Sprite.Frame = 0;
             state = State.BLOCKING;
         });
-        tween.TweenInterval(FramesToSeconds(15));
+        tween.TweenInterval(FramesToSeconds(30));
         tween.Call(Reset);
     }
 
@@ -393,7 +393,7 @@ public partial class Player : CharacterBody2D
             CanFollowUp = true;
             Sprite.Frame = 19;
         });
-        tween.Call(Reset, FramesToSeconds(12));
+        tween.Call(Reset, FramesToSeconds(24));
     }
 
     void HighSetUp()
@@ -420,7 +420,7 @@ public partial class Player : CharacterBody2D
             CanFollowUp = true;
             Sprite.Frame = 13;
         });
-        tween.Call(Reset, FramesToSeconds(12));
+        tween.Call(Reset, FramesToSeconds(24));
     }
 
     void LowSetUp()

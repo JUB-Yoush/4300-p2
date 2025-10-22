@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bexbygw73vcu5"
+path="res://.godot/imported/Kaiju_Low.mp3-33f5fb8a76fcd96159eb6f7d7f45e16b.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Kaiju Sounds/Kaiju_Low.mp3"
+dest_files=["res://.godot/imported/Kaiju_Low.mp3-33f5fb8a76fcd96159eb6f7d7f45e16b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
