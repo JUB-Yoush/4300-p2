@@ -230,7 +230,7 @@ focus_neighbor_top = NodePath("../Resume")
 focus_neighbor_bottom = NodePath("../Resume")
 texture_normal = ExtResource("7_kp3y8")
 texture_hover = ExtResource("9_8nsmu")
-texture_focused = ExtResource("8_8nsmu")
+texture_focused = ExtResource("9_8nsmu")
 stretch_mode = 3
 
 [node name="Hometxt" type="Label" parent="Paused/Home"]
