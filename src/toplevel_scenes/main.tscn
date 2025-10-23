@@ -2,16 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="PackedScene" uid="uid://dw6btvd76bxdj" path="res://src/menus/pause/pause_menu.tscn" id="1_5o53v"]
-[ext_resource type="Texture2D" uid="uid://b7eaj18i7kme0" path="res://Assets/ui/Who is Who.png" id="2_i3xn1"]
-[ext_resource type="PackedScene" uid="uid://c6go1x50mf4hf" path="res://src/UI/hud.tscn" id="2_i584b"]
+[ext_resource type="Texture2D" uid="uid://b7eaj18i7kme0" path="res://assets/ui/Who is Who.png" id="2_i3xn1"]
+[ext_resource type="PackedScene" uid="uid://c6go1x50mf4hf" path="res://src/ui/hud.tscn" id="2_i584b"]
 [ext_resource type="PackedScene" uid="uid://b2ugdxlnxenjb" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
-[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://Assets/ui/fonts/Audiowide-Regular.ttf" id="3_fleds"]
-[ext_resource type="Texture2D" uid="uid://tqj5fnqoyg14" path="res://Assets/ui/Moves.png" id="3_odjcq"]
+[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="3_fleds"]
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
+[ext_resource type="Texture2D" uid="uid://feal1iu2gbm3" path="res://assets/ui/Moves (2).png" id="4_fleds"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
-[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/UI/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
+[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/ui/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
 [ext_resource type="Script" uid="uid://gw8dq4rhwsf2" path="res://src/entities/Camera/GameCamera.cs" id="7_i5ocd"]
-[ext_resource type="Texture2D" uid="uid://cj1sd2ff3dgpi" path="res://Assets/2d/bg/Mech_Bg.png" id="9_oxt34"]
+[ext_resource type="Texture2D" uid="uid://cj1sd2ff3dgpi" path="res://assets/2d/bg/Mech_Bg.png" id="9_oxt34"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oxt34"]
 
@@ -192,7 +192,7 @@ offset_left = 740.0
 offset_top = 973.0
 offset_right = 1177.0
 offset_bottom = 1087.0
-texture = ExtResource("3_odjcq")
+texture = ExtResource("4_fleds")
 
 [node name="Block" type="Label" parent="UI/InfoStuff/Moves"]
 layout_mode = 0
