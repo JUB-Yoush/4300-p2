@@ -292,8 +292,8 @@ disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -100
-position = Vector2(1779, 576)
-scale = Vector2(1.88, 1)
+position = Vector2(1877.4, 648.5)
+scale = Vector2(1.7775, 0.865741)
 texture = ExtResource("9_oxt34")
 
 [editable path="Enemy"]
