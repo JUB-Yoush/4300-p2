@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b74cnrrgoki7y"
-path="res://.godot/imported/LeaveX.svg-6072b4030f8019032303af0ff60e386b.ctex"
+path="res://.godot/imported/LeaveX.svg-aec4602397395f5978874916ad993bf9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/ui/LeaveX.svg"
-dest_files=["res://.godot/imported/LeaveX.svg-6072b4030f8019032303af0ff60e386b.ctex"]
+source_file="res://assets/ui/LeaveX.svg"
+dest_files=["res://.godot/imported/LeaveX.svg-aec4602397395f5978874916ad993bf9.ctex"]
 
 [params]
 

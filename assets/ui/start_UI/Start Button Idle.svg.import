@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://810ppyk325b2"
-path="res://.godot/imported/Start Button Idle.svg-989a218fd63c9dc8b10c8435741e6b13.ctex"
+path="res://.godot/imported/Start Button Idle.svg-c552190a3a5dac7483b78effad32198d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/ui/start_UI/Start Button Idle.svg"
-dest_files=["res://.godot/imported/Start Button Idle.svg-989a218fd63c9dc8b10c8435741e6b13.ctex"]
+source_file="res://assets/ui/start_UI/Start Button Idle.svg"
+dest_files=["res://.godot/imported/Start Button Idle.svg-c552190a3a5dac7483b78effad32198d.ctex"]
 
 [params]
 

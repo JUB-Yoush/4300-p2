@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://pk8rjuju83di"
-path="res://.godot/imported/PlayerGunKick_FINAL.mp3-0b9192585979432dfed46e9a4085ed31.mp3str"
+path="res://.godot/imported/PlayerGunKick_FINAL.mp3-3d62c61c2670994f78610624b022ffdb.mp3str"
 
 [deps]
 
-source_file="res://Assets/audio/Mech Sounds/PlayerGunKick_FINAL.mp3"
-dest_files=["res://.godot/imported/PlayerGunKick_FINAL.mp3-0b9192585979432dfed46e9a4085ed31.mp3str"]
+source_file="res://assets/audio/Mech Sounds/PlayerGunKick_FINAL.mp3"
+dest_files=["res://.godot/imported/PlayerGunKick_FINAL.mp3-3d62c61c2670994f78610624b022ffdb.mp3str"]
 
 [params]
 

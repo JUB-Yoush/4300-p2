@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://b3g5hflg1u2uw"
-path="res://.godot/imported/Kaiju_Low.mp3-68eeb3cb1a2ecdc1b3d8437b219a8828.mp3str"
+path="res://.godot/imported/Kaiju_Low.mp3-d49997e7475ce1f934a6a12532d940d8.mp3str"
 
 [deps]
 
-source_file="res://Assets/audio/Kaiju Sounds/drive-download-20251022T003609Z-1-001/Kaiju_Low.mp3"
-dest_files=["res://.godot/imported/Kaiju_Low.mp3-68eeb3cb1a2ecdc1b3d8437b219a8828.mp3str"]
+source_file="res://assets/audio/Kaiju Sounds/drive-download-20251022T003609Z-1-001/Kaiju_Low.mp3"
+dest_files=["res://.godot/imported/Kaiju_Low.mp3-d49997e7475ce1f934a6a12532d940d8.mp3str"]
 
 [params]
 
