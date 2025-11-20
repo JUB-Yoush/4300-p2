@@ -98,6 +98,11 @@ public partial class Player : CharacterBody2D
 	GameCamera Cam = null!;
 
 	public static bool gameOver;
+	
+	// Player Parts texture load in (for Input UI)
+	Texture2D HEADTect = GD.Load<Texture2D>("res://assets/ui/Head.png");
+	Texture2D ARMTect = GD.Load<Texture2D>("res://assets/ui/Arm.png");
+	Texture2D LEGTect = GD.Load<Texture2D>("res://assets/ui/Leg.png");
 
 	public override void _Ready()
 	{
@@ -130,6 +135,12 @@ public partial class Player : CharacterBody2D
 
 		//Set action text to say set-up
 		((Label)GetParent().GetNode("%ATTACKorSETUP")).Text = "Set-Up";
+		
+		// Clear Input UI
+		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = null;
+		((TextureRect)GetParent().GetNode("%set-upIcon")).Texture = null;
+		((Panel)GetParent().GetNode("%BLOCKEDInput")).Visible = false;
+		
 
 		HurtboxArea = GetNode<Area2D>("HurtboxArea");
 		// HurtboxArea.CollisionLayer = (uint)Collisions.PLAYER_HURT;
@@ -317,6 +328,9 @@ public partial class Player : CharacterBody2D
 			Sprite.Frame = 0;
 			state = State.BLOCKING;
 		});
+		// Make the blocking input visible on Input UI
+		((Panel)GetParent().GetNode("%BLOCKEDInput")).Visible = true;
+		
 		tween.TweenInterval(FramesToSeconds(30));
 		tween.Call(Reset);
 	}
@@ -370,6 +384,9 @@ public partial class Player : CharacterBody2D
 
 	void MidSetUp()
 	{
+		
+		((TextureRect)GetParent().GetNode("%set-upIcon")).Texture = ARMTect;
+		
 		CanFollowUp = false;
 
 		// moving forward
@@ -398,6 +415,8 @@ public partial class Player : CharacterBody2D
 
 	void HighSetUp()
 	{
+		((TextureRect)GetParent().GetNode("%set-upIcon")).Texture = HEADTect;
+		
 		CanFollowUp = false;
 
 		tween = CreateTween();
@@ -425,6 +444,8 @@ public partial class Player : CharacterBody2D
 
 	void LowSetUp()
 	{
+		((TextureRect)GetParent().GetNode("%set-upIcon")).Texture = LEGTect;
+		
 		CanFollowUp = false;
 
 		tween = CreateTween();
@@ -465,6 +486,8 @@ public partial class Player : CharacterBody2D
 
 	void MidHighFollowUp()
 	{
+		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = HEADTect;
+		
 		currentMove = Move.MH;
 		Laser.Restart();
 		GetNode<GpuParticles2D>("PlayerMidLaser/GPUParticles2D").Restart();
@@ -485,6 +508,8 @@ public partial class Player : CharacterBody2D
 
 	void MidLowFollowUp()
 	{
+		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = LEGTect;
+		
 		currentMove = Move.ML;
 		Gunshot.Restart();
 		tweening = true;
@@ -502,6 +527,8 @@ public partial class Player : CharacterBody2D
 
 	void LowHighFollowUp()
 	{
+		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = HEADTect;
+		
 		currentMove = Move.LH;
 		tweening = true;
 		CanFollowUp = false;
@@ -523,6 +550,8 @@ public partial class Player : CharacterBody2D
 
 	void LowMidFollowUp()
 	{
+		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = ARMTect;
+		
 		currentMove = Move.LM;
 		JumpLaser.Restart();
 		GetNode<GpuParticles2D>("PlayerJumpLaser/GPUParticles2D").Restart();
@@ -542,6 +571,8 @@ public partial class Player : CharacterBody2D
 
 	void HighMidFollowUp()
 	{
+		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = ARMTect;
+		
 		currentMove = Move.HM;
 		Rocket.Restart();
 		tweening = true;
@@ -560,6 +591,8 @@ public partial class Player : CharacterBody2D
 
 	void HighLowFollowUp()
 	{
+		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = LEGTect;
+		
 		currentMove = Move.HL;
 		tweening = true;
 		CanFollowUp = false;
@@ -589,6 +622,12 @@ public partial class Player : CharacterBody2D
 			CanDoStartup = true;
 		}
 		wasBlocked = false;
+		
+		// Make the Input UI blank
+		((Panel)GetParent().GetNode("%BLOCKEDInput")).Visible = false;
+		
+		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = null;
+		((TextureRect)GetParent().GetNode("%set-upIcon")).Texture = null;
 	}
 
 	void UpdateCollisionBox(CollisionBoxes.BoxType boxtype, Move move)
