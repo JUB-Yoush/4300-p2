@@ -44,6 +44,8 @@ public partial class Enemy : CharacterBody2D
 	public int Hp = 100;
 
 	Action[] Attacks = [];
+	[Export]
+	GpuParticles2D[] warnings = [];
 
 	AnimationPlayer AnimPlayer = null!;
 
@@ -93,6 +95,7 @@ public partial class Enemy : CharacterBody2D
 		AttackHeight = BlockHeight;
 		GD.Print($"Attacking {AttackHeight}");
 		Attacks[(int)AttackHeight]();
+		warnings[(int)AttackHeight].Visible = true;
 	}
 
 	void ChangeToBlocking()
@@ -110,8 +113,9 @@ public partial class Enemy : CharacterBody2D
 		tween.Call(() => Sprite.Frame = 0);
 		SetAttackSFX(SFX.KaijuLow);
 		tween.TweenInterval(FramesToSeconds(10));
-
+		
 		tween.TweenInterval(FramesToSeconds(20));
+		tween.Call(() => warnings[0].Visible = false);
 		tween.Call(() => Sprite.Frame = 1);
 		tween.Call(() =>
 		{
@@ -149,6 +153,7 @@ public partial class Enemy : CharacterBody2D
 		tween.SetTrans(Tween.TransitionType.Quad);
 		tween.Call(() => Sprite.Frame = 3);
 		tween.TweenInterval(FramesToSeconds(30));
+		tween.Call(() => warnings[1].Visible = false);
 		tween.Call(() => Sprite.Frame = 4);
 		tween.Call(() =>
 		{
@@ -189,6 +194,7 @@ public partial class Enemy : CharacterBody2D
 		tween.TweenProperty(Sprite, "scale", new Vector2(.75f, 1f), FramesToSeconds(30));
 		tween.TweenProperty(Sprite, "scale", new Vector2(.75f, .75f), FramesToSeconds(5));
 		tween.Call(() => Sprite.Frame = 17);
+		tween.Call(() => warnings[2].Visible = false);
 		tween.Call(() =>
 		{
 			UpdateCollisionBox(BoxType.HITBOX, Move.H);

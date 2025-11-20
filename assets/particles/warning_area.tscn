@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://2jup0tonutmy"]
+
+[ext_resource type="Script" uid="uid://p30h2yw0667u" path="res://assets/particles/WarningArea.cs" id="1_f62ff"]
+
+[sub_resource type="Curve" id="Curve_egmji"]
+_data = [Vector2(0, 0), 0.0, 15.8539, 0, 0, Vector2(0.0735294, 1), 0.0, 0.0, 0, 0, Vector2(0.801471, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -17.3183, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_f62ff"]
+curve = SubResource("Curve_egmji")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_83814"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(750, 100, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(-1, 0, 0)
+spread = 2.0
+initial_velocity_min = 800.0
+initial_velocity_max = 1000.0
+gravity = Vector3(-1000, 0, 0)
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_f62ff")
+hue_variation_min = -0.01
+hue_variation_max = 0.00999998
+
+[node name="WarningArea" type="GPUParticles2D" node_paths=PackedStringArray("child")]
+amount = 750
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_83814")
+script = ExtResource("1_f62ff")
+child = NodePath("RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+clip_contents = false
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 150.0
+offset_bottom = 150.0
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 100
+text = "!!!"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
