@@ -247,6 +247,9 @@ public partial class Enemy : CharacterBody2D
 	{
 		GD.Print(hitstun, damage, knockback);
 		Sprite.Scale = new(.75f, .75f);
+		warnings[0].Visible = false;
+		warnings[1].Visible = false;
+		warnings[2].Visible = false;
 		tween?.Stop();
 		tween = CreateTween();
 		tween.Call(() =>
