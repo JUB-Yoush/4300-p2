@@ -1,19 +1,21 @@
-[gd_scene load_steps=19 format=3 uid="uid://bum338jug5gjw"]
+[gd_scene load_steps=21 format=3 uid="uid://bum338jug5gjw"]
 
 [ext_resource type="PackedScene" uid="uid://bn1sondwl58ft" path="res://src/entities/Player/player.tscn" id="1_3u0g6"]
 [ext_resource type="PackedScene" uid="uid://dw6btvd76bxdj" path="res://src/menus/pause/pause_menu.tscn" id="1_5o53v"]
-[ext_resource type="Texture2D" uid="uid://b7eaj18i7kme0" path="res://Assets/ui/Who is Who.png" id="2_i3xn1"]
-[ext_resource type="PackedScene" uid="uid://c6go1x50mf4hf" path="res://src/UI/hud.tscn" id="2_i584b"]
+[ext_resource type="Texture2D" uid="uid://b7eaj18i7kme0" path="res://assets/ui/Who is Who.png" id="2_i3xn1"]
+[ext_resource type="PackedScene" uid="uid://c6go1x50mf4hf" path="res://src/ui/hud.tscn" id="2_i584b"]
 [ext_resource type="PackedScene" uid="uid://b2ugdxlnxenjb" path="res://src/entities/Enemy/enemy.tscn" id="2_kvr80"]
-[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://Assets/ui/fonts/Audiowide-Regular.ttf" id="3_fleds"]
+[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="3_fleds"]
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
-[ext_resource type="Texture2D" uid="uid://feal1iu2gbm3" path="res://Assets/ui/Moves (2).png" id="4_fleds"]
+[ext_resource type="Texture2D" uid="uid://feal1iu2gbm3" path="res://assets/ui/Moves (2).png" id="4_fleds"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
-[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/UI/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
-[ext_resource type="Texture2D" uid="uid://cpiko0mvmcblm" path="res://Assets/ui/Arm.png" id="5_5pbbh"]
+[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/ui/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
+[ext_resource type="Texture2D" uid="uid://cpiko0mvmcblm" path="res://assets/ui/Arm.png" id="5_5pbbh"]
+[ext_resource type="Texture2D" uid="uid://evv5ee2g1j0p" path="res://assets/ui/Input.png" id="5_nos3a"]
+[ext_resource type="Texture2D" uid="uid://dr53byykedeba" path="res://assets/ui/No Symbol.png" id="7_6muo6"]
 [ext_resource type="Script" uid="uid://gw8dq4rhwsf2" path="res://src/entities/Camera/GameCamera.cs" id="7_i5ocd"]
-[ext_resource type="Texture2D" uid="uid://cj1sd2ff3dgpi" path="res://Assets/2d/bg/Mech_Bg.png" id="9_oxt34"]
-[ext_resource type="PackedScene" uid="uid://2jup0tonutmy" path="res://Assets/particles/warning_area.tscn" id="10_5pbbh"]
+[ext_resource type="Texture2D" uid="uid://cj1sd2ff3dgpi" path="res://assets/2d/bg/Mech_Bg.png" id="9_oxt34"]
+[ext_resource type="PackedScene" uid="uid://2jup0tonutmy" path="res://assets/particles/warning_area.tscn" id="10_5pbbh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oxt34"]
 
@@ -150,9 +152,9 @@ offset_bottom = 40.0
 [node name="WhoBeWho" type="TextureRect" parent="UI/InfoStuff"]
 layout_mode = 0
 offset_left = -13.0
-offset_top = 300.0
+offset_top = 400.0
 offset_right = 134.0
-offset_bottom = 939.0
+offset_bottom = 1039.0
 texture = ExtResource("2_i3xn1")
 
 [node name="P1" type="Label" parent="UI/InfoStuff/WhoBeWho"]
@@ -219,13 +221,14 @@ theme_override_fonts/font = ExtResource("3_fleds")
 theme_override_font_sizes/font_size = 40
 text = "Action"
 
-[node name="Inputs" type="ColorRect" parent="UI/InfoStuff"]
+[node name="Inputs" type="TextureRect" parent="UI/InfoStuff"]
 layout_mode = 0
 offset_left = 300.0
 offset_top = 170.0
 offset_right = 740.0
 offset_bottom = 350.0
-color = Color(0.894118, 0.788235, 1, 0.92549)
+texture = ExtResource("5_nos3a")
+expand_mode = 1
 
 [node name="SetUp" type="Panel" parent="UI/InfoStuff/Inputs"]
 self_modulate = Color(1, 1, 1, 0)
@@ -239,9 +242,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -82.0
-offset_top = 5.0
+offset_top = 10.0
 offset_right = 82.0
-offset_bottom = 47.0
+offset_bottom = 52.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.509804, 0.184314, 0.537255, 1)
 theme_override_fonts/font = ExtResource("3_fleds")
@@ -279,9 +282,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -74.5
-offset_top = 5.0
+offset_top = 10.0
 offset_right = 74.5
-offset_bottom = 47.0
+offset_bottom = 52.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.509804, 0.184314, 0.537255, 1)
 theme_override_fonts/font = ExtResource("3_fleds")
@@ -305,9 +308,9 @@ grow_vertical = 2
 texture = ExtResource("5_5pbbh")
 stretch_mode = 3
 
-[node name="BLOCKEDInput" type="Panel" parent="UI/InfoStuff/Inputs"]
+[node name="BLOCKEDInput" type="TextureRect" parent="UI/InfoStuff/Inputs"]
 unique_name_in_owner = true
-self_modulate = Color(0.10336, 1.92523e-07, 0.763654, 1)
+self_modulate = Color(0.130515, 0.0999267, 0.319642, 0.819608)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -320,6 +323,24 @@ offset_right = 220.0
 offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("5_nos3a")
+expand_mode = 1
+
+[node name="No symbol" type="TextureRect" parent="UI/InfoStuff/Inputs/BLOCKEDInput"]
+self_modulate = Color(0.814049, 0.215496, 0.527788, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -55.0
+offset_right = 55.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_6muo6")
 
 [node name="BLOCKED" type="Label" parent="UI/InfoStuff/Inputs/BLOCKEDInput"]
 layout_mode = 1
@@ -334,7 +355,9 @@ offset_right = 110.5
 offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.92772, 0.857908, 0.999999, 1)
+theme_override_colors/font_color = Color(0.939075, 0.880871, 0.999999, 1)
+theme_override_colors/font_outline_color = Color(0.86127, 0.717137, 0.999999, 1)
+theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("3_fleds")
 theme_override_font_sizes/font_size = 40
 text = "BLOCKED"
