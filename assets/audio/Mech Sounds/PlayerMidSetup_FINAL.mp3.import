@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://b7eq1n2jrdwq3"
-path="res://.godot/imported/PlayerMidSetup_FINAL.mp3-f994b354996ecffa3a373eab4b9a1577.mp3str"
+path="res://.godot/imported/PlayerMidSetup_FINAL.mp3-0f75d325fccd658d454a92b63b0d4585.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/Mech Sounds/PlayerMidSetup_FINAL.mp3"
-dest_files=["res://.godot/imported/PlayerMidSetup_FINAL.mp3-f994b354996ecffa3a373eab4b9a1577.mp3str"]
+source_file="res://Assets/audio/Mech Sounds/PlayerMidSetup_FINAL.mp3"
+dest_files=["res://.godot/imported/PlayerMidSetup_FINAL.mp3-0f75d325fccd658d454a92b63b0d4585.mp3str"]
 
 [params]
 

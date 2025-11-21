@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://b645418jiamqf"
-path="res://.godot/imported/Kaiju_Call_Spikes_FINAL.mp3-21da1d734fdd531ab8c08d7652869f95.mp3str"
+path="res://.godot/imported/Kaiju_Call_Spikes_FINAL.mp3-5b7b44de8d9b35ebde304d57bf568c62.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/Kaiju Sounds/Kaiju_Call_Spikes_FINAL.mp3"
-dest_files=["res://.godot/imported/Kaiju_Call_Spikes_FINAL.mp3-21da1d734fdd531ab8c08d7652869f95.mp3str"]
+source_file="res://Assets/audio/Kaiju Sounds/Kaiju_Call_Spikes_FINAL.mp3"
+dest_files=["res://.godot/imported/Kaiju_Call_Spikes_FINAL.mp3-5b7b44de8d9b35ebde304d57bf568c62.mp3str"]
 
 [params]
 

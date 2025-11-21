@@ -97,6 +97,11 @@ public partial class Player : CharacterBody2D
 	ColorRect BlockRect = null!;
 	GameCamera Cam = null!;
 
+	Color HighColour = new Color(0.91f, 0.035f, 0.615f);
+	Color MidColour = new Color(0.504f, 0.951f, 0.0f);
+	Color LowColour = new Color(0.231f, 0.239f, 0.729f);
+	Color White = new Color(1, 1, 1);
+
 	public static bool gameOver;
 	
 	// Player Parts texture load in (for Input UI)
@@ -117,7 +122,6 @@ public partial class Player : CharacterBody2D
 		RocketExplosion = GetNode<GpuParticles2D>("PlayerRocket/GPUParticles2D");
 		BlockParticles = GetNode<GpuParticles2D>("PlayerBlock");
 		BulletText = GetParent().GetNode<BulletTextManager>("BulletTextManager");
-
 		isGameOver = false;
 
 		// don't ask me why i have to instanitate it like this because i couldn't tell you.
@@ -278,6 +282,13 @@ public partial class Player : CharacterBody2D
 			.BlockHeight.ToString();
 	}
 
+	public async Task ColourFlash(Color colour, float delay)
+	{
+		Modulate = colour;
+		await ToSignal(GetTree().CreateTimer(delay), SceneTreeTimer.SignalName.Timeout);
+		Modulate = White;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		if (isGameOver)
@@ -288,15 +299,15 @@ public partial class Player : CharacterBody2D
 		//GD.Print(CanFollowUp, tweening);
 		if (InputManager.Map[InputManager.Inputs.HIGH])
 		{
-			ProcessAttack(Height.HIGH);
+			ProcessAttack(Height.HIGH, HighColour);
 		}
 		else if (InputManager.Map[InputManager.Inputs.MID])
 		{
-			ProcessAttack(Height.MID);
+			ProcessAttack(Height.MID, MidColour);
 		}
 		else if (InputManager.Map[InputManager.Inputs.LOW])
 		{
-			ProcessAttack(Height.LOW);
+			ProcessAttack(Height.LOW, LowColour);
 		}
 		else if (InputManager.Map[InputManager.Inputs.BLOCK])
 		{
@@ -355,7 +366,7 @@ public partial class Player : CharacterBody2D
 		CanDoStartup = true;
 	}
 
-	void ProcessAttack(Height level)
+	void ProcessAttack(Height level, Color colour)
 	{
 		if (state == State.STARTUP)
 		{
@@ -363,7 +374,8 @@ public partial class Player : CharacterBody2D
 			{
 				return;
 			}
-
+			ColourFlash(colour, 0.25f);
+			
 			tween!.Stop();
 			state = State.ATTACKING;
 			AttackHeight = level;
@@ -372,6 +384,7 @@ public partial class Player : CharacterBody2D
 		}
 		else if ((state == State.IDLE || CanDoStartup) && IsOnFloor())
 		{
+			ColourFlash(colour, 0.25f);
 			Reset();
 			tween?.Stop();
 			setupHeight = level;

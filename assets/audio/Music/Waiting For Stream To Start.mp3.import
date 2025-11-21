@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://d07kp8sbxinkr"
-path="res://.godot/imported/Waiting For Stream To Start.mp3-19effefda7cd2608e1dc50dfcd8f6592.mp3str"
+path="res://.godot/imported/Waiting For Stream To Start.mp3-071dc0cedae8e89898681e0f325d4c25.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/Music/Waiting For Stream To Start.mp3"
-dest_files=["res://.godot/imported/Waiting For Stream To Start.mp3-19effefda7cd2608e1dc50dfcd8f6592.mp3str"]
+source_file="res://Assets/audio/Music/Waiting For Stream To Start.mp3"
+dest_files=["res://.godot/imported/Waiting For Stream To Start.mp3-071dc0cedae8e89898681e0f325d4c25.mp3str"]
 
 [params]
 
