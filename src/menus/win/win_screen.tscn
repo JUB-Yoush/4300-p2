@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://bvwoxqh7tcwce"]
 
 [ext_resource type="Script" uid="uid://cj4stulf4fh6n" path="res://src/menus/ResultScreens.cs" id="1_0v50n"]
-[ext_resource type="Texture2D" uid="uid://cprdhdsd0rhp4" path="res://assets/ui/Background General.png" id="2_cmdrh"]
-[ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://assets/placeholder_sprites/images.jpg" id="2_mkkuv"]
-[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://assets/text_themes/menus_basic.tres" id="3_lce0n"]
-[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://assets/ui/fonts/Audiowide-Regular.ttf" id="5_a4cwf"]
-[ext_resource type="Texture2D" uid="uid://810ppyk325b2" path="res://assets/ui/start_UI/Start Button Idle.svg" id="6_upcf7"]
-[ext_resource type="Texture2D" uid="uid://dbtfxhpftitfv" path="res://assets/ui/ButtonX.svg" id="7_5hlu4"]
+[ext_resource type="Texture2D" uid="uid://cprdhdsd0rhp4" path="res://Assets/ui/Background General.png" id="2_cmdrh"]
+[ext_resource type="Texture2D" uid="uid://bljstlqma8ro8" path="res://Assets/placeholder_sprites/images.jpg" id="2_mkkuv"]
+[ext_resource type="Theme" uid="uid://dahdq23cpfl4f" path="res://Assets/text_themes/menus_basic.tres" id="3_lce0n"]
+[ext_resource type="FontFile" uid="uid://b786yv70umt10" path="res://Assets/ui/fonts/Audiowide-Regular.ttf" id="5_a4cwf"]
+[ext_resource type="Texture2D" uid="uid://810ppyk325b2" path="res://Assets/ui/start_UI/Start Button Idle.svg" id="6_upcf7"]
+[ext_resource type="Texture2D" uid="uid://dbtfxhpftitfv" path="res://Assets/ui/ButtonX.svg" id="7_5hlu4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmu"]
 bg_color = Color(0.196078, 0.196078, 0.196078, 0.129412)

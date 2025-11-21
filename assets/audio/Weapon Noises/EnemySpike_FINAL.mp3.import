@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://cmwx2hjlbre76"
-path="res://.godot/imported/EnemySpike_FINAL.mp3-56950ce8bbbcbe1042401aac957e67f0.mp3str"
+path="res://.godot/imported/EnemySpike_FINAL.mp3-cc51945b70663de6d1674393f6c12b6d.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/Weapon Noises/EnemySpike_FINAL.mp3"
-dest_files=["res://.godot/imported/EnemySpike_FINAL.mp3-56950ce8bbbcbe1042401aac957e67f0.mp3str"]
+source_file="res://Assets/audio/Weapon Noises/EnemySpike_FINAL.mp3"
+dest_files=["res://.godot/imported/EnemySpike_FINAL.mp3-cc51945b70663de6d1674393f6c12b6d.mp3str"]
 
 [params]
 

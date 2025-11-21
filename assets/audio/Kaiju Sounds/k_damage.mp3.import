@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://ceifq5a0qgxm4"
-path="res://.godot/imported/k_damage.mp3-a90241ca59f670f5b0da94782c964034.mp3str"
+path="res://.godot/imported/k_damage.mp3-5f1d071d3a32812f47a19e77a58520d9.mp3str"
 
 [deps]
 
-source_file="res://assets/audio/Kaiju Sounds/k_damage.mp3"
-dest_files=["res://.godot/imported/k_damage.mp3-a90241ca59f670f5b0da94782c964034.mp3str"]
+source_file="res://Assets/audio/Kaiju Sounds/k_damage.mp3"
+dest_files=["res://.godot/imported/k_damage.mp3-5f1d071d3a32812f47a19e77a58520d9.mp3str"]
 
 [params]
 

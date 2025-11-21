@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6aihwerie03w"
-path="res://.godot/imported/Middle thingy.svg-39bd29b338ac05f0eae6df420e8ff8ce.ctex"
+path="res://.godot/imported/Middle thingy.svg-589b3a81c11c37214c3404834a5ece92.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Middle thingy.svg"
-dest_files=["res://.godot/imported/Middle thingy.svg-39bd29b338ac05f0eae6df420e8ff8ce.ctex"]
+source_file="res://Assets/ui/Middle thingy.svg"
+dest_files=["res://.godot/imported/Middle thingy.svg-589b3a81c11c37214c3404834a5ece92.ctex"]
 
 [params]
 
