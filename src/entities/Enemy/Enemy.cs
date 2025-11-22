@@ -44,7 +44,6 @@ public partial class Enemy : CharacterBody2D
 	public int Hp = 100;
 
 	Action[] Attacks = [];
-	[Export]
 	GpuParticles2D[] warnings = [];
 
 	AnimationPlayer AnimPlayer = null!;
@@ -69,6 +68,7 @@ public partial class Enemy : CharacterBody2D
 		attackTimer.Timeout += Attack;
 
 		Attacks = [LowAttack, MidAttack, HighAttack];
+		warnings = [GetNode<GpuParticles2D>("HitboxArea/L/WarningArea"), GetNode<GpuParticles2D>("HitboxArea/M/WarningArea"), GetNode<GpuParticles2D>("HitboxArea/H/WarningArea")];
 
 		HurtboxArea = GetNode<Area2D>("HurtboxArea");
 		// HurtboxArea.CollisionLayer = (uint)Collisions.ENEMY_HURT;
