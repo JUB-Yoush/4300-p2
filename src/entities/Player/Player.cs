@@ -143,7 +143,7 @@ public partial class Player : CharacterBody2D
 		// Clear Input UI
 		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = null;
 		((TextureRect)GetParent().GetNode("%set-upIcon")).Texture = null;
-		((Panel)GetParent().GetNode("%BLOCKEDInput")).Visible = false;
+		((TextureRect)GetParent().GetNode("%BLOCKEDInput")).Visible = false;
 		
 
 		HurtboxArea = GetNode<Area2D>("HurtboxArea");
@@ -340,7 +340,7 @@ public partial class Player : CharacterBody2D
 			state = State.BLOCKING;
 		});
 		// Make the blocking input visible on Input UI
-		((Panel)GetParent().GetNode("%BLOCKEDInput")).Visible = true;
+		((TextureRect)GetParent().GetNode("%BLOCKEDInput")).Visible = true;
 		
 		tween.TweenInterval(FramesToSeconds(30));
 		tween.Call(Reset);
@@ -637,7 +637,7 @@ public partial class Player : CharacterBody2D
 		wasBlocked = false;
 		
 		// Make the Input UI blank
-		((Panel)GetParent().GetNode("%BLOCKEDInput")).Visible = false;
+		((TextureRect)GetParent().GetNode("%BLOCKEDInput")).Visible = false;
 		
 		((TextureRect)GetParent().GetNode("%attackIcon")).Texture = null;
 		((TextureRect)GetParent().GetNode("%set-upIcon")).Texture = null;

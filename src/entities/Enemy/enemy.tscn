@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://b2ugdxlnxenjb"]
 
 [ext_resource type="Script" uid="uid://6x3wtowj3hwh" path="res://src/entities/Enemy/Enemy.cs" id="1_nwlv3"]
-[ext_resource type="Shader" uid="uid://yjgwa8lgpu45" path="res://assets/shaders/hit_flash.gdshader" id="2_aw8am"]
-[ext_resource type="Texture2D" uid="uid://c33574w8tvt5w" path="res://assets/2d/sprites/monster_spritesheet.png" id="2_nwlv3"]
-[ext_resource type="PackedScene" uid="uid://btbjdhaoxuisx" path="res://assets/particles/enemy_laser.tscn" id="3_sct5a"]
+[ext_resource type="Shader" uid="uid://yjgwa8lgpu45" path="res://Assets/shaders/hit_flash.gdshader" id="2_aw8am"]
+[ext_resource type="Texture2D" uid="uid://c33574w8tvt5w" path="res://Assets/2d/sprites/monster_spritesheet.png" id="2_nwlv3"]
+[ext_resource type="PackedScene" uid="uid://btbjdhaoxuisx" path="res://Assets/particles/enemy_laser.tscn" id="3_sct5a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3fcp5"]
 shader = ExtResource("2_aw8am")
