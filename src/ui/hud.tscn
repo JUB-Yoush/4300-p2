@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6go1x50mf4hf"]
+[gd_scene load_steps=9 format=3 uid="uid://c6go1x50mf4hf"]
 
 [ext_resource type="Script" uid="uid://untoetigc7eo" path="res://src/ui/Healthbar.cs" id="1_0isw4"]
 [ext_resource type="Texture2D" uid="uid://b43vtddmcu77r" path="res://assets/ui/Bar.png" id="1_eqvli"]
 [ext_resource type="Texture2D" uid="uid://b7txnb56pph7w" path="res://assets/ui/bar background.png" id="2_i4jpw"]
 [ext_resource type="Texture2D" uid="uid://bkr0f8uyintgq" path="res://assets/ui/Health meter.png" id="3_r2cn7"]
 [ext_resource type="Texture2D" uid="uid://b6aihwerie03w" path="res://assets/ui/Middle thingy.svg" id="3_snmo6"]
+[ext_resource type="Texture2D" uid="uid://skxc1d3rwgkl" path="res://assets/ui/mecha_head.png" id="5_vbpn1"]
 [ext_resource type="Texture2D" uid="uid://d2cvwmssugbtv" path="res://assets/ui/Health meter - Copy.png" id="6_vbpn1"]
+[ext_resource type="Texture2D" uid="uid://difxknojuc74p" path="res://assets/ui/alien_head.png" id="7_yy3iv"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -25,7 +27,6 @@ offset_right = 872.0
 offset_bottom = 240.0
 
 [node name="Background" type="TextureRect" parent="CanvasLayer/HealthBar_Player"]
-visible = false
 layout_mode = 0
 offset_left = 199.552
 offset_top = 62.7241
@@ -44,6 +45,12 @@ fill_mode = 1
 stretch_margin_right = 200
 texture_under = ExtResource("2_i4jpw")
 texture_progress = ExtResource("3_r2cn7")
+
+[node name="mech" type="Sprite2D" parent="CanvasLayer/HealthBar_Player"]
+position = Vector2(118, 115)
+rotation = -0.532325
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_vbpn1")
 
 [node name="Border" type="TextureRect" parent="CanvasLayer/HealthBar_Player"]
 layout_mode = 0
@@ -79,6 +86,11 @@ rotation = 6.28319
 value = 50.0
 stretch_margin_left = 435
 texture_progress = ExtResource("6_vbpn1")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/HealthBar_Enemy"]
+position = Vector2(1168.51, 118)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("7_yy3iv")
 
 [node name="Border" type="TextureRect" parent="CanvasLayer/HealthBar_Enemy"]
 layout_mode = 0

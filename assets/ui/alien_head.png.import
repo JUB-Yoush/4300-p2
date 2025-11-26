@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br5m2nj2bs3q6"
-path="res://.godot/imported/Triangle.png-3562a0b2ec96513d644b401c61e7b3c7.ctex"
+uid="uid://difxknojuc74p"
+path="res://.godot/imported/alien_head.png-5d7bd8940979196cd90bddd4d753da20.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/particles/Triangle.png"
-dest_files=["res://.godot/imported/Triangle.png-3562a0b2ec96513d644b401c61e7b3c7.ctex"]
+source_file="res://assets/ui/alien_head.png"
+dest_files=["res://.godot/imported/alien_head.png-5d7bd8940979196cd90bddd4d753da20.ctex"]
 
 [params]
 
