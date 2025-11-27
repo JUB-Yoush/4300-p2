@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bvwoxqh7tcwce" path="res://src/menus/win/win_screen.tscn" id="3_tjs3j"]
 [ext_resource type="Texture2D" uid="uid://feal1iu2gbm3" path="res://assets/ui/Moves (2).png" id="4_fleds"]
 [ext_resource type="PackedScene" uid="uid://df6kcscvynj70" path="res://src/menus/lose/lose_screen.tscn" id="4_i584b"]
-[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/ui/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
+[ext_resource type="PackedScene" uid="uid://dwmgqu1diw7h" path="res://src/UI/BulletText/bullet_text_manager.tscn" id="5_5o53v"]
 [ext_resource type="Texture2D" uid="uid://cpiko0mvmcblm" path="res://assets/ui/Arm.png" id="5_5pbbh"]
 [ext_resource type="Texture2D" uid="uid://evv5ee2g1j0p" path="res://assets/ui/Input.png" id="5_nos3a"]
 [ext_resource type="Texture2D" uid="uid://dr53byykedeba" path="res://assets/ui/No Symbol.png" id="7_6muo6"]
